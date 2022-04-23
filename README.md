@@ -43,23 +43,23 @@ As imagens do *mockup* estão na pasta ```/mockups.``` Também pode ser acessado
 
 - [Homepage](./mockups/home.png)
 
-- Produto (./mockups/produto.png)
+- [Produto](./mockups/produto.png)
 
-- Login (./mockups/login.png)
+- [Login](./mockups/login.png)
 
-- Email de redefinição (./mockups/emailRedef.png)
+- [Email de redefinição](./mockups/emailRedef.png)
 
-- Redefinição (./mockups/redef.png)
+- [Redefinição](./mockups/redef.png)
 
-- Informações pessoais (./mockups/infoPers.png)
+- [Informações pessoais](./mockups/infoPers.png)
 
-- Informações de Endereço (./mockups/infoEnd.png)
+- [Informações de Endereço](./mockups/infoEnd.png)
 
-- Informações de Pagamento (./mockups/infoPag.png)
+- [Informações de Pagamento](./mockups/infoPag.png)
 
-- Carrinho (./mockups/carrinho.png)
+- [Carrinho](./mockups/carrinho.png)
 
-- Finalizar Compra (./mockups/finComp.png)<br><br>
+- [Finalizar Compra](./mockups/finComp.png)<br><br>
 
 ### Funcionalidades 
 
