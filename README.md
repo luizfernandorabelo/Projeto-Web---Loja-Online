@@ -41,7 +41,7 @@
 
 As imagens do *mockup* estão na pasta ```/mockups.``` Também pode ser acessado nos links abaixo:
 
-- Homepage (./mockups/home.png)
+- [Homepage] (./mockups/home.png)
 
 - Produto (./mockups/produto.png)
 
