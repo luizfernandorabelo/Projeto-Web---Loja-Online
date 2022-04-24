@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+:root {
+  --dark-blue-color: #1D3556;
+  --darker-blue-color: #12243d; 
+}
+
+body {
+  font-size: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0 40px 0 30px;
+  color: var(--darker-blue-color);
+  margin: 10px 0 5px 0;
+}
+
+nav h1 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  width: 100px;
+  justify-content: space-between;
+}
+
+nav ul li:last-child i {
+  margin: 0 5px;
+}
+
+#categories {
+  background-color: var(--dark-blue-color);
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto 25px auto;
+}
+
+#categories li {
+  margin: 0 15px;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: white;
+}
+
+#product-container {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  justify-content: space-evenly;
+}
+
+#product-container img {
+  height: 400px;
+  width: 400px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+#product-info-container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  font-size: 1.2rem;
+}
+
+#product-name {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+#product-price {
+  color: var(--darker-blue-color);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+#add-to-cart-btn {
+  width: 150px;
+  height: 35px;
+  border-radius: 5px;
+  background-color: var(--dark-blue-color);
+  color: white;
+}
+
+footer {
+  background-color: var(--dark-blue-color);
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 20px 50px;
+}
+
+footer h3 {
+  text-align: left;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+#footer-left {
+  width: 80%;
+}
+
+#footer-right {
+  display: flex;
+  flex-direction: column;
+}
+
+#faq {
+  margin-bottom: 10px;
+}
