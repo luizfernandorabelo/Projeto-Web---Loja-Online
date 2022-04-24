@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+:root {
+  --dark-blue-color: #1D3556;
+}
+
+body {
+  font-size: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+nav {
+  background-color: var(--dark-blue-color);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 50px;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+nav ul h1 {
+  display: inline;
+  font-size: 1.5rem;
+  margin-left: 5px;
+}
+
+/* #categories-container {
+  position: relative;
+} */
+
+#categories{
+    position: absolute;
+    width: 1440px;
+    height: 73px;
+    left: 0px;
+    top: 114px;
+}
+
+.products{
+    position: absolute;
+    /*width: 1440px;
+    height: 73px;
+    left: 0px;
+    top: 114px;*/
+}
+
+#about-us{
+    position: absolute;
+    width: 1440px;
+    height: 298px;
+    left: -1px;
+    top: 1303px;
+
+    background: #1D3556;
+}
+
+#about-us h3{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 35px;
+    
+    color: #FFFFFF;
+}
+
+#about-us p{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 28px;
+    
+    color: #FFFFFF;
+}
+
+#au-left{
+    position: absolute;
+    width: 153px;
+    height: 35px;
+    left: 49px;
+    top: 1341px;
+}
+
+#au-right{
+    position: absolute;
+    width: 189px;
+    height: 35px;
+    left: 1046px;
+    top: 1341px;
+}
