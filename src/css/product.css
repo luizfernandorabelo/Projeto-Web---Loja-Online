@@ -42,7 +42,7 @@ nav ul li:last-child i {
 
 #categories {
   background-color: var(--dark-blue-color);
-  height: 50px;
+  min-height: 50px;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
