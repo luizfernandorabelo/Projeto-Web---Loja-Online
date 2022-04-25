@@ -1,4 +1,4 @@
-# Projeto-Web---Loja-Online
+# Projeto Web - Loja Online
 
 <p align="justify">
     Projeto da disciplina Introdução ao Desenvolvimento Web - SCC0219.<br>
@@ -43,23 +43,39 @@ As imagens do *mockup* estão na pasta ```/mockups.``` Também pode ser acessado
 
 - [Homepage](./mockups/home.png)
 
+- [Lista de Produtos por Categoria](./mockups/listaPorCategoia.png)
+
 - [Produto](./mockups/produto.png)
 
 - [Login](./mockups/login.png)
 
-- [Email de redefinição](./mockups/emailRedef.png)
+- [Criar conta](./mockups/criarConta.png)
 
-- [Redefinição](./mockups/redef.png)
+<!-- - [Email de redefinição](./mockups/emailRedef.png) -->
 
-- [Informações pessoais](./mockups/infoPers.png)
-
-- [Informações de Endereço](./mockups/infoEnd.png)
-
-- [Informações de Pagamento](./mockups/infoPag.png)
+<!-- - [Redefinição](./mockups/redef.png) -->
 
 - [Carrinho](./mockups/carrinho.png)
 
-- [Finalizar Compra](./mockups/finComp.png)<br><br>
+- [Finalizar Compra](./mockups/finalizarCompra.png)
+
+- [Edição de Informações pessoais (Admin)](./mockups/edicaoInfoPessoaisAdmin.png)
+
+- [Edição de Informações pessoais (Cliente)](./mockups/edicaoInfoPessoaisCliente.png)
+
+- [Edição de Endereço (Cliente)](./mockups/edicaoEnderecoCliente.png)
+
+- [Edição de Pagamento (Cliente)](./mockups/edicaoPagamentoCliente.png)
+
+- [Gerência de Produtos](./mockups/gerenciaProdutos.png)
+
+- [Gerência de Usuários](./mockups/gerenciaUsuarios.png)
+
+- [Gerência de Produto Específico](./mockups/gerenciaProduto.png)
+
+- [Gerência de Usuário Específico](./mockups/gerenciaUsuario.png)
+
+<br><br>
 
 ### Funcionalidades 
 
