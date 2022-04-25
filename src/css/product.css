@@ -8,6 +8,9 @@
 body {
   font-size: 100%;
   font-family: 'Roboto', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 nav {
@@ -16,7 +19,7 @@ nav {
   align-items: center;
   height: 50px;
   padding: 0 40px 0 30px;
-  color: var(--darker-blue-color);
+  color: var(--dark-blue-color);
   margin: 10px 0 5px 0;
 }
 
@@ -97,6 +100,8 @@ nav ul li:last-child i {
   border-radius: 5px;
   background-color: var(--dark-blue-color);
   color: white;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 footer {
