@@ -36,7 +36,8 @@
 
 ### Diagrama de navegação:
 
-***** DIAGRAMA *****
+![Diagrama de Navegação](./mockups/navegacao.png)
+
 <br><br>
 
 As imagens do *mockup* estão na pasta ```/mockups.``` Também pode ser acessado nos links abaixo:
