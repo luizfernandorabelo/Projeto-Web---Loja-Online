@@ -94,7 +94,7 @@ As funcionalidades visadas pelo nosso site são:
 
 ## 3. Comentários sobre o código
 <p align="justify">
-    O código ainda está em uma fase muito inicial, em que ainda não possui responsividade, apenas a estrutura do site.
+    O código ainda está em uma fase muito inicial, em que ainda não possui responsividade, apenas a estrutura do site e uma estilização compatível com desktops tradicionais.
 </p><br>
 
 ## 4. Plano de teste
@@ -104,12 +104,12 @@ As funcionalidades visadas pelo nosso site são:
 
 ## 5. Resultados dos testes
 <p align="justify">
-    Considerando o quão inicial está o projeto, ele apresenta resultado satisfatório, que está apenas visualizavel, ainda n apresentando nenhuma responsividade (dado que ainda não foi implementada).
+    Considerando o quão inicial está o projeto, ele apresenta resultado satisfatório, que está apenas visualizável, ainda não apresentando nenhuma responsividade (dado que ainda não foi implementada).
 <p><br>
 
 ## 6. Building
 <p align="justify">
-    Para acessar o site, é preciso apenas baixar esse repositório e abrir os .html separadamente.
+    Para acessar o site, é preciso apenas baixar esse repositório e abrir os .html contidos na pasta `src` separadamente.
 </p><br>
 
 ## 7. Problemas
