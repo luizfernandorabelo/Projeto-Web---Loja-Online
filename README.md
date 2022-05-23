@@ -1,4 +1,6 @@
-# Projeto Web - Loja Online
+![AZULÃO PETSHOP](http://url/to/img.png)
+
+# Projeto Web - AZULÃO PETSHOP
 
 <p align="justify">
     Projeto da disciplina Introdução ao Desenvolvimento Web - SCC0219.<br>
