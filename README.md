@@ -1,4 +1,4 @@
-![AZULÃO PETSHOP](http://url/to/img.png)
+![AZULÃO PETSHOP](https://github.com/luizfernandorabelo/Projeto-Web---Loja-Online/blob/main/img/Logo%20Azulao.png)
 
 # Projeto Web - AZULÃO PETSHOP
 
