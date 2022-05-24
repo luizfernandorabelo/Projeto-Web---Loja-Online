@@ -98,44 +98,50 @@ As funcionalidades visadas pelo nosso site são:
 
 ### Informações armazenaadas no servidor
 
-<b>Contas:</b><lu>
-    <li> Email
-    <li> Senha
-    <li> Nome
-    <li> CPF
-    <li> Gênero
-    <li> Eh_Adm
-</lu><br><br>
-<b>Endereços:</b><br>
-<lu>
-    <li> Conta associada
-    <li> CEP
-    <li> Número
-    <li> Complemento
-</lu><br><br>
-<b>Cartões Salvos:</b><br>
-<lu>
-    <li> Conta associada
-    <li> Número do cartão
-    <li> Nome no cartão
-</lu><br><br>
-<b>Produtos:</b><br>
-<lu>
-    <li> Nome
-    <li> Descrição
-    <li> Preço
-    <li> Id
-    <li> Foto
-    <li> Quantidade em estoque
-</lu><br><br>
-<b>Serviços:</b><br>
-<lu>
-    <li> Nome
-    <li> Id
-    <li> Foto
-    <li> Agenda
-    <li> Horário de funcionamento
-</lu><br><br>
+**Contas:**
+
+- Email
+- Senha
+- Nome
+- CPF
+- Gênero
+- É_Adm?
+<br><br>
+
+**Endereços:**
+
+- Conta associada
+- CEP
+- Número
+- Complemento
+<br><br>
+
+**Cartões Salvos:**
+
+- Conta associada
+- Número do cartão
+- Nome no cartão
+<br><br>
+
+**Produtos:**
+
+- Nome
+- Descrição
+- Preço
+- Id
+- Foto
+- Quantidade em estoque
+<br><br>
+
+**Serviços:**
+
+- Nome
+- Id
+- Foto
+- Agenda
+- Horário de funcionamento
+<br><br>
+
 ## 3. Comentários sobre o código
 <p align="justify">
     O código ainda está em uma fase muito inicial, em que ainda não possui responsividade, apenas a estrutura do site e uma estilização compatível com desktops tradicionais.
