@@ -44,39 +44,35 @@
 
 As imagens do *mockup* estão na pasta ```/mockups.``` Também pode ser acessado nos links abaixo:
 
-- [Homepage](./mockups/home.png)
+- [Homepage](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Home.png)
 
-- [Lista de Produtos por Categoria](./mockups/listaPorCategoia.png)
+- [Lista de Produtos por Categoria](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/ListaPorCategoria.png)
 
-- [Produto](./mockups/produto.png)
+- [Produto](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Produto.png)
 
-- [Login](./mockups/login.png)
+- [Login](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Login.png)
 
-- [Criar conta](./mockups/criarConta.png)
+- [Criar conta](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/CriarConta.png)
 
-<!-- - [Email de redefinição](./mockups/emailRedef.png) -->
+- [Carrinho](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Carrinho.png)
 
-<!-- - [Redefinição](./mockups/redef.png) -->
+- [Finalizar Compra](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/FinalizarCompra.png)
 
-- [Carrinho](./mockups/carrinho.png)
+- [Edição de Informações pessoais (Admin)](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/EditarInfoPessoaisAdmin.png)
 
-- [Finalizar Compra](./mockups/finalizarCompra.png)
+- [Edição de Informações pessoais (Cliente)](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/EditarInfoPessoaisCliente.png)
 
-- [Edição de Informações pessoais (Admin)](./mockups/edicaoInfoPessoaisAdmin.png)
+- [Edição de Endereço (Cliente)](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/EditarEnderecoCliente.png)
 
-- [Edição de Informações pessoais (Cliente)](./mockups/edicaoInfoPessoaisCliente.png)
+- [Edição de Pagamento (Cliente)](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/EditarPagamentoCliente.png)
 
-- [Edição de Endereço (Cliente)](./mockups/edicaoEnderecoCliente.png)
+- [Gerência de Produtos](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/GerenciarProdutos.png)
 
-- [Edição de Pagamento (Cliente)](./mockups/edicaoPagamentoCliente.png)
+- [Gerência de Usuários](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/GerenciarUsuarios.png)
 
-- [Gerência de Produtos](./mockups/gerenciaProdutos.png)
+- [Gerência de Produto Específico](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/GerenciarProduto.png)
 
-- [Gerência de Usuários](./mockups/gerenciaUsuarios.png)
-
-- [Gerência de Produto Específico](./mockups/gerenciaProduto.png)
-
-- [Gerência de Usuário Específico](./mockups/gerenciaUsuario.png)
+- [Gerência de Usuário Específico](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/GerenciarUsuario.png)
 
 <br><br>
 
