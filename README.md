@@ -155,7 +155,7 @@ As funcionalidades visadas pelo nosso site são:
 ## 5. Resultados dos testes
 <p align="justify">
     Considerando o quão inicial está o projeto, ele apresenta resultado satisfatório, que está apenas visualizável, ainda não apresentando nenhuma responsividade (dado que ainda não foi implementada).
-<p><br>
+</p><br>
 
 ## 6. Building
 <p align="justify">
@@ -165,7 +165,7 @@ As funcionalidades visadas pelo nosso site são:
 ## 7. Problemas
 <p align="justify">
     Por enquanto o único problema está sendo passar os mockups para .html e .css dado que é um trabalho que demanda tarefas longas e repetitivas.
-<p><br>
+</p><br>
 
 ## 8. Comentários
 <p align="justify">
