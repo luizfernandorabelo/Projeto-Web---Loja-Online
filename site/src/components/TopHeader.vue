@@ -29,12 +29,13 @@ export default {
   h1 {
     font-size: 1.3rem;
     font-weight: 900;
+    width: 150px;
   }
   #icon-list {
     list-style-type: none;
     display: flex;
-    width: 100px;
-    justify-content: space-between;
+    width: 150px;
+    justify-content: space-evenly;
   }
   #icon-list li:last-child i {
     margin: 0 5px;
