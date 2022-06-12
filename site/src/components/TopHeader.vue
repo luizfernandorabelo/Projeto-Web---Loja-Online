@@ -23,14 +23,12 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: 50px;
-    padding: 0 40px 0 30px;
-    margin: 10px 0 5px 0;
+    margin: 10px 3% 5px 3%;
     color: var(--txt-secondary-color);
   }
   h1 {
     font-size: 1.3rem;
     font-weight: 900;
-    margin-left: 5px;
   }
   #icon-list {
     list-style-type: none;
