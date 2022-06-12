@@ -6,113 +6,79 @@
   <div class="test-container">
 
     <!--!------------------------------------- Login --------------------------------------->
-    <div id="login-test">
-      <hr>
-    </div>
+    <Login />
+    <div class="separator"></div>
     <!--!------------------------------------- Login --------------------------------------->
 
 
 
     <!--!-------------------------------- Create Account ----------------------------------->
-    <div id="create-account-test">
-      <hr>
-    </div>
+    <CreateAccount />
+    <div class="separator"></div>
     <!--!-------------------------------- Create Account ----------------------------------->
 
 
 
     <!--!------------------------------------- Home ---------------------------------------->
-    <div id="home-test">
-      <hr>
-    </div>
+    <ProductList h2Content="Destaques" h3Content="Nossos Produtos Mais Vendidos"/>
+    <div class="separator"></div>
     <!--!------------------------------------- Home ---------------------------------------->
 
 
 
     <!--!----------------------------- Products By Category -------------------------------->
-    <div id="products-by-category-test">
-      <hr>
-    </div>
+    <ProductList h2Content="Categoria A" h3Content="O melhor da Categoria A"/>
+    <div class="separator"></div>
     <!--!----------------------------- Products By Category -------------------------------->
 
 
 
     <!--!------------------------------------ Product -------------------------------------->
-    <div id="product-test">
-      <hr>
-    </div>
     <!--!------------------------------------ Product -------------------------------------->
 
 
 
     <!--!------------------------------------ Service -------------------------------------->
-    <div id="service-test">
-      <hr>
-    </div>
     <!--!------------------------------------ Service -------------------------------------->
 
 
 
     <!--!------------------------------------- Cart ---------------------------------------->
-    <div id="cart-test">
-      <hr>
-    </div>
     <!--!------------------------------------- Cart ---------------------------------------->
 
 
 
     <!--!------------------------------- Finish Shopping ----------------------------------->
-    <div id="finish-shopping-test">
-      <hr>
-    </div>
     <!--!------------------------------- Finish Shopping ----------------------------------->
 
 
 
     <!--!----------------------------- Edit Address Client --------------------------------->
-    <div id="edit-address-test">
-      <hr>
-    </div>
     <!--!----------------------------- Edit Address Client --------------------------------->
 
 
 
     <!--!----------------------------- Edit Payment Client --------------------------------->
-    <div id="edit-payment-test">
-      <hr>
-    </div>
     <!--!----------------------------- Edit Payment Client --------------------------------->
 
 
 
-    <!--!-------------------------- Edit Personal Info Client ------------------------------>
-    <div id="edit-personal-info-client-test">
-      <hr>
-    </div>
+    <!--!-------------------------- Edit Person-topal Info Client ------------------------------>
     <!--!-------------------------- Edit Personal Info Client ------------------------------>
 
 
 
     <!--!--------------------------- Edit Personal Info Admin ------------------------------>
-    <div id="edit-personal-info-admin-test">
-      <hr>
-    </div>
     <!--!--------------------------- Edit Personal Info Admin ------------------------------>
 
 
 
     <!--!------------------------------- Manage Products ----------------------------------->
-    <div id="manage-products-test">
-      <hr>
-    </div>
     <!--!------------------------------- Manage Products ----------------------------------->
 
 
 
     <!--!-------------------------------- Manage Product ----------------------------------->
-    <div id="manage-product-test">
-      <hr>
-    </div>
     <!--!-------------------------------- Manage Product ----------------------------------->
 
   </div>
@@ -121,20 +87,51 @@
 
 
 <script>
-import TopHeader from './components/TopHeader.vue';
+import Login from './views/Login.vue'
+import CreateAccount from './views/CreateAccount.vue'
+import ProductList from './views/ProductList.vue'
 
 export default {
   name: 'App',
   components: {
-    TopHeader
+    Login,
+    CreateAccount,
+    ProductList
 }
 }
 </script>
 
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
+  :root {
+    /* --bg-primary-color: rgb(0, 0, 0); */
+    --bg-primary-color: white;
+    --bg-secondary-color: rgb(20, 150, 170);
+    /* --txt-primary-color: rgb(255, 255, 255);
+    --txt-secondary-color: rgb(20, 159, 170); */
+    --txt-primary-color: white;
+    --txt-secondary-color: rgb(20, 159, 170);
+    --txt-terciary-color: black;
+  }
   * {
     margin: 0;
     padding: 0;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    font-family: 'Roboto', sans-serif;
+  }
+  html {
+    background-color: var(--bg-primary-color);
+  }
+  hr {
+    height: 5px;
+    background-color: black;
+  }
+  .separator {
+    margin: 30px 0;
+    border-top: 1px dotted black;
   }
 </style>
