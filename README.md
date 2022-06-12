@@ -154,9 +154,26 @@ As funcionalidades visadas pelo nosso site são:
 </p><br>
 
 ## 6. Building
-<p align="justify">
-    Para acessar o site, é preciso apenas baixar esse repositório e abrir os .html contidos na pasta `src` separadamente.
-</p><br>
+
+Todos os comandos abaixo devem ser digitados no escopo da pasta `site`:
+
+### Instalação de Dependências:
+
+```
+npm install
+```
+
+### Compilação no Modo de Desenvolvimento:
+
+```
+npm run serve
+```
+
+### Compilação e Minificação para Produção:
+
+```
+npm run build
+```
 
 ## 7. Problemas
 <p align="justify">
