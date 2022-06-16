@@ -50,6 +50,8 @@ As imagens do *mockup* estão na pasta ```/mockups.``` Também pode ser acessado
 
 - [Produto](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Produto.png)
 
+- [Serviço](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Servico.png)
+
 - [Login](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/Login.png)
 
 - [Criar conta](https://raw.githubusercontent.com/luizfernandorabelo/Projeto-Web---Loja-Online/main/mockups/CriarConta.png)
