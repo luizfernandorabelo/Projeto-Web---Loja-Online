@@ -44,7 +44,7 @@
 </script>
 
 
-<style>
+<style scoped>
   #main-container {
     margin-top: 20px;
     text-align: center;
