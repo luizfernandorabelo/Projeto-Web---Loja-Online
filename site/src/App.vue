@@ -5,48 +5,26 @@
   implementadas e quando tivermos definido como serão implementadas as rotas  -->
   <div class="test-container">
 
-    <!--!------------------------------------- Login --------------------------------------->
     <Login />
     <div class="separator"></div>
-    <!--!------------------------------------- Login --------------------------------------->
 
-
-
-    <!--!-------------------------------- Create Account ----------------------------------->
     <CreateAccount />
     <div class="separator"></div>
-    <!--!-------------------------------- Create Account ----------------------------------->
 
-
-
-    <!--!------------------------------------- Home ---------------------------------------->
     <ProductList h2Content="Destaques" h3Content="Nossos Produtos Mais Vendidos"/>
     <div class="separator"></div>
-    <!--!------------------------------------- Home ---------------------------------------->
 
-
-
-    <!--!----------------------------- Products By Category -------------------------------->
     <ProductList h2Content="Categoria A" h3Content="O melhor da Categoria A"/>
     <div class="separator"></div>
-    <!--!----------------------------- Products By Category -------------------------------->
+    
+    <Product />
+    <div class="separator"></div>
 
+    <Service />
+    <div class="separator"></div>
 
-
-    <!--!------------------------------------ Product -------------------------------------->
-    <!--!------------------------------------ Product -------------------------------------->
-
-
-
-    <!--!------------------------------------ Service -------------------------------------->
-    <!--!------------------------------------ Service -------------------------------------->
-
-
-
-    <!--!------------------------------------- Cart ---------------------------------------->
-    <!--!------------------------------------- Cart ---------------------------------------->
-
-
+    <Cart />
+    <div class="separator"></div>
 
     <!--!------------------------------- Finish Shopping ----------------------------------->
     <!--!------------------------------- Finish Shopping ----------------------------------->
@@ -90,13 +68,19 @@
 import Login from './views/Login.vue'
 import CreateAccount from './views/CreateAccount.vue'
 import ProductList from './views/ProductList.vue'
+import Product from './views/Product.vue'
+import Service from './views/Service.vue'
+import Cart from './views/Cart.vue'
 
 export default {
   name: 'App',
   components: {
     Login,
     CreateAccount,
-    ProductList
+    ProductList,
+    Product,
+    Service,
+    Cart
 }
 }
 </script>
@@ -133,5 +117,11 @@ export default {
   .separator {
     margin: 30px 0;
     border-top: 1px dotted black;
+  }
+  .yellow {
+    color: yellow;
+  }
+  .gray {
+    color: gray;
   }
 </style>
