@@ -11,7 +11,7 @@
     </div>
     <div id="atendimento">
         <h3>Atendimento</h3>
-        <p>email@email.com (12) <br> 3456-7890</p>
+        <p>email@email.com <br> (12) 3456-7890</p>
     </div>
     </div>
   </footer>
