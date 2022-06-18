@@ -1,6 +1,5 @@
 <template>
   <div id="create-account-container">
-    <TopHeader />
     <PageLocation :location="location"/>
     <div id="main-container">
       <h2>Criar Conta</h2>
@@ -16,30 +15,25 @@
         <button>Criar</button>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 
 <script>
-  import TopHeader from '../components/TopHeader.vue'
-  import Footer from '../components/Footer.vue'
   import PageLocation from '../components/PageLocation.vue'
   export default {
     name: 'CreateAccount',
     components: {
-    TopHeader,
-    Footer,
-    PageLocation
+    PageLocation,
   },
-    data() {
-      return {
-        location: [
-          {'name': 'Home', 'id': 0},
-          {'name': 'Criar Conta', 'id': 1}
-        ],
-      }
+  data() {
+    return {
+      location: [
+        {'name': 'Home', 'id': 0},
+        {'name': 'Criar Conta', 'id': 1}
+      ],
     }
+  }
   }
 </script>
 

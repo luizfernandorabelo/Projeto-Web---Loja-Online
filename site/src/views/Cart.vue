@@ -1,7 +1,5 @@
 <template>
   <div id="cart-container">
-    <TopHeader />
-    <CategoriesBar />
     <PageLocation :location="location"/>
     <h2>Carrinho</h2>
     <div id="main-container">
@@ -50,18 +48,16 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>  
 </template>
 
 
 <script>
-  import CategoriesBar from '../components/CategoriesBar.vue'
-  import Footer from '../components/Footer.vue'
   import PageLocation from '../components/PageLocation.vue'
-  import TopHeader from '../components/TopHeader.vue'
   export default {
-    components: { TopHeader, CategoriesBar, Footer, PageLocation },
+    components: {
+      PageLocation
+    },
     name: 'Cart',
     data() {
       return {

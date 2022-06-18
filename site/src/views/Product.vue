@@ -1,7 +1,5 @@
 <template>
   <div id="product-container">
-    <TopHeader />
-    <CategoriesBar />
     <PageLocation :location="location"/>
     <div id="product-area">
       <img id="product-img" :src="imgUrl" :alt="name + ' image'">
@@ -32,28 +30,21 @@
     </div>
     <Description />
     <Reviews />
-    <Footer />
   </div>
 </template>
 
 
 <script>
-  import CategoriesBar from '../components/CategoriesBar.vue'
-  import TopHeader from '../components/TopHeader.vue'
   import PageLocation from '../components/PageLocation.vue'
-  import Footer from '../components/Footer.vue'
   import Description from '../components/Description.vue'
   import Reviews from '../components/Reviews.vue'
   export default {
-    components: {
-      TopHeader,
-      CategoriesBar,
-      PageLocation,
-      Footer,
-      Description,
-        Reviews
-    },
     name: 'Product',
+    components: {
+      PageLocation,
+      Description,
+      Reviews,
+    },
     data() {
       return {
         location: [

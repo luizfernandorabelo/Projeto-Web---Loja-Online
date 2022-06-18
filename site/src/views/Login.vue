@@ -1,6 +1,5 @@
 <template>
   <div id="login-container">
-    <TopHeader />
     <PageLocation :location="location" />
     <div id="main-container">
       <div id="sign-in-container">
@@ -20,21 +19,16 @@
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 
 <script>
-  import TopHeader from '../components/TopHeader.vue'
   import PageLocation from '../components/PageLocation.vue'
-  import Footer from '../components/Footer.vue'
   export default {
     name: 'Login',
     components: {
-      TopHeader,
       PageLocation,
-      Footer
     },
     data() {
       return {

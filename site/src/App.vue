@@ -1,64 +1,8 @@
 <template>
-  <!-- O template do app ficará com uma única div, contendo somente a home. As demais divs
-  serão modularizadas na pasta views. Por hora, todas as diferentes "páginas" criadas nos 
-  mockups estão sendo implementadas em e apresentadas em conjunto, divididas por linhas horizontais. Faremos a modularização assim que tivermos todas as partes dos mockups
-  implementadas e quando tivermos definido como serão implementadas as rotas  -->
   <div class="test-container">
-
-    <Login />
-    <div class="separator"></div>
-
-    <CreateAccount />
-    <div class="separator"></div>
-
-    <ProductList h2Content="Destaques" h3Content="Nossos Produtos Mais Vendidos"/>
-    <div class="separator"></div>
-
-    <ProductList h2Content="Categoria A" h3Content="O melhor da Categoria A"/>
-    <div class="separator"></div>
-    
-    <Product />
-    <div class="separator"></div>
-
-    <Service />
-    <div class="separator"></div>
-
-    <Cart />
-    <div class="separator"></div>
-
-    <!--!------------------------------- Finish Shopping ----------------------------------->
-    <!--!------------------------------- Finish Shopping ----------------------------------->
-
-
-
-    <!--!----------------------------- Edit Address Client --------------------------------->
-    <!--!----------------------------- Edit Address Client --------------------------------->
-
-
-
-    <!--!----------------------------- Edit Payment Client --------------------------------->
-    <!--!----------------------------- Edit Payment Client --------------------------------->
-
-
-
-    <!--!-------------------------- Edit Person-topal Info Client ------------------------------>
-    <!--!-------------------------- Edit Personal Info Client ------------------------------>
-
-
-
-    <!--!--------------------------- Edit Personal Info Admin ------------------------------>
-    <!--!--------------------------- Edit Personal Info Admin ------------------------------>
-
-
-
-    <!--!------------------------------- Manage Products ----------------------------------->
-    <!--!------------------------------- Manage Products ----------------------------------->
-
-
-
-    <!--!-------------------------------- Manage Product ----------------------------------->
-    <!--!-------------------------------- Manage Product ----------------------------------->
-
+    <TopHeader />
+    <CategoriesBar />
+    <Footer />
   </div>
 
 </template>
@@ -71,6 +15,9 @@ import ProductList from './views/ProductList.vue'
 import Product from './views/Product.vue'
 import Service from './views/Service.vue'
 import Cart from './views/Cart.vue'
+import TopHeader from './components/TopHeader.vue'
+import CategoriesBar from './components/CategoriesBar.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
@@ -80,7 +27,10 @@ export default {
     ProductList,
     Product,
     Service,
-    Cart
+    Cart,
+    TopHeader,
+    CategoriesBar,
+    Footer
 }
 }
 </script>
