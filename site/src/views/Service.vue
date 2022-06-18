@@ -24,8 +24,10 @@
         </div>
         <div id="cep-container">
           <label for="cep">Informe o CEP</label>
-          <input type="text" name="cep" id="cep" placeholder="Digite seu cep">
-          <button id="search-cep-btn">Buscar</button>
+          <p v-if="cep_erro">{{ cep_erro }}</p>
+          <input type="text" name="cep" id="cep" placeholder="Digite seu cep" v-model="cep">
+          <button id="search-cep-btn" @click="calculateFee">Calcular</button>
+          <p v-if="show_fee">R$ {{ frete }}</p>
         </div>
         <div id="date-container">
           <label for="date">Informe a data desejada</label>
@@ -79,6 +81,33 @@
           ]
         },
         amount: 1,
+        cep: '',
+        last_cep: '',
+        frete: 0,
+        cep_erro: '', 
+        show_fee: false,
+
+      }
+    },
+    methods: {
+      calculateFee() {
+      if (this.cep.length == 8 && (this.last_cep !== this.cep || this.last_cep === '')) {
+        this.frete = (Math.random() * 30).toFixed(2);
+        while (this.frete < 10)
+          this.frete = (Math.random() * 30).toFixed(2);
+        this.last_cep = this.cep;
+        this.show_fee = true
+        this.cep_erro = ''
+      }
+      else if (this.cep === '' || this.cep.length != 8) {
+        this.cep_erro = 'Insira um CEP válido';
+        this.last_cep = this.cep;
+        this.show_fee = false
+      }
+      else {
+        this.cep_erro = ''
+        this.last_cep = this.cep;
+      }
       }
     }
   }

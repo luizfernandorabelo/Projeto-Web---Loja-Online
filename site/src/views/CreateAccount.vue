@@ -92,6 +92,8 @@ export default {
       if (!erro) erro = aux;
       aux = this.check_email_format()
       if (!erro) erro = aux;
+      this.check_telephone_format()
+      if (!erro) erro = aux;
       if (!erro) {
         if (this.create_user()) {
           alert('Usuário criado com sucesso!')
@@ -120,6 +122,14 @@ export default {
       id = String(parseInt(id+1))
       users[id] = user
       return true
+    },
+
+    check_telephone_format() {
+      let regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+      if (!regex.test(this.inputs.telephone)) {
+        this.Errors.telephone = "Telefone invalido"
+        return true
+      }
     },
 
     check_cpf_format() {
