@@ -2,6 +2,7 @@
   <div class="test-container">
     <TopHeader />
     <CategoriesBar />
+    <router-view />
     <Footer />
   </div>
 

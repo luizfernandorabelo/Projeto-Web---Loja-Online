@@ -43,7 +43,9 @@
           </div>
           <div class="bottom-container">
             <button id="finish-purchase-btn">Finalizar a compra</button>
-            <button id="continue-purchase-btn">Continuar comprando</button>
+            <router-link to="/">
+              <button id="continue-purchase-btn">Continuar comprando</button>
+            </router-link>
           </div>
         </div>
       </div>

@@ -12,7 +12,7 @@
         <input type="text" name="telephone" id="telephone" placeholder="Telefone*">
         <input type="text" name="password" id="password" placeholder="Senha*">
         <input type="text" name="confirm-password" id="confirm-password" placeholder="Confirme sua senha*">
-        <button>Criar</button>
+        <router-link to="/"><button>Criar</button></router-link>
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@
           <input type="text" name="cep" id="cep" placeholder="Digite seu cep">
           <button id="search-cep-btn">Buscar</button>
         </div>
-        <button id="add-to-cart-btn">Adicionar ao carrino</button>
+        <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
     </div>
     <Description />

@@ -1,8 +1,10 @@
 <template>
   <div id="min-product-container">
-    <img id="product-img" :src="productImgUrl" :alt="'Imagem de ' + productName">
-    <p id="product-name">{{productName}}</p>
-    <p id="product-price">{{productPrice}}</p>
+    <router-link to="/product">
+      <img id="product-img" :src="productImgUrl" :alt="'Imagem de ' + productName">
+      <p id="product-name">{{productName}}</p>
+      <p id="product-price">{{productPrice}}</p>
+    </router-link>
   </div>
 </template>
 

@@ -30,7 +30,7 @@
           <input type="date" name="date" id="date" placeholder="dd/mm/aa">
           <button id="search-date-btn">Buscar</button>
         </div>
-        <button id="add-to-cart-btn">Adicionar ao carrino</button>
+        <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
     </div>
     <Description />

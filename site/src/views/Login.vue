@@ -8,14 +8,14 @@
           <p>Informe seu e-mail e senha de cadastro</p>
           <input type="text" name="email" id="email" placeholder="Email" v-model="emailInput">
           <input type="text" name="password" id="password" placeholder="Senha" v-model="passwordInput">
-          <button id="sign-in-btn">Entrar</button>
+          <router-link to="/"><button id="sign-in-btn">Entrar</button></router-link>
         </div>
         <p id="forgot-password-p">Esqueci minha senha</p>
       </div>
       <div id="sign-up-container">
         <div>
           <h2>É minha primeira compra</h2>
-          <button id="sign-up-btn">Cadastre-se</button>
+          <router-link to="/create-account"><button id="sign-up-btn">Cadastre-se</button></router-link>
         </div>
       </div>
     </div>

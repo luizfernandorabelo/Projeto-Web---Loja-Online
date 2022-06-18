@@ -3,8 +3,13 @@
     <h1>Azulão Petshop</h1>
     <img src="../assets/logo.png" alt="Logo">
     <ul id="icon-list">
-      <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-      <li><a href="#"><i class="fa fa-solid fa-user"></i>Entrar</a></li>
+      <li>
+        <router-link to="/cart"><i class="fa fa-shopping-cart"></i></router-link>
+      </li>
+      <li>
+        <router-link v-if="!logged" to="/login"><i class="fa fa-solid fa-user"></i>Entrar</router-link>
+        <router-link v-else to="/account"><i class="fa fa-solid fa-user"></i>Entrar</router-link>
+      </li>
     </ul>
   </div>
 </template>
@@ -13,6 +18,11 @@
 <script>
 export default {
   name: 'TopHeader',
+  data() {
+    return {
+      logged: false,
+    }
+  }
 }
 </script>
 

@@ -1,10 +1,10 @@
 <template>
   <div id="categories-container">
     <ul id="categories-list">
-      <li><a href="#">Animal A</a></li>
-      <li><a href="#">Animal B</a></li>
-      <li><a href="#">Animal C</a></li>
-      <li><a href="#">Animal D</a></li>
+      <li><router-link to="/" href="#">Animal A</router-link></li>
+      <li><router-link to="/" href="#">Animal B</router-link></li>
+      <li><router-link to="/" href="#">Animal C</router-link></li>
+      <li><router-link to="/" href="#">Animal D</router-link></li>
     </ul>
   </div>
 </template>
