@@ -1,7 +1,6 @@
 <template>
   <div id="create-account-container">
-    <TopHeader />
-    <PageLocation :location="location" />
+    <PageLocation :location="location"/>
     <div id="main-container">
       <h2>Criar Conta</h2>
       <div id="input-container">
@@ -24,22 +23,16 @@
         <button @click="confirm">Criar</button>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 
 <script>
-import TopHeader from '../components/TopHeader.vue'
-import Footer from '../components/Footer.vue'
-import PageLocation from '../components/PageLocation.vue'
-import users from '../../server/usuarios.json'
-export default {
-  name: 'CreateAccount',
-  components: {
-    TopHeader,
-    Footer,
-    PageLocation
+  import PageLocation from '../components/PageLocation.vue'
+  export default {
+    name: 'CreateAccount',
+    components: {
+    PageLocation,
   },
   data() {
     return {

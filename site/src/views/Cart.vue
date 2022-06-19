@@ -1,8 +1,6 @@
 <template>
   <div id="cart-container">
-    <TopHeader />
-    <CategoriesBar />
-    <PageLocation :location="location" />
+    <PageLocation :location="location"/>
     <h2>Carrinho</h2>
     <div id="main-container">
       <div id="items-container">
@@ -50,39 +48,38 @@
           </div>
           <div class="bottom-container">
             <button id="finish-purchase-btn">Finalizar a compra</button>
-            <button id="continue-purchase-btn">Continuar comprando</button>
+            <router-link to="/">
+              <button id="continue-purchase-btn">Continuar comprando</button>
+            </router-link>
           </div>
         </div>
       </div>
     </div>
-    <Footer />
-  </div>
+  </div>  
 </template>
 
 
 <script>
-import CategoriesBar from '../components/CategoriesBar.vue'
-import Footer from '../components/Footer.vue'
-import PageLocation from '../components/PageLocation.vue'
-import TopHeader from '../components/TopHeader.vue'
-export default {
-  components: { TopHeader, CategoriesBar, Footer, PageLocation },
-  name: 'Cart',
-  data() {
-    return {
-      location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Carrinho', 'id': 1 },
-      ],
-      items: [
-        { id: 0, name: 'Ração Aleatória 1', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        { id: 1, name: 'Ração Aleatória 2', amount: 2, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        { id: 2, name: 'Banho e Tosa', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        { id: 3, name: 'Ração Aleatória 3', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-      ],
-      deliveryPrice: 0,
-      itemsPrice: 0,
-    }
+  import PageLocation from '../components/PageLocation.vue'
+  export default {
+    components: {
+      PageLocation
+    },
+    name: 'Cart',
+    data() {
+      return {
+        location: [ 
+          {'name': 'Home', 'id': 0},
+          {'name': 'Carrinho', 'id': 1},
+        ],
+        items: [
+          { id: 0, name: 'Ração Aleatória 1', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+          { id: 1, name: 'Ração Aleatória 2', amount: 2, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+          { id: 2, name: 'Banho e Tosa', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+          { id: 3, name: 'Ração Aleatória 3', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+        ],
+        deliveryPrice: 0,
+        itemsPrice: 0,
   },
   methods: {
     calculateItemsPrice() {

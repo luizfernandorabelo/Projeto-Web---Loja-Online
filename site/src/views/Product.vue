@@ -1,8 +1,6 @@
 <template>
   <div id="product-container">
-    <TopHeader />
-    <CategoriesBar />
-    <PageLocation :location="location" />
+    <PageLocation :location="location"/>
     <div id="product-area">
       <img id="product-img" :src="imgUrl" :alt="name + ' image'">
       <div id="product-info">
@@ -29,52 +27,45 @@
           <button id="search-cep-btn" @click="calculateFee">calcular</button>
           <p v-if="show_fee">R$ {{ frete }}</p>
         </div>
-        <button id="add-to-cart-btn">Adicionar ao carrino</button>
+        <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
     </div>
     <Description />
     <Reviews />
-    <Footer />
   </div>
 </template>
 
 
 <script>
-import CategoriesBar from '../components/CategoriesBar.vue'
-import TopHeader from '../components/TopHeader.vue'
-import PageLocation from '../components/PageLocation.vue'
-import Footer from '../components/Footer.vue'
-import Description from '../components/Description.vue'
-import Reviews from '../components/Reviews.vue'
-export default {
-  components: {
-    TopHeader,
-    CategoriesBar,
-    PageLocation,
-    Footer,
-    Description,
-    Reviews
-  },
-  name: 'Product',
-  data() {
-    return {
-      location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Animal X', 'id': 1 },
-        { 'name': 'Categoria Y', 'id': 2 },
-        { 'name': 'Ração de Teste', 'id': 3 }
-      ],
-      name: 'Ração de teste',
-      price: 99.99,
-      imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
-      review: {
-        totalOpinions: 99,
-        totalStars: 4,
-        comments: [
-          { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
-          { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
-        ]
-      },
+  import PageLocation from '../components/PageLocation.vue'
+  import Description from '../components/Description.vue'
+  import Reviews from '../components/Reviews.vue'
+  export default {
+    name: 'Product',
+    components: {
+      PageLocation,
+      Description,
+      Reviews,
+    },
+    data() {
+      return {
+        location: [
+          {'name': 'Home', 'id': 0},
+          {'name': 'Animal X', 'id': 1},
+          {'name': 'Categoria Y', 'id': 2},
+          {'name': 'Ração de Teste', 'id': 3}
+        ],
+        name: 'Ração de teste',
+        price: 99.99,
+        imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
+        review: {
+          totalOpinions: 99,
+          totalStars: 4,
+          comments: [
+            { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
+            { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
+          ]
+        },
       amount: 1,
       cep: '',
       frete: 0,

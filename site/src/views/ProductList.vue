@@ -1,7 +1,5 @@
 <template>
   <div id="product-list-container">
-    <TopHeader />
-    <CategoriesBar />  
     <h2>{{h2Content}}</h2>
     <h3>{{h3Content}}</h3>
     <ul id="products">
@@ -9,24 +7,17 @@
         <MinProduct :productName="product.name" :productPrice="product.price" :productImgUrl="product.imgUrl"/>
       </li>
     </ul>
-    <Footer />
   </div>
 </template>
 
 
 <script>
-import CategoriesBar from '../components/CategoriesBar.vue';
-import TopHeader from '../components/TopHeader.vue';
-import Footer from '../components/Footer.vue';
-import MinProduct from '../components/MinProduct.vue';
+import MinProduct from '../components/MinProduct.vue'
 export default {
   name: 'ProductList',
   components: {
-    CategoriesBar,
-    TopHeader,
-    Footer,
-    MinProduct
-},
+    MinProduct,
+  },
   props: {
     h2Content: {
       type: String,
@@ -77,6 +68,4 @@ export default {
     flex-wrap: wrap;
     list-style-type: none;
   }
-
-
 </style>

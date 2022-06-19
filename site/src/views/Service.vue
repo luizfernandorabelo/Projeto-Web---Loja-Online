@@ -1,7 +1,5 @@
 <template>
   <div id="service-container">
-    <TopHeader />
-    <CategoriesBar />
     <PageLocation :location="location"/>
     <div id="service-area">
       <img id="service-img" :src="imgUrl" :alt="name + ' image'">
@@ -34,33 +32,26 @@
           <input type="date" name="date" id="date" placeholder="dd/mm/aa">
           <button id="search-date-btn">Buscar</button>
         </div>
-        <button id="add-to-cart-btn">Adicionar ao carrino</button>
+        <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
     </div>
     <Description />
     <Reviews />
-    <Footer />
   </div>
 </template>
 
 
 <script>
-  import CategoriesBar from '../components/CategoriesBar.vue'
-  import TopHeader from '../components/TopHeader.vue'
   import PageLocation from '../components/PageLocation.vue'
-  import Footer from '../components/Footer.vue'
   import Description from '../components/Description.vue'
   import Reviews from '../components/Reviews.vue'
   export default {
-    components: {
-      TopHeader,
-      CategoriesBar,
-      PageLocation,
-      Footer,
-      Description,
-        Reviews
-    },
     name: 'Service',
+    components: {
+      PageLocation,
+      Description,
+      Reviews,
+    },
     data() {
       return {
         location: [

@@ -1,6 +1,5 @@
 <template>
   <div id="login-container">
-    <TopHeader />
     <PageLocation :location="location" />
     <div id="main-container">
       <div id="sign-in-container">
@@ -10,35 +9,38 @@
           <p v-if="error_message" style="color: red; font-size: .8rem;"> {{ error_message }}</p>
           <input type="text" name="email" id="email" placeholder="Email" v-model="emailInput">
           <input type="password" name="password" id="password" placeholder="Senha" v-model="passwordInput" v-on:keyup.enter="confirmar">
-          <button id="sign-in-btn" @click="confirmar()">Entrar</button>
+          <router-link to="/"><button id="sign-in-btn" @click="confirmar()">Entrar</button></router-link>
         </div>
         <p id="forgot-password-p">Esqueci minha senha</p>
       </div>
       <div id="sign-up-container">
         <div>
           <h2>É minha primeira compra</h2>
-          <button id="sign-up-btn">Cadastre-se</button>
+          <router-link to="/create-account"><button id="sign-up-btn">Cadastre-se</button></router-link>
         </div>
       </div>
     </div>
-    <Footer />
   </div>
 </template>
 
 
 <script>
-
-import TopHeader from '../components/TopHeader.vue'
-import PageLocation from '../components/PageLocation.vue'
-import Footer from '../components/Footer.vue'
-import users from '../../server/usuarios.json'
-export default {
-  name: 'Login',
-  components: {
-    TopHeader,
-    PageLocation,
-    Footer
-  },
+  import PageLocation from '../components/PageLocation.vue'
+  import users from '../../server/usuarios.json'
+  export default {
+    name: 'Login',
+    components: {
+      PageLocation,
+    },
+    data() {
+      return {
+        location: [
+          {'name': 'Home', 'id': 0},
+          {'name': 'Login', 'id': 1}
+        ],
+        emailInput: '',
+        passwordInput: '',
+    },
   methods: {
     confirmar() {
       this.error_message = ''
