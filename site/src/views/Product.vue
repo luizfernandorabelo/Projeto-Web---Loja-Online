@@ -15,17 +15,17 @@
         </div>
         <div id="price-amount-container">
           <div id="price-container">
-            <p id="product-price">R$ {{ price.toFixed(2) }}</p>
+            <p id="product-price">R$ {{ (price * amount).toFixed(2) }}</p>
             <p id="payment-type">à vista</p>
           </div>
           <input type="number" name="product-amount" id="product-amount" min="1" v-model="amount">
         </div>
         <div id="cep-container">
           <label for="cep">Calcule o frete e o prazo de entrega:</label>
-          <p v-if="cep_erro">{{ cep_erro }}</p>
+          <p v-if="cepError" class="error">{{ cepError }}</p>
           <input type="text" name="cep" id="cep" placeholder="Digite seu cep" v-model="cep" v-on:keyup.enter="confirmar">
-          <button id="search-cep-btn" @click="calculateFee">calcular</button>
-          <p v-if="show_fee">R$ {{ frete }}</p>
+          <button id="search-cep-btn" @click="calculateDeliveryFee">calcular</button>
+          <p v-if="showFee" class="info">R$ {{ deliveryFee.toFixed(2) }} (entrega em {{ deliveryDays }} dias)</p>
         </div>
         <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
@@ -37,62 +37,69 @@
 
 
 <script>
-  import PageLocation from '../components/PageLocation.vue'
-  import Description from '../components/Description.vue'
-  import Reviews from '../components/Reviews.vue'
-  export default {
-    name: 'Product',
-    components: {
-      PageLocation,
-      Description,
-      Reviews,
-    },
-    data() {
-      return {
-        location: [
-          {'name': 'Home', 'id': 0},
-          {'name': 'Animal X', 'id': 1},
-          {'name': 'Categoria Y', 'id': 2},
-          {'name': 'Ração de Teste', 'id': 3}
-        ],
-        name: 'Ração de teste',
-        price: 99.99,
-        imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
-        review: {
-          totalOpinions: 99,
-          totalStars: 4,
-          comments: [
-            { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
-            { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
-          ]
-        },
+import PageLocation from '../components/PageLocation.vue'
+import Description from '../components/Description.vue'
+import Reviews from '../components/Reviews.vue'
+export default {
+  name: 'Product',
+  components: {
+    PageLocation,
+    Description,
+    Reviews,
+  },
+  data() {
+    return {
+      location: [
+        {'name': 'Home', 'id': 0},
+        {'name': 'Animal X', 'id': 1},
+        {'name': 'Categoria Y', 'id': 2},
+        {'name': 'Ração de Teste', 'id': 3}
+      ],
+      name: 'Ração de teste',
+      price: 99.99,
+      imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
+      review: {
+        totalOpinions: 99,
+        totalStars: 4,
+        comments: [
+          { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
+          { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
+        ]
+      },
       amount: 1,
       cep: '',
-      frete: 0,
-      last_cep: '',
-      show_fee: false,
-      cep_erro: ''
+      deliveryFee: 0,
+      deliveryDays: 0,
+      showFee: false,
+      cepError: ''
     }
   },
   methods: {
-    calculateFee() {
-      if (this.cep.length == 8 && (this.last_cep !== this.cep || this.last_cep === '')) {
-        this.frete = (Math.random() * 30).toFixed(2);
-        while (this.frete < 10)
-          this.frete = (Math.random() * 30).toFixed(2);
-        this.last_cep = this.cep;
-        this.show_fee = true
-        this.cep_erro = ''
+    calculateDeliveryFee() {
+      if (!this.isValidCep()) {
+        this.cepError = 'Insira um CEP válido!'
+        this.showFee = false
+      } else {
+        let cepInfo = JSON.parse(localStorage.getItem('cep'))[this.sumCepDigits() % 10]
+        this.deliveryFee = cepInfo.fee
+        this.deliveryDays = cepInfo.days
+        this.showFee = true
+        this.cepError = ''
       }
-      else if (this.cep === '' || this.cep.length != 8) {
-        this.cep_erro = 'Insira um CEP válido';
-        this.last_cep = this.cep;
-        this.show_fee = false
+    },
+    isValidCep() {
+      for (let digit of this.cep) {
+        if (isNaN(parseInt(digit)))
+          return false
       }
-      else {
-        this.cep_erro = ''
-        this.last_cep = this.cep;
+      return this.cep !== '' && this.cep.length === 8
+    },
+    sumCepDigits() {
+      let digitSum = 0;
+      for (let digit of this.cep) {
+        digitSum += parseInt(digit)
       }
+      return digitSum
     }
   }
 }
@@ -177,6 +184,17 @@
 #cep-container label {
   display: block;
   margin-bottom: 10px;
+}
+
+#cep-container .error {
+  color: red;
+  font-size: .9rem;
+  margin-bottom: 5px;
+}
+
+#cep-container .info {
+  font-size: .9rem;
+  margin-top: 12px;
 }
 
 #cep {
