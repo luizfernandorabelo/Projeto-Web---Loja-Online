@@ -4,33 +4,35 @@
     <div id="service-area">
       <img id="service-img" :src="imgUrl" :alt="name + ' image'">
       <div id="service-info">
-        <h3 id="service-name">{{name}}</h3>
+        <h3 id="service-name">{{ name }}</h3>
         <div id="short-review-container">
-          <p id="total-stars">{{review.totalStars.toFixed(2)}}</p>
+          <p id="total-stars">{{ review.totalStars.toFixed(2) }}</p>
           <div id="stars-container">
             <i class="fa-solid fa-star yellow" v-for="index in review.totalStars" :key="index"></i>
             <i class="fa-solid fa-star gray" v-for="index in 5 - review.totalStars" :key="index"></i>
           </div>
-          <p id="total-opinions">({{review.totalOpinions}}) opiniões</p>
+          <p id="total-opinions">({{ review.totalOpinions }}) opiniões</p>
         </div>
         <div id="price-amount-container">
           <div id="price-container">
-            <p id="service-price">R$ {{price.toFixed(2)}}</p>
+            <p id="service-price">R$ {{ (price * amount).toFixed(2) }}</p>
             <p id="payment-type">à vista</p>
           </div>
           <input type="number" name="service-amount" id="service-amount" min="1" v-model="amount">
         </div>
         <div id="cep-container">
           <label for="cep">Informe o CEP</label>
-          <p v-if="cep_erro">{{ cep_erro }}</p>
+          <p v-if="cepError" class="error">{{ cepError }}</p>
           <input type="text" name="cep" id="cep" placeholder="Digite seu cep" v-model="cep">
-          <button id="search-cep-btn" @click="calculateFee">Calcular</button>
-          <p v-if="show_fee">R$ {{ frete }}</p>
+          <button id="search-cep-btn" @click="checkCepAvailability">Buscar</button>
+          <p v-if="cepInfo" class="info"> {{ cepInfo }}</p>
         </div>
         <div id="date-container">
           <label for="date">Informe a data desejada</label>
-          <input type="date" name="date" id="date" placeholder="dd/mm/aa">
-          <button id="search-date-btn">Buscar</button>
+          <p v-if="dateError" class="error">{{ dateError }}</p>
+          <input type="date" name="date" id="date" placeholder="dd/mm/aa" v-model="date">
+          <button id="search-date-btn" @click="checkDateAvailability">Buscar</button>
+          <p v-if="dateInfo" class="info"> {{dateInfo}}</p>
         </div>
         <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
@@ -42,66 +44,86 @@
 
 
 <script>
-  import PageLocation from '../components/PageLocation.vue'
-  import Description from '../components/Description.vue'
-  import Reviews from '../components/Reviews.vue'
-  export default {
-    name: 'Service',
-    components: {
-      PageLocation,
-      Description,
-      Reviews,
-    },
-    data() {
-      return {
-        location: [
-          {'name': 'Home', 'id': 0},
-          {'name': 'Animal X', 'id': 1},
-          {'name': 'Categoria Y', 'id': 2},
-          {'name': 'Banho de Teste', 'id': 3}
-        ],
-        name: 'Banho de teste',
-        price: 99.99,
-        imgUrl: 'https://institutouniversal.vteximg.com.br/arquivos/ids/156886-1000-1000/image_banho_e_tosa.jpg?v=635367146237300000',
-        review: {
-          totalOpinions: 99,
-          totalStars: 4,
-          comments: [
-            { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
-            { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
-          ]
-        },
-        amount: 1,
-        cep: '',
-        last_cep: '',
-        frete: 0,
-        cep_erro: '', 
-        show_fee: false,
-
+import PageLocation from '../components/PageLocation.vue'
+import Description from '../components/Description.vue'
+import Reviews from '../components/Reviews.vue'
+export default {
+  name: 'Service',
+  components: {
+    PageLocation,
+    Description,
+    Reviews,
+  },
+  data() {
+    return {
+      location: [
+        {'name': 'Home', 'id': 0},
+        {'name': 'Animal X', 'id': 1},
+        {'name': 'Categoria Y', 'id': 2},
+        {'name': 'Banho de Teste', 'id': 3}
+      ],
+      name: 'Banho de teste',
+      price: 99.99,
+      imgUrl: 'https://institutouniversal.vteximg.com.br/arquivos/ids/156886-1000-1000/image_banho_e_tosa.jpg?v=635367146237300000',
+      review: {
+        totalOpinions: 99,
+        totalStars: 4,
+        comments: [
+          { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
+          { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
+        ]
+      },
+      amount: 1,
+      cep: '',
+      cepError: '', 
+      cepInfo: '',
+      date: '',
+      dateError: '',
+      dateInfo: ''
+    }
+  },
+  methods: {
+    checkCepAvailability() {
+      if (!this.isValidCep()) {
+        this.cepError = 'Insira um CEP válido!'
+        this.cepInfo = ''
+      } else {
+        if (!this.isAttendingCep()) {
+          this.cepInfo = 'Não atendemos sua região :('
+        } else {
+          this.cepInfo = 'Atendemos sua região!'
+        }
+        this.cepError = ''
       }
     },
-    methods: {
-      calculateFee() {
-      if (this.cep.length == 8 && (this.last_cep !== this.cep || this.last_cep === '')) {
-        this.frete = (Math.random() * 30).toFixed(2);
-        while (this.frete < 10)
-          this.frete = (Math.random() * 30).toFixed(2);
-        this.last_cep = this.cep;
-        this.show_fee = true
-        this.cep_erro = ''
+    isValidCep() {
+      for (let digit of this.cep) {
+        if (isNaN(parseInt(digit)))
+          return false
       }
-      else if (this.cep === '' || this.cep.length != 8) {
-        this.cep_erro = 'Insira um CEP válido';
-        this.last_cep = this.cep;
-        this.show_fee = false
+      return this.cep !== '' && this.cep.length === 8
+    },
+    isAttendingCep() {
+      return this.cep.startsWith('13560')
+    },
+    checkDateAvailability() {
+      if (!this.isValidDate()) {
+        this.dateError = 'Insira uma data válida!'
+        this.dateInfo = ''
+      } else {
+        this.dateInfo = 'Temos vagas nessa data!'
+        this.dateError = ''
       }
-      else {
-        this.cep_erro = ''
-        this.last_cep = this.cep;
-      }
-      }
+    },
+    isValidDate() {
+      if (this.date === '')
+        return false;
+      let expectedDay = new Date(this.date)
+      let today = new Date()
+      return expectedDay >= today
     }
   }
+}
 </script>
 
 
@@ -195,6 +217,15 @@
     height: 25px;
     width: 75px;
     margin-left: 5px;
+  }
+  .error {
+    color: red;
+    font-size: .9rem;
+    margin-bottom: 5px;
+  }
+  .info {
+    font-size: .9rem;
+    margin-top: 12px;
   }
   #add-to-cart-btn {
     margin-top: 20px;
