@@ -33,5 +33,10 @@ export default createRouter({
       name: 'Service',
       component: () => import('../views/Service.vue')
     },
+    {
+      path: '/account',
+      name: 'Account',
+      component: () => import('../views/Account.vue')
+    }
   ]
 });

@@ -8,7 +8,7 @@
       </li>
       <li>
         <router-link v-if="!logged" to="/login"><i class="fa fa-solid fa-user"></i>Entrar</router-link>
-        <router-link v-else to="/account"><i class="fa fa-solid fa-user"></i>Entrar</router-link>
+        <router-link v-else to="/account"><i class="fa fa-solid fa-user"></i>Conta</router-link>
       </li>
     </ul>
   </div>
@@ -21,6 +21,14 @@ export default {
   data() {
     return {
       logged: false,
+    }
+  },
+  created() {
+    this.verifyLogin()
+  },
+  methods: {
+    verifyLogin() {
+      this.logged = localStorage.getItem('userID') !== null
     }
   }
 }
