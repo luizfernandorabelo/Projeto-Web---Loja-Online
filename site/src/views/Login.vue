@@ -5,11 +5,11 @@
       <div id="sign-in-container">
         <h2>Já sou Cadastrado</h2>
         <div id="input-container">
-          <p>Informe seu e-mail e senha de cadastro</p>
-          <p v-if="error_message" style="color: red; font-size: .8rem;"> {{ error_message }}</p>
-          <input type="text" name="email" id="email" placeholder="Email" v-model="emailInput">
-          <input type="password" name="password" id="password" placeholder="Senha" v-model="passwordInput" v-on:keyup.enter="confirmar">
-          <router-link to="/"><button id="sign-in-btn" @click="confirmar()">Entrar</button></router-link>
+          <p id="email-password-label">Informe seu e-mail e senha de cadastro</p>
+          <p class="error" v-if="errorMessage"> {{ errorMessage }}</p>
+          <input class="input" type="text" name="email" id="email" placeholder="Email" v-model="emailInput">
+          <input class="input" type="password" name="password" id="password" placeholder="Senha" v-model="passwordInput" v-on:keyup.enter="authenticate">
+          <button id="sign-in-btn" @click="authenticate">Entrar</button>
         </div>
         <p id="forgot-password-p">Esqueci minha senha</p>
       </div>
@@ -25,49 +25,37 @@
 
 
 <script>
-  import PageLocation from '../components/PageLocation.vue'
-  import users from '../../server/usuarios.json'
-  export default {
-    name: 'Login',
-    components: {
-      PageLocation,
-    },
-    data() {
-      return {
-        location: [
-          {'name': 'Home', 'id': 0},
-          {'name': 'Login', 'id': 1}
-        ],
-        emailInput: '',
-        passwordInput: '',
-    },
-  methods: {
-    confirmar() {
-      this.error_message = ''
-      console.log(Object.keys(users))
-      for (var key of  Object.keys(users)) {
-        let user = users[key]
-        if (user.email === this.emailInput && user.password === this.passwordInput) {
-          return true
-        }
-      }
-      this.error_message = 'Email ou senha incorretos'
-      return false
-    }
-
+import PageLocation from '../components/PageLocation.vue'
+import userData from '../../server/users.js'
+export default {
+  name: 'Login',
+  components: {
+    PageLocation,
   },
   data() {
     return {
       location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Login', 'id': 1 }
+        {'name': 'Home', 'id': 0},
+        {'name': 'Login', 'id': 1}
       ],
       emailInput: '',
       passwordInput: '',
-      error_message: '',
+      errorMessage: '',
     }
   },
-
+  methods: {
+    authenticate() {
+      this.errorMessage = ''
+      for (let existingUser of userData.users) {
+        if (existingUser.email === this.emailInput && existingUser.password === this.passwordInput) {
+          localStorage.setItem('userID', existingUser.id)
+          window.location.href = '/'
+          return
+        }
+      }
+      this.errorMessage = 'Email ou senha incorretos'
+    }
+  },
 }
 </script>
 
@@ -97,11 +85,17 @@ h2 {
   width: 310px;
 }
 
-#input-container p {
+#email-password-label {
   margin: 20px 0;
 }
 
-input[type="text"] {
+#input-container .error {
+  color: red;
+  font-size: .9rem;
+  margin-bottom: 5px;
+}
+
+.input {
   border: 1px solid var(--txt-terciary-color);
   border-radius: 5px;
   height: 25px;
