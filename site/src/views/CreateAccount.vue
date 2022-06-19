@@ -4,23 +4,23 @@
     <div id="main-container">
       <h2>Criar Conta</h2>
       <div id="input-container">
-        <p>Todos os campos com * são obrigatórios</p>
-        <p v-if="Errors.name">{{ Errors.name }}</p>
+        <p id="required-description">Todos os campos com * são obrigatórios</p>
+        <p v-if="errors.name" class="error">{{ errors.name }}</p>
         <input type="text" name="name" id="name" placeholder="Nome*" v-model="inputs.name">
-        <p v-if="Errors.email">{{ Errors.email }}</p>
+        <p v-if="errors.email" class="error">{{ errors.email }}</p>
         <input type="text" name="email" id="email" placeholder="Email*" v-model="inputs.email">
-        <p v-if="Errors.cpf">{{ Errors.cpf }}</p>
+        <p v-if="errors.cpf" class="error">{{ errors.cpf }}</p>
         <input type="text" name="cpf" id="cpf" placeholder="CPF*" v-model="inputs.cpf">
-        <p v-if="Errors.gender">{{ Errors.gender }}</p>
-        <input type="text" name="gender" id="gender" placeholder="Gênero*" v-model="inputs.gender">
-        <p v-if="Errors.telephone">{{ Errors.telephone }}</p>
+        <p v-if="errors.gender" class="error">{{ errors.gender }}</p>
+        <input type="text" name="gender" id="gender" placeholder="Gênero" v-model="inputs.gender">
+        <p v-if="errors.telephone" class="error">{{ errors.telephone }}</p>
         <input type="text" name="telephone" id="telephone" placeholder="Telefone*" v-model="inputs.telephone">
-        <p v-if="Errors.password">{{ Errors.password }}</p>
+        <p v-if="errors.password" class="error">{{ errors.password }}</p>
         <input type="password" name="password" id="password" placeholder="Senha*" v-model="inputs.password">
-        <p v-if="Errors.confPasswd">{{ Errors.confPasswd }}</p>
+        <p v-if="errors.confirmPasswd" class="error">{{ errors.confirmPasswd }}</p>
         <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirme sua senha*"
-          v-model="inputs.confPasswd" v-on:keyup.enter="confirm">
-        <button @click="confirm">Criar</button>
+          v-model="inputs.confirmPasswd" v-on:keyup.enter="validateNewAccount">
+        <button @click="validateNewAccount">Criar</button>
       </div>
     </div>
   </div>
@@ -28,149 +28,151 @@
 
 
 <script>
-  import PageLocation from '../components/PageLocation.vue'
-  export default {
-    name: 'CreateAccount',
-    components: {
-    PageLocation,
-  },
-  data() {
-    return {
-      location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Criar Conta', 'id': 1 }
-      ],
-      error_message: '',
-      inputs: {
-        name: '',
-        email: '',
-        cpf: '',
-        gender: '',
-        telephone: '',
-        password: '',
-        confPasswd: '',
-      },
-      Errors: {
-        name: '',
-        email: '',
-        cpf: '',
-        gender: '',
-        telephone: '',
-        password: '',
-        confPasswd: '',
-      },
-      emptyErrorCode: [],
-    }
-  },
-
-  methods: {
-
-
-    confirm() {
-      for (let erro in this.Errors) {
-        this.Errors[erro] = ''
-      }
-      let erro = false
-      let aux
-      let fields = { name: 'nome', email: 'email', cpf: 'cpf', password: 'senha', confPasswd: 'confirmar senha', telephone: 'telefone', gender: 'genero' }
-      for (let atributo in this.inputs) {
-        aux = this.is_input_empty(this.inputs[atributo], fields[atributo], atributo);
-        if (!erro) {
-          erro = aux
-        }
-      }
-      aux = this.check_cpf_format()
-      if (!erro) erro = aux;
-      aux = this.check_password_match()
-      if (!erro) erro = aux;
-      aux = this.check_email_format()
-      if (!erro) erro = aux;
-      this.check_telephone_format()
-      if (!erro) erro = aux;
-      if (!erro) {
-        if (this.create_user()) {
-          alert('Usuário criado com sucesso!')
-        }
-        
-      }
+import PageLocation from '../components/PageLocation.vue'
+import userData from '../../server/users.js'
+export default {
+  name: 'CreateAccount',
+  components: {
+  PageLocation,
+},
+data() {
+  return {
+    location: [
+      { 'name': 'Home', 'id': 0 },
+      { 'name': 'Criar Conta', 'id': 1 }
+    ],
+    inputs: {
+      name: '',
+      email: '',
+      cpf: '',
+      gender: '',
+      telephone: '',
+      password: '',
+      confirmPasswd: '',
     },
-
-
-    create_user() {
-      let user = {
-        name: this.inputs.name,
-        email: this.inputs.email,
-        cpf: this.inputs.cpf,
-        password: this.inputs.password,
-        telephone: this.inputs.telephone,
-        gender: this.inputs.gender
-      }
-      let id
-      for (id in users) {
-        if (users[id].email === this.inputs.email) {
-          this.Errors.name = "email ja cadastrado"
-          return false
-        }
-      }
-      id = String(parseInt(id+1))
-      users[id] = user
-      return true
+    errors: {
+      name: '',
+      email: '',
+      cpf: '',
+      telephone: '',
+      password: '',
+      confirmPasswd: '',
     },
-
-    check_telephone_format() {
-      let regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
-      if (!regex.test(this.inputs.telephone)) {
-        this.Errors.telephone = "Telefone invalido"
-        return true
-      }
-    },
-
-    check_cpf_format() {
-      if (this.inputs.cpf === '') return
-      // console.log(this.inputs.cpf)
-      let regex = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/
-      if (!this.inputs.cpf.match(regex)) {
-        this.Errors.cpf = 'CPF inválido'
-        return true
-      }
-      return false
-    },
-
-    check_password_match() {
-      if (this.inputs.password != '' && this.inputs.confPasswd != '') {
-        if (this.inputs.password != this.inputs.confPasswd) {
-          this.Errors.confPasswd = 'Senhas não coincidem'
-          return true
-        }
-      }
-      return false
-    },
-
-    check_email_format() {
-      if (this.inputs.email === '') return
-      let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      if (!this.inputs.email.toLowerCase().match(regex)) {
-        this.Errors.email = 'Email inválido'
-        return true
-      }
-      return false
-    },
-
-
-    is_input_empty(field_input, field_name, atributo) {
-      if (field_input === '') {
-        this.emptyErrorCode.push(field_name)
-        this.Errors[atributo] = 'Por favor preencha o campo ' + field_name
-        return true
-      }
-      return false
-    }
   }
+},
+methods: {
+  validateNewAccount() {
+    this.clearErrors()
+    this.checkName()
+    this.checkEmail()
+    this.checkCpf()
+    this.checkTelephone()
+    this.checkPassword()
+    if (this.areInputsValid() && this.createUser()) {
+      alert('Usuário criado com sucesso!')
+    } 
+  },
+  clearErrors() {
+    for (let error in this.errors) {
+      this.errors[error] = ''
+    }
+  },
+  checkName() {
+    if (this.inputs.name.trim() === '') {
+      this.errors.name = 'Por favor, preencha o campo nome!'
+      return
+    }
+    if (this.inputs.name.trim().length <= 3) {
+      this.errors.name = 'Por favor, preencha um nome válido!'
+    }
+  },
+  checkEmail() {
+    if (this.inputs.email.trim() === '') {
+      this.errors.email = 'Por favor, preencha o campo email!'
+      return
+    }
+    let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    if (!this.inputs.email.toLowerCase().match(regex)) {
+      this.errors.email = 'Email inválido'
+    }
+  },
+  checkTelephone() {
+    if (this.inputs.telephone.trim() === '') {
+      this.errors.telephone = 'Por favor, preencha o campo telefone!'
+      return
+    }
+    let regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+    if (!regex.test(this.inputs.telephone)) {
+      this.errors.telephone = "Telefone inválido!"
+    }
+  },
+  checkCpf() {
+    if (this.inputs.cpf.trim() === '') {
+      this.errors.cpf = 'Por favor, preencha o campo CPF!'
+      return
+    }
+    let regex = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/
+    if (!this.inputs.cpf.match(regex)) {
+      this.errors.cpf = 'CPF inválido!'
+    }
+  },
+  checkPassword() {
+    if (this.inputs.password.trim() === '') {
+      this.errors.password = 'Por favor, preencha o campo senha!'
+    }
+    if (this.inputs.confirmPasswd.trim() === '') {
+      this.errors.confirmPasswd = 'Por favor, preencha o campo confirme sua senha!'
+    }
+    if (this.inputs.password !== this.inputs.confirmPasswd) {
+      this.errors.confPasswd = 'As senhas não coincidem!'
+    }
+  },
+  areInputsValid() {
+    for (let field in this.errors) {
+      if (this.errors[field].length > 0)
+        return false
+    }
+    return true
+  },
+  createUser() {
+    if (this.isExistingUser())
+      return false
+    let user = {
+      name: this.inputs.name,
+      email: this.inputs.email,
+      cpf: this.inputs.cpf,
+      password: this.inputs.password,
+      telephone: this.inputs.telephone,
+      gender: this.inputs.gender,
+      id: userData.users[userData.users.length-1].id + 1
+    }
+    userData.users.push(user)
+    console.log(userData.users)
+    return true
+  },
+  isExistingUser() {
+    for (let existingUser of userData.users) {
+      if (existingUser.CPF === this.inputs.cpf) {
+        this.errors.cpf = "CPF já cadastrado!"
+        return true
+      }
+      if (existingUser.email === this.inputs.email) {
+        this.errors.email = "Email já cadastrado!"
+        return true
+      }
+    }
+    return false
+  }
+}
 }
 </script>
 
 
 <style scoped>
+#create-account-container {
+  margin-bottom: 20px;
+}
+
 #main-container {
   margin-top: 20px;
   text-align: center;
@@ -189,11 +191,18 @@ h2 {
   width: 310px;
 }
 
-#input-container p {
+#input-container p.error {
+  font-size: .85rem;
+  text-align: left;
+  color: red;
+  margin-top: 7px;
+}
+
+#required-description {
   margin-bottom: 10px;
 }
 
-input[type="text"] {
+input {
   border: 1px solid var(--txt-terciary-color);
   border-radius: 5px;
   height: 25px;
