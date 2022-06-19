@@ -32,7 +32,10 @@ export default {
     TopHeader,
     CategoriesBar,
     Footer
-}
+  },
+  created() {
+    // localStorage.removeItem('userID')
+  }
 }
 </script>
 
