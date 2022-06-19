@@ -23,11 +23,12 @@ export default {
 
 
 <style scoped>
-  #page-location {
-    display: flex;
-    margin-left: 3%;
-  }
-  #page-location div {
-    color: var(--txt-terciary-color);
-  }
+#page-location {
+  display: flex;
+  margin-left: 3%;
+}
+
+#page-location div {
+  color: var(--txt-terciary-color);
+}
 </style>

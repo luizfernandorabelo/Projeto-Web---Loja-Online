@@ -28,25 +28,28 @@ export default {
 
 
 <style scoped>
-  #min-product-container {
-    margin: 10px 20px 15px;
-    width: 200px;
-    text-align: center;
-  }
-  img {
-    height: 200px;
-    width: 200px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    cursor: pointer;
-  }
-  #product-name {
-    margin-bottom: 5px;
-  }
-  #product-price {
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
+#min-product-container {
+  margin: 10px 20px 15px;
+  width: 200px;
+  text-align: center;
+}
+
+img {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+#product-name {
+  margin-bottom: 5px;
+}
+
+#product-price {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
 </style>

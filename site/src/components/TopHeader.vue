@@ -36,26 +36,29 @@ export default {
 
 
 <style scoped>
-  #top-header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 50px;
-    margin: 10px 3% 5px 3%;
-    color: var(--txt-secondary-color);
-  }
-  h1 {
-    font-size: 1.3rem;
-    font-weight: 900;
-    width: 150px;
-  }
-  #icon-list {
-    list-style-type: none;
-    display: flex;
-    width: 150px;
-    justify-content: space-evenly;
-  }
-  #icon-list li:last-child i {
-    margin: 0 5px;
-  }
+#top-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  margin: 10px 3% 5px 3%;
+  color: var(--txt-secondary-color);
+}
+
+h1 {
+  font-size: 1.3rem;
+  font-weight: 900;
+  width: 150px;
+}
+
+#icon-list {
+  list-style-type: none;
+  display: flex;
+  width: 150px;
+  justify-content: space-evenly;
+}
+
+#icon-list li:last-child i {
+  margin: 0 5px;
+}
 </style>

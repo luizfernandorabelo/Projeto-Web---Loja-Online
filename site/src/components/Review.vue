@@ -30,33 +30,39 @@ export default {
 
 
 <style>
-  #review-container {
-    margin-left: 3%;
-    margin-right: 3%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  #review-left {
-    text-align: center;
-    width: 150px;
-  }
-  #review-right {
-    width: calc(100% - 175px);
-  }
-  #total-stars-container {
-    display: flex;
-    justify-content: space-evenly;
-    margin-top: 10px;
-  }
-  #total-stars {
-    font-weight: 500;
-  }
-  #stars-container {
-    display: flex;
-  }
-  #user-name {
-    font-weight: 600;
-  }
+#review-container {
+  margin-left: 3%;
+  margin-right: 3%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#review-left {
+  text-align: center;
+  width: 150px;
+}
+
+#review-right {
+  width: calc(100% - 175px);
+}
+
+#total-stars-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+}
+
+#total-stars {
+  font-weight: 500;
+}
+
+#stars-container {
+  display: flex;
+}
+
+#user-name {
+  font-weight: 600;
+}
 </style>

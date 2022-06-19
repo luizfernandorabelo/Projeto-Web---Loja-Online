@@ -55,41 +55,48 @@ export default {
 
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-  @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
-  :root {
-    /* --bg-primary-color: rgb(0, 0, 0); */
-    --bg-primary-color: white;
-    --bg-secondary-color: rgb(20, 150, 170);
-    /* --txt-primary-color: rgb(255, 255, 255);
-    --txt-secondary-color: rgb(20, 159, 170); */
-    --txt-primary-color: white;
-    --txt-secondary-color: rgb(20, 159, 170);
-    --txt-terciary-color: black;
-  }
-  * {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
-    color: inherit;
-    background-color: inherit;
-    font-family: 'Roboto', sans-serif;
-  }
-  html {
-    background-color: var(--bg-primary-color);
-  }
-  hr {
-    height: 5px;
-    background-color: black;
-  }
-  .separator {
-    margin: 30px 0;
-    border-top: 1px dotted black;
-  }
-  .yellow {
-    color: yellow;
-  }
-  .gray {
-    color: gray;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
+
+:root {
+  /* --bg-primary-color: rgb(0, 0, 0); */
+  --bg-primary-color: white;
+  --bg-secondary-color: rgb(20, 150, 170);
+  /* --txt-primary-color: rgb(255, 255, 255);
+  --txt-secondary-color: rgb(20, 159, 170); */
+  --txt-primary-color: white;
+  --txt-secondary-color: rgb(20, 159, 170);
+  --txt-terciary-color: black;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  background-color: var(--bg-primary-color);
+}
+
+hr {
+  height: 5px;
+  background-color: black;
+}
+
+.separator {
+  margin: 30px 0;
+  border-top: 1px dotted black;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.gray {
+  color: gray;
+}
 </style>

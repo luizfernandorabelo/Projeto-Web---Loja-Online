@@ -47,25 +47,28 @@ export default {
 
 
 <style scoped>
-  h2, h3 {
-    text-align: center;
-  }
-  h2 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: var(--darker-blue-color);
-  }
-  h3 {
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-  #products {
-    display: flex;
-    justify-content: center;
-    text-align: center;
-    margin: 20px;
-    flex-wrap: wrap;
-    list-style-type: none;
-  }
+h2, h3 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: var(--darker-blue-color);
+}
+
+h3 {
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+#products {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin: 20px;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
 </style>

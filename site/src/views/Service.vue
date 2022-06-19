@@ -128,108 +128,126 @@ export default {
 
 
 <style scoped>
-  #service-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
-    margin-bottom: 50px;
-  }
-  #service-img {
-    height: 350px;
-    width: 350px;
-    margin-right: 3%;
-    border: 1px solid var(--txt-terciary-color);
-    border-radius: 15px;
-  }
-  #service-info {
-    width: 350px;
-    margin-left: 3%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  #service-name {
-    font-size: 1.5rem;
-    color: var(--txt-secondary-color);
-  }
-  #short-review-container {
-    display: flex;
-    margin-top: 20px;
-    font-size: 1.2rem;
-  }
-  #stars-container {
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  #total-opinions {
-    font-size: .8rem;
-  }
-  #price-amount-container {
-    display: flex;
-    margin-top: 20px;
-    align-items: center;
-  }
-  #service-price {
-    color: var(--txt-secondary-color);
-    font-size: 1.3rem;
-  }
-  #service-amount {
-    width: 45px;
-    height: 30px;
-    border: 1px solid var(--txt-terciary-color);
-    border-radius: 5px;
-    text-align: center;
-    outline: 0;
-    margin-left: 15px;
-  }
-  #service-amount::-webkit-inner-spin-button,
-  #service-amount::-webkit-outer-spin-button {
-    opacity: 1;
-  }
-  #cep-container, #date-container {
-    margin-top: 20px;
-  }
-  #cep-container label, #date-container label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  #cep, #date {
-    border: 1px solid var(--txt-terciary-color);
-    border-radius: 5px;
-    height: 25px;
-    width: 130px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    outline: 0;
-  }
-  #search-cep-btn, #search-date-btn, #add-to-cart-btn {
-    background-color: var(--bg-secondary-color);
-    color: var(--txt-primary-color);
-    border: 0;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 400;
-    cursor: pointer;
-    box-sizing: border-box;
-  }
-  #search-cep-btn, #search-date-btn {
-    height: 25px;
-    width: 75px;
-    margin-left: 5px;
-  }
-  .error {
-    color: red;
-    font-size: .9rem;
-    margin-bottom: 5px;
-  }
-  .info {
-    font-size: .9rem;
-    margin-top: 12px;
-  }
-  #add-to-cart-btn {
-    margin-top: 20px;
-    height: 35px;
-    width: 170px;
-  }
+#service-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+#service-img {
+  height: 350px;
+  width: 350px;
+  margin-right: 3%;
+  border: 1px solid var(--txt-terciary-color);
+  border-radius: 15px;
+}
+
+#service-info {
+  width: 350px;
+  margin-left: 3%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#service-name {
+  font-size: 1.5rem;
+  color: var(--txt-secondary-color);
+}
+
+#short-review-container {
+  display: flex;
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+#stars-container {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#total-opinions {
+  font-size: .8rem;
+}
+
+#price-amount-container {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+}
+
+#service-price {
+  color: var(--txt-secondary-color);
+  font-size: 1.3rem;
+}
+
+#service-amount {
+  width: 45px;
+  height: 30px;
+  border: 1px solid var(--txt-terciary-color);
+  border-radius: 5px;
+  text-align: center;
+  outline: 0;
+  margin-left: 15px;
+}
+
+#service-amount::-webkit-inner-spin-button,
+#service-amount::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+#cep-container, #date-container {
+  margin-top: 20px;
+}
+
+#cep-container label, #date-container label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+#cep, #date {
+  border: 1px solid var(--txt-terciary-color);
+  border-radius: 5px;
+  height: 25px;
+  width: 130px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  outline: 0;
+}
+
+#search-cep-btn, #search-date-btn, #add-to-cart-btn {
+  background-color: var(--bg-secondary-color);
+  color: var(--txt-primary-color);
+  border: 0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#search-cep-btn, #search-date-btn {
+  height: 25px;
+  width: 75px;
+  margin-left: 5px;
+}
+
+.error {
+  color: red;
+  font-size: .9rem;
+  margin-bottom: 5px;
+}
+
+.info {
+  font-size: .9rem;
+  margin-top: 12px;
+}
+
+#add-to-cart-btn {
+  margin-top: 20px;
+  height: 35px;
+  width: 170px;
+}
 </style>
