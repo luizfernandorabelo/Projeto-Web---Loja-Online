@@ -6,12 +6,12 @@
       <div id="items-container">
         <div class="header">
           <span>Items</span>
-          <span id="clear-cart" @click.selg="clear_cart">Limpar carrinho</span>
+          <span id="clear-cart" @click="clearCart">Limpar carrinho</span>
         </div>
         <div v-if="items.length == 0" class="header">
-        <p> Ooops... parece que seu carrinho está vazio, volte faça algumas compras para o seu animalziho!!!</p>
+        <p id="empty-cart"> Ooops... parece que seu carrinho está vazio, volte faça algumas compras para o seu animalziho!!!</p>
         </div>
-        <div class="item" v-if="items" v-for="item in items" :key="item.id">
+        <div class="item" v-else v-for="item in items" :key="item.id">
           <input class="item-check" type="checkbox" name="check" :id="item.id + 'check'" v-model="item.checked"
             @change="updatePrices">
           <img class="item-img" :src="item.imgUrl" :alt="'Imagem de ' + item.name">
@@ -47,7 +47,7 @@
             <span>R$ {{ (itemsPrice + deliveryPrice).toFixed(2) }}</span>
           </div>
           <div class="bottom-container">
-            <button id="finish-purchase-btn">Finalizar a compra</button>
+            <button v-if="items.length > 0" id="finish-purchase-btn">Finalizar a compra</button>
             <router-link to="/">
               <button id="continue-purchase-btn">Continuar comprando</button>
             </router-link>
@@ -60,26 +60,27 @@
 
 
 <script>
-  import PageLocation from '../components/PageLocation.vue'
-  export default {
-    components: {
-      PageLocation
-    },
-    name: 'Cart',
-    data() {
-      return {
-        location: [ 
-          {'name': 'Home', 'id': 0},
-          {'name': 'Carrinho', 'id': 1},
-        ],
-        items: [
-          { id: 0, name: 'Ração Aleatória 1', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-          { id: 1, name: 'Ração Aleatória 2', amount: 2, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-          { id: 2, name: 'Banho e Tosa', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-          { id: 3, name: 'Ração Aleatória 3', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        ],
-        deliveryPrice: 0,
-        itemsPrice: 0,
+import PageLocation from '../components/PageLocation.vue'
+export default {
+  components: {
+    PageLocation
+  },
+  name: 'Cart',
+  data() {
+    return {
+      location: [ 
+        {'name': 'Home', 'id': 0},
+        {'name': 'Carrinho', 'id': 1},
+      ],
+      items: [
+        { id: 0, name: 'Ração Aleatória 1', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+        { id: 1, name: 'Ração Aleatória 2', amount: 2, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+        { id: 2, name: 'Banho e Tosa', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+        { id: 3, name: 'Ração Aleatória 3', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
+      ],
+      deliveryPrice: 0,
+      itemsPrice: 0,
+    }
   },
   methods: {
     calculateItemsPrice() {
@@ -98,14 +99,14 @@
       this.calculateDeliveryPrice(),
         this.calculateItemsPrice()
     },
-    mounted() {
-      this.updatePrices()
-    },
-
-    clear_cart() {
+    clearCart() {
       console.log('limpando carrinho')
       this.items = []
+      this.updatePrices()
     }
+  },
+  mounted() {
+    this.updatePrices()
   },
 }
 </script>
@@ -115,7 +116,7 @@
 #main-container {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 h2 {
@@ -138,6 +139,11 @@ h2 {
 #clear-cart {
   cursor: pointer;
   color: var(--txt-secondary-color);
+}
+
+#empty-cart {
+  margin-top: 130px;
+  text-align: center;
 }
 
 .item {
