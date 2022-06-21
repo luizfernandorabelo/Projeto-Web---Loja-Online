@@ -14,11 +14,6 @@ export default createRouter({
       component: () => import('../views/Cart.vue')
     },
     {
-      path: '/create-account',
-      name: 'CreateAccount',
-      component: () => import('../views/CreateAccount.vue')
-    },
-    {
       path: '/login',
       name: 'Login',
       component: () => import('../views/Login.vue')

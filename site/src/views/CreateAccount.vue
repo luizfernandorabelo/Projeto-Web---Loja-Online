@@ -1,6 +1,6 @@
 <template>
   <div id="create-account-container">
-    <PageLocation :location="location"/>
+    <!-- <PageLocation :location="location"/>
     <div id="main-container">
       <h2>Criar Conta</h2>
       <div id="input-container">
@@ -22,154 +22,154 @@
           v-model="inputs.confirmPasswd" v-on:keyup.enter="validateNewAccount">
         <button @click="validateNewAccount">Criar</button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 
 <script>
-import PageLocation from '../components/PageLocation.vue'
-import userData from '../../server/users.js'
+// import PageLocation from '../components/PageLocation.vue'
+// import userData from '../../server/users.js'
 export default {
   name: 'CreateAccount',
-  components: {
-    PageLocation,
-  },
-  data() {
-    return {
-      location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Criar Conta', 'id': 1 }
-      ],
-      inputs: {
-        name: '',
-        email: '',
-        cpf: '',
-        gender: '',
-        telephone: '',
-        password: '',
-        confirmPasswd: '',
-      },
-      errors: {
-        name: '',
-        email: '',
-        cpf: '',
-        telephone: '',
-        password: '',
-        confirmPasswd: '',
-      },
-    }
-  },
-  methods: {
-    validateNewAccount() {
-      this.clearErrors()
-      this.checkName()
-      this.checkEmail()
-      this.checkCpf()
-      this.checkTelephone()
-      this.checkPassword()
-      if (this.areInputsValid() && this.createUser()) {
-        alert('Usuário criado com sucesso!')
-      } 
-    },
-    clearErrors() {
-      for (let error in this.errors) {
-        this.errors[error] = ''
-      }
-    },
-    checkName() {
-      if (this.inputs.name.trim() === '') {
-        this.errors.name = 'Por favor, preencha o campo nome!'
-        return
-      }
-      if (this.inputs.name.trim().length <= 3) {
-        this.errors.name = 'Por favor, preencha um nome válido!'
-      }
-    },
-    checkEmail() {
-      if (this.inputs.email.trim() === '') {
-        this.errors.email = 'Por favor, preencha o campo email!'
-        return
-      }
-      let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      if (!this.inputs.email.toLowerCase().match(regex)) {
-        this.errors.email = 'Email inválido'
-      }
-    },
-    checkTelephone() {
-      if (this.inputs.telephone.trim() === '') {
-        this.errors.telephone = 'Por favor, preencha o campo telefone!'
-        return
-      }
-      let regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
-      if (!regex.test(this.inputs.telephone)) {
-        this.errors.telephone = "Telefone inválido!"
-      }
-    },
-    checkCpf() {
-      if (this.inputs.cpf.trim() === '') {
-        this.errors.cpf = 'Por favor, preencha o campo CPF!'
-        return
-      }
-      let regex = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/
-      if (!this.inputs.cpf.match(regex)) {
-        this.errors.cpf = 'CPF inválido!'
-      }
-    },
-    checkPassword() {
-      if (this.inputs.password.trim() === '') {
-        this.errors.password = 'Por favor, preencha o campo senha!'
-      }
-      if (this.inputs.confirmPasswd.trim() === '') {
-        this.errors.confirmPasswd = 'Por favor, preencha o campo confirme sua senha!'
-      }
-      if (this.inputs.password !== this.inputs.confirmPasswd) {
-        this.errors.confPasswd = 'As senhas não coincidem!'
-      }
-    },
-    areInputsValid() {
-      for (let field in this.errors) {
-        if (this.errors[field].length > 0)
-          return false
-      }
-      return true
-    },
-    createUser() {
-      if (this.isExistingUser())
-        return false
-      let user = {
-        name: this.inputs.name,
-        email: this.inputs.email,
-        cpf: this.inputs.cpf,
-        password: this.inputs.password,
-        telephone: this.inputs.telephone,
-        gender: this.inputs.gender,
-        id: userData.users[userData.users.length-1].id + 1
-      }
-      userData.users.push(user)
-      console.log(userData.users)
-      return true
-    },
-    isExistingUser() {
-      for (let existingUser of userData.users) {
-        if (existingUser.CPF === this.inputs.cpf) {
-          this.errors.cpf = "CPF já cadastrado!"
-          return true
-        }
-        if (existingUser.email === this.inputs.email) {
-          this.errors.email = "Email já cadastrado!"
-          return true
-        }
-      }
-      return false
-    }
-  }
+  // components: {
+  //   PageLocation,
+  // },
+  // data() {
+  //   return {
+  //     location: [
+  //       { 'name': 'Home', 'id': 0 },
+  //       { 'name': 'Criar Conta', 'id': 1 }
+  //     ],
+  //     inputs: {
+  //       name: '',
+  //       email: '',
+  //       cpf: '',
+  //       gender: '',
+  //       telephone: '',
+  //       password: '',
+  //       confirmPasswd: '',
+  //     },
+  //     errors: {
+  //       name: '',
+  //       email: '',
+  //       cpf: '',
+  //       telephone: '',
+  //       password: '',
+  //       confirmPasswd: '',
+  //     },
+  //   }
+  // },
+  // methods: {
+  //   validateNewAccount() {
+  //     this.clearErrors()
+  //     this.checkName()
+  //     this.checkEmail()
+  //     this.checkCpf()
+  //     this.checkTelephone()
+  //     this.checkPassword()
+  //     if (this.areInputsValid() && this.createUser()) {
+  //       alert('Usuário criado com sucesso!')
+  //     } 
+  //   },
+  //   clearErrors() {
+  //     for (let error in this.errors) {
+  //       this.errors[error] = ''
+  //     }
+  //   },
+  //   checkName() {
+  //     if (this.inputs.name.trim() === '') {
+  //       this.errors.name = 'Por favor, preencha o campo nome!'
+  //       return
+  //     }
+  //     if (this.inputs.name.trim().length <= 3) {
+  //       this.errors.name = 'Por favor, preencha um nome válido!'
+  //     }
+  //   },
+  //   checkEmail() {
+  //     if (this.inputs.email.trim() === '') {
+  //       this.errors.email = 'Por favor, preencha o campo email!'
+  //       return
+  //     }
+  //     let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  //     if (!this.inputs.email.toLowerCase().match(regex)) {
+  //       this.errors.email = 'Email inválido'
+  //     }
+  //   },
+  //   checkTelephone() {
+  //     if (this.inputs.telephone.trim() === '') {
+  //       this.errors.telephone = 'Por favor, preencha o campo telefone!'
+  //       return
+  //     }
+  //     let regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
+  //     if (!regex.test(this.inputs.telephone)) {
+  //       this.errors.telephone = "Telefone inválido!"
+  //     }
+  //   },
+  //   checkCpf() {
+  //     if (this.inputs.cpf.trim() === '') {
+  //       this.errors.cpf = 'Por favor, preencha o campo CPF!'
+  //       return
+  //     }
+  //     let regex = /([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})/
+  //     if (!this.inputs.cpf.match(regex)) {
+  //       this.errors.cpf = 'CPF inválido!'
+  //     }
+  //   },
+  //   checkPassword() {
+  //     if (this.inputs.password.trim() === '') {
+  //       this.errors.password = 'Por favor, preencha o campo senha!'
+  //     }
+  //     if (this.inputs.confirmPasswd.trim() === '') {
+  //       this.errors.confirmPasswd = 'Por favor, preencha o campo confirme sua senha!'
+  //     }
+  //     if (this.inputs.password !== this.inputs.confirmPasswd) {
+  //       this.errors.confPasswd = 'As senhas não coincidem!'
+  //     }
+  //   },
+  //   areInputsValid() {
+  //     for (let field in this.errors) {
+  //       if (this.errors[field].length > 0)
+  //         return false
+  //     }
+  //     return true
+  //   },
+  //   createUser() {
+  //     if (this.isExistingUser())
+  //       return false
+  //     let user = {
+  //       name: this.inputs.name,
+  //       email: this.inputs.email,
+  //       cpf: this.inputs.cpf,
+  //       password: this.inputs.password,
+  //       telephone: this.inputs.telephone,
+  //       gender: this.inputs.gender,
+  //       id: userData.users[userData.users.length-1].id + 1
+  //     }
+  //     userData.users.push(user)
+  //     console.log(userData.users)
+  //     return true
+  //   },
+  //   isExistingUser() {
+  //     for (let existingUser of userData.users) {
+  //       if (existingUser.CPF === this.inputs.cpf) {
+  //         this.errors.cpf = "CPF já cadastrado!"
+  //         return true
+  //       }
+  //       if (existingUser.email === this.inputs.email) {
+  //         this.errors.email = "Email já cadastrado!"
+  //         return true
+  //       }
+  //     }
+  //     return false
+  //   }
+  // }
 }
 </script>
 
 
 <style scoped>
-#create-account-container {
+/* #create-account-container {
   margin-bottom: 20px;
 }
 
@@ -226,5 +226,5 @@ button {
   font-weight: 400;
   cursor: pointer;
   box-sizing: border-box;
-}
+} */
 </style>
