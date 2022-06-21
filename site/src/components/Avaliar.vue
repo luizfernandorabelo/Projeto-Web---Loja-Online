@@ -8,15 +8,12 @@
 </template>
 
 <script>
-import products from '../../../jsons/products_and_services.json'
-// import userData from '../../server/users.js'
 export default {
     props: {
         id: 0,
     },
     data() {
         return {
-            // review: '',
         review: {
             userName: '',
             text: '',
@@ -29,7 +26,7 @@ export default {
             return JSON.parse(localStorage.getItem('user'))
         },
         getProduct() {
-            return products.find(product => product.id === this.id)
+            return JSON.parse(localStorage.getItem('items')).find(product => product.id === this.id)
         },
         postReview(){
             let reviews = this.getProduct().reviews
@@ -41,6 +38,7 @@ export default {
     }
 }
 </script>
+
 
 <style>
 

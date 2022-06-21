@@ -26,7 +26,6 @@
 
 <script>
 import PageLocation from '../components/PageLocation.vue'
-import userData from '../../server/users.js'
 export default {
   name: 'Login',
   components: {

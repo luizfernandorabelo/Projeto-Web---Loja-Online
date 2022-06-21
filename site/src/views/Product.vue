@@ -41,7 +41,6 @@
 import PageLocation from '../components/PageLocation.vue'
 import Description from '../components/Description.vue'
 import Reviews from '../components/Reviews.vue'
-import Products from '../../../jsons/products_and_services.json'
 import Avaliar from '../components/Avaliar.vue'
 import router from '@/router'
 export default {
@@ -89,7 +88,7 @@ export default {
   methods: {
     getProduct () {
       const productId = parseInt(this.$route.params.id)
-      const product = Products.find(product => product.id == productId)
+      const product = JSON.parse(localStorage.getItem('items')).find(product => product.id == productId)
       if (product.categories.includes("servicos")){
         router.push('/service/' + this.$route.params.id)
       }

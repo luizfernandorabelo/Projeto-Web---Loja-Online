@@ -47,7 +47,6 @@
 import PageLocation from '../components/PageLocation.vue'
 import Description from '../components/Description.vue'
 import Reviews from '../components/Reviews.vue'
-import services from '../../../jsons/products_and_services.json'
 import router from '@/router'
 export default {
   name: 'Service',
@@ -90,7 +89,7 @@ export default {
   methods: {
     getServices() {
       let id = this.$route.params.id;
-      let service = services.find(service => service.id == id);
+      let service = JSON.parse(localStorage.getItem(items)).find(service => service.id == id);
       // console.log(service);
       if (!service.categories.includes("servicos")){
         router.push('/products/' + this.$router.params.id);
