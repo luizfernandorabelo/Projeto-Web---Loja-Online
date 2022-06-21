@@ -29,6 +29,21 @@ export default createRouter({
       component: () => import('../views/Product.vue')
     },
     {
+      path: '/manageProducts',
+      name: 'ManageProducts',
+      component: () => import('../views/ManageProducts.vue')
+    },
+    {
+      path: '/manageProduct',
+      name: 'ManageProduct',
+      component: () => import('../views/ManageProduct.vue')
+    },
+    {
+      path: '/manageUsers',
+      name: 'ManageUsers',
+      component: () => import('../views/ManageUsers.vue')
+    },
+    {
       path: '/service/:id',
       name: 'Service',
       component: () => import('../views/Service.vue')

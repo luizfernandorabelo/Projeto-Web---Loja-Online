@@ -16,9 +16,14 @@ import ProductList from './views/ProductList.vue'
 import Product from './views/Product.vue'
 import Service from './views/Service.vue'
 import Cart from './views/Cart.vue'
+import ManageProducts from './views/ManageProducts.vue'
+import ManageProduct from './views/ManageProduct.vue'
+import ManageUsers from './views/ManageUsers.vue'
 import TopHeader from './components/TopHeader.vue'
 import CategoriesBar from './components/CategoriesBar.vue'
 import Footer from './components/Footer.vue'
+import MinManageProduct from './components/MinManageProduct.vue'
+import MinManageUser from './components/MinManageUser.vue'
 
 export default {
   name: 'App',
@@ -29,9 +34,14 @@ export default {
     Product,
     Service,
     Cart,
+    ManageProducts,
+    ManageProduct,
+    ManageUsers,
     TopHeader,
     CategoriesBar,
-    Footer
+    Footer,
+    MinManageProduct,
+    MinManageUser
   },
   created() {
     // localStorage.removeItem('userID')
