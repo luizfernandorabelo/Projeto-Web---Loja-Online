@@ -1,10 +1,10 @@
 <template>
   <div id="categories-container">
     <ul id="categories-list">
-      <li><router-link to="/" href="#">Animal A</router-link></li>
-      <li><router-link to="/" href="#">Animal B</router-link></li>
-      <li><router-link to="/" href="#">Animal C</router-link></li>
-      <li><router-link to="/" href="#">Animal D</router-link></li>
+      <li><router-link to="/" href="#">Cachorros</router-link></li>
+      <li><router-link to="/" href="#">Gatos</router-link></li>
+      <li><router-link to="/" href="#">Pássaro</router-link></li>
+      <li><router-link to="/" href="#">Peixe</router-link></li>
     </ul>
   </div>
 </template>

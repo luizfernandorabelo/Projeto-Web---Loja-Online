@@ -24,7 +24,7 @@ export default createRouter({
       component: () => import('../views/Login.vue')
     },
     {
-      path: '/product',
+      path: '/product/:id',
       name: 'Product',
       component: () => import('../views/Product.vue')
     },
@@ -44,7 +44,7 @@ export default createRouter({
       component: () => import('../views/ManageUsers.vue')
     },
     {
-      path: '/service',
+      path: '/service/:id',
       name: 'Service',
       component: () => import('../views/Service.vue')
     },

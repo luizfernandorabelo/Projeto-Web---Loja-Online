@@ -47,6 +47,8 @@
 import PageLocation from '../components/PageLocation.vue'
 import Description from '../components/Description.vue'
 import Reviews from '../components/Reviews.vue'
+import services from '../../../jsons/products_and_services.json'
+import router from '@/router'
 export default {
   name: 'Service',
   components: {
@@ -54,13 +56,16 @@ export default {
     Description,
     Reviews,
   },
+  beforeMount(){
+    this.getServices()
+  },
   data() {
     return {
       location: [
-        {'name': 'Home', 'id': 0},
-        {'name': 'Animal X', 'id': 1},
-        {'name': 'Categoria Y', 'id': 2},
-        {'name': 'Banho de Teste', 'id': 3}
+        {'name': 'Home', 'id': 0, 'path': '/'},
+        {'name': 'Animal X', 'id': 1, 'path': '/'},
+        // {'name': 'Categoria Y', 'id': 2},
+        {'name': 'Banho de Teste', 'id': 2, 'path': ''},
       ],
       name: 'Banho de teste',
       price: 99.99,
@@ -83,6 +88,24 @@ export default {
     }
   },
   methods: {
+    getServices() {
+      let id = this.$route.params.id;
+      let service = services.find(service => service.id == id);
+      // console.log(service);
+      if (!service.categories.includes("servicos")){
+        router.push('/products/' + this.$router.params.id);
+      }
+      else {
+        this.name = service.name;
+        this.price = service.price;
+        this.imgUrl = service.images[0];
+        this.location[2].name = service.name;
+        this.location[2].path = '/service/' + id;
+        this.location[1].name = service.categories[0]
+        // this.review = service.review;
+        // console.log(this.name);
+      }
+    },
     checkCepAvailability() {
       if (!this.isValidCep()) {
         this.cepError = 'Insira um CEP válido!'
