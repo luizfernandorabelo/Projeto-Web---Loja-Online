@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       location: [
-        {'name': 'Home', 'id': 0},
-        {'name': 'Login', 'id': 1}
+        {'name': 'Home', 'id': 0, 'path': '/'},
+        {'name': 'Login', 'id': 1, 'path': '/login'},
       ],
       emailInput: '',
       passwordInput: '',
