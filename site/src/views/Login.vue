@@ -16,7 +16,7 @@
       <div id="sign-up-container">
         <div>
           <h2>É minha primeira compra</h2>
-          <router-link to="/create-account"><button id="sign-up-btn">Cadastre-se</button></router-link>
+          <router-link to="/account"><button id="sign-up-btn">Cadastre-se</button></router-link>
         </div>
       </div>
     </div>
@@ -42,12 +42,17 @@ export default {
       errorMessage: '',
     }
   },
+  created() {
+    this.loadUsers()
+  },
   methods: {
+    loadUsers() {
+      this.users = JSON.parse(localStorage.getItem('users'))
+    },
     authenticate() {
-      this.errorMessage = ''
-      for (let existingUser of userData.users) {
-        if (existingUser.email === this.emailInput && existingUser.password === this.passwordInput) {
-          localStorage.setItem('userID', existingUser.id)
+      for (let existingUser of this.users) {
+        if (existingUser.personalInfo.email === this.emailInput && existingUser.personalInfo.password === this.passwordInput) {
+          localStorage.setItem('user', JSON.stringify(existingUser))
           window.location.href = '/'
           return
         }
