@@ -43,6 +43,7 @@ import Description from '../components/Description.vue'
 import Reviews from '../components/Reviews.vue'
 import Products from '../../../jsons/products_and_services.json'
 import Avaliar from '../components/Avaliar.vue'
+import router from '@/router'
 export default {
   name: 'Product',
   components: {
@@ -89,6 +90,9 @@ export default {
     getProduct () {
       const productId = parseInt(this.$route.params.id)
       const product = Products.find(product => product.id == productId)
+      if (product.categories.includes("servicos")){
+        router.push('/service/' + this.$route.params.id)
+      }
       this.price = product.price
       this.name = product.name
       this.imgUrl = product.images[0]

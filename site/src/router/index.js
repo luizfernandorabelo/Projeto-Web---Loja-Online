@@ -29,7 +29,7 @@ export default createRouter({
       component: () => import('../views/Product.vue')
     },
     {
-      path: '/service',
+      path: '/service/:id',
       name: 'Service',
       component: () => import('../views/Service.vue')
     },
