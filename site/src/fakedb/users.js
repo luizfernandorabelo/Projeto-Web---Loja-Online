@@ -8,7 +8,7 @@ export default {
         email: 'admin@azulaops.com',
         password: 'admin',
         CPF: '12345678900',
-        telephone: '(16) 3233-4893',
+        telephone: '1632334893',
         gender: 'não-binário',
       }
     },
@@ -20,7 +20,7 @@ export default {
         email: 'cliente@gmail.com',
         password: 'cliente',
         CPF: '98765432100',
-        telephone: '(16) 3233-4893',
+        telephone: '1632334893',
         gender: 'não-binário',
       },
       address: {

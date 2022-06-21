@@ -1,5 +1,5 @@
 export default {
-  cep: [
+  ceps: [
     { fee: 12.50, days: 9 },
     { fee: 21.10, days: 10 },
     { fee: 29.90, days: 6 },
