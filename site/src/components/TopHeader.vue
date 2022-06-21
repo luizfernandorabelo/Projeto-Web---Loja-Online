@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     verifyLogin() {
-      this.logged = localStorage.getItem('userID') !== null
+      this.logged = localStorage.getItem('user') !== null
     }
   }
 }
