@@ -33,7 +33,7 @@ export default {
         complement: 'apto 95'
       },
       card: {
-        number: '1234567890',
+        number: '1234567890123456',
         holderName: 'Cliente da Silva',
         holderCPF: '98765432100',
         billingAddress: 'Rua Adolfo Catani 233, apartamento 12, São Carlos, SP',
