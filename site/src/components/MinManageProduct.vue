@@ -8,7 +8,7 @@
       <div id="right">
         <p id="product-name">{{productName}}</p>
         <p id="product-price">{{productPrice}}</p>
-        <p id="product-code">Cód. Produto: {{productCode}}</p>
+        <p id="product-code">Cód. Prod.: {{productCode}}</p>
         <i id="fa-solid fa-trash-can"></i>
       </div>
     </router-link>
@@ -30,7 +30,7 @@ export default {
       default: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
     },
     productCode: {
-      default: '123456789',
+      default: '1eC45X',
     },
     trashCan: {
       default: 'fa-trash-can',
