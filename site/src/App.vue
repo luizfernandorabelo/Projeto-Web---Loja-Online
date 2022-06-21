@@ -11,7 +11,6 @@
 
 <script>
 import Login from './views/Login.vue'
-import CreateAccount from './views/CreateAccount.vue'
 import ProductList from './views/ProductList.vue'
 import Product from './views/Product.vue'
 import Service from './views/Service.vue'
@@ -35,7 +34,6 @@ export default {
   name: 'App',
   components: {
     Login,
-    CreateAccount,
     ProductList,
     Product,
     Service,
