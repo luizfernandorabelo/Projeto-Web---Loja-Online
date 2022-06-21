@@ -9,7 +9,7 @@
       </li>
     </ul>
   </div>
-  <router-link to="/manageProducts"><button id="add-new-product-btn" style="color: white">+</button></router-link>
+  <router-link to="/manageProduct"><button id="add-new-product-btn" style="color: white">+</button></router-link>
 </template>
 
 
@@ -77,15 +77,16 @@ h3 {
 }
 
 #add-new-product-btn {
-  height: 125px;
-  width: 125px;
+  height: 100px;
+  width: 100px;
   border-radius: 50%;
   border: 1px var(--txt-secondary-color);
   background: var(--txt-secondary-color);
-  font-size: 6rem;
+  font-size: 4rem;
   font-family: Roboto;
   position: absolute;
     bottom: -40px;
     right: 40px;
+  cursor: pointer;
 }
 </style>
