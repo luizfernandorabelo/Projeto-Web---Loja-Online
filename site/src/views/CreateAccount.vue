@@ -38,8 +38,8 @@ export default {
   data() {
     return {
       location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Criar Conta', 'id': 1 }
+        { 'name': 'Home', 'id': 0, 'path': '/' },
+        { 'name': 'Criar Conta', 'id': 1, 'path': '/create-account' },
       ],
       inputs: {
         name: '',

@@ -24,7 +24,7 @@ export default createRouter({
       component: () => import('../views/Login.vue')
     },
     {
-      path: '/product',
+      path: '/product/:id',
       name: 'Product',
       component: () => import('../views/Product.vue')
     },

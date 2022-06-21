@@ -30,8 +30,9 @@
         <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
       </div>
     </div>
-    <Description />
+    <Description :text="description"/>
     <Reviews />
+    <Avaliar :id="parseInt(this.$route.params.id)" :userId="userId"/>
   </div>
 </template>
 
@@ -40,20 +41,26 @@
 import PageLocation from '../components/PageLocation.vue'
 import Description from '../components/Description.vue'
 import Reviews from '../components/Reviews.vue'
+import Products from '../../../jsons/products_and_services.json'
+import Avaliar from '../components/Avaliar.vue'
 export default {
   name: 'Product',
   components: {
     PageLocation,
     Description,
     Reviews,
+    Avaliar
+},
+  beforeMount (){
+    this.getProduct()
   },
   data() {
     return {
       location: [
-        {'name': 'Home', 'id': 0},
-        {'name': 'Animal X', 'id': 1},
-        {'name': 'Categoria Y', 'id': 2},
-        {'name': 'Ração de Teste', 'id': 3}
+        {'name': 'Home', 'id': 0, 'path': '/'},
+        {'name': 'Animal X', 'id': 1, 'path': '/'},
+        // {'name': 'Categoria Y', 'id': 2, 'path': '/product-list'},
+        {'name': 'Ração de Teste', 'id': 2, 'path': ''},
       ],
       name: 'Ração de teste',
       price: 99.99,
@@ -71,10 +78,29 @@ export default {
       deliveryFee: 0,
       deliveryDays: 0,
       showFee: false,
-      cepError: ''
+      cepError: '',
+      description: '',
+      userId: 0,
+      animal: '',
+      categoria: ''
     }
   },
   methods: {
+    getProduct () {
+      const productId = parseInt(this.$route.params.id)
+      const product = Products.find(product => product.id == productId)
+      this.price = product.price
+      this.name = product.name
+      this.imgUrl = product.images[0]
+      // this.amount = product.stock
+      this.description = product.description
+      this.location[1].name = product.categories[0]
+      // this.location[2].name = product.categories[1]
+      this.location[2].name = product.name
+      this.location[2].path = '/product/' + this.$route.params.id
+      // console.log(product.categories[0])
+    },
+
     calculateDeliveryFee() {
       if (!this.isValidCep()) {
         this.cepError = 'Insira um CEP válido!'
