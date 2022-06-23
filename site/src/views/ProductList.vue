@@ -1,10 +1,16 @@
 <template>
   <div id="product-list-container">
-    <h2>{{h2Content}}</h2>
-    <h3>{{h3Content}}</h3>
+    <h2>{{ h2Content }}</h2>
+    <h3>{{ h3Content }}</h3>
     <ul id="products">
       <li v-for="product in products" :key="product.id">
-        <MinProduct :productName="product.name" :productPrice="product.price" :productImgUrl="product.imgUrl"/>
+        <MinProduct
+          :itemId="product.id"
+          :itemName="product.name"
+          :itemPrice="product.price"
+          :itemImgUrl="product.images[0]"
+          :itemType="product.categories.includes('servicos') ? 'service' : 'product'"
+        />
       </li>
     </ul>
   </div>
@@ -12,42 +18,50 @@
 
 
 <script>
-import MinProduct from '../components/MinProduct.vue'
+import MinProduct from "../components/MinProduct.vue";
 export default {
-  name: 'ProductList',
+  name: "ProductList",
   components: {
     MinProduct,
   },
-  props: {
-    h2Content: {
-      type: String,
-      default: '',
-    },
-    h3Content: {
-      type: String,
-      default: '',
-    },
-    products: {
-      default: [
-        { id: 0, name: 'Ração de Teste 1', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 1, name: 'Ração de Teste 2', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 2, name: 'Ração de Teste 3', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 3, name: 'Ração de Teste 4', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 4, name: 'Ração de Teste 5', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 5, name: 'Ração de Teste 6', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 6, name: 'Ração de Teste 7', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 7, name: 'Ração de Teste 8', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 8, name: 'Ração de Teste 9', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-        { id: 9, name: 'Ração de Teste 10', price: 99.99, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg'},
-      ]
+  data() {
+    return {
+      h2Content: '',
+      h3Content: '',
+      products: [],
+    };
+  },
+  created() {
+    const targetAnimal = this.$route.params.animal;
+    if (targetAnimal) {
+      this.h2Content = targetAnimal.toUpperCase();
+      this.h3Content = 'Os melhores produtos para ' + targetAnimal;
+      this.products = JSON.parse(localStorage.getItem('items')).filter(item => item.categories.includes(targetAnimal));
+    } else {
+      this.h2Content = 'Destaques';
+      this.h3Content = 'Os nossos produtos mais vendidos';
+      this.products = JSON.parse(localStorage.getItem('items'));
     }
-  }
-}
+  },
+  updated() {
+    const targetAnimal = this.$route.params.animal;
+    if (targetAnimal) {
+      this.h2Content = targetAnimal.toUpperCase();
+      this.h3Content = 'Os melhores produtos para ' + targetAnimal;
+      this.products = JSON.parse(localStorage.getItem('items')).filter(item => item.categories.includes(targetAnimal));
+    } else {
+      this.h2Content = 'Destaques';
+      this.h3Content = 'Os nossos produtos mais vendidos';
+      this.products = JSON.parse(localStorage.getItem('items'));
+    }
+  },
+};
 </script>
 
 
 <style scoped>
-h2, h3 {
+h2,
+h3 {
   text-align: center;
 }
 
