@@ -8,13 +8,13 @@
           <span>Items</span>
           <span id="clear-cart" @click="clearCart">Limpar carrinho</span>
         </div>
-        <div v-if="items.length == 0" class="header">
-        <p id="empty-cart"> Ooops... parece que seu carrinho está vazio, volte faça algumas compras para o seu animalziho!!!</p>
+        <div v-if="items.length === 0" class="header">
+        <p id="empty-cart"> Ooops... parece que seu carrinho está vazio, volte e faça algumas compras para o seu animalziho!!!</p>
         </div>
         <div class="item" v-else v-for="item in items" :key="item.id">
           <input class="item-check" type="checkbox" name="check" :id="item.id + 'check'" v-model="item.checked"
             @change="updatePrices">
-          <img class="item-img" :src="item.imgUrl" :alt="'Imagem de ' + item.name">
+          <img class="item-img" :src="item.images[0]" :alt="'Imagem de ' + item.name">
           <div id="name-amount-price-container">
             <h3 class="item-name">{{ item.name }}</h3>
             <div>
@@ -23,7 +23,7 @@
               <span class="item-price">R$ {{ item.price }}</span>
             </div>
           </div>
-          <i class="fa-solid fa-trash-can"></i>
+          <i class="fa-solid fa-trash-can" @click="removeItem(item.id)"></i>
         </div>
       </div>
       <div id="order-data-container">
@@ -38,13 +38,13 @@
             </div>
             <div>
               <span class="description">Frete</span>
-              <span class="price">R$ {{ deliveryPrice.toFixed(2) }}</span>
+              <span class="price">R$ {{ deliveryFee.toFixed(2) }}</span>
             </div>
           </div>
           <div class="horizontal-sep"></div>
           <div class="middle-container">
             <span><i class="fa-solid fa-cart-shopping"></i>TOTAL</span>
-            <span>R$ {{ (itemsPrice + deliveryPrice).toFixed(2) }}</span>
+            <span>R$ {{ (itemsPrice + deliveryFee).toFixed(2) }}</span>
           </div>
           <div class="bottom-container">
             <button v-if="items.length > 0" id="finish-purchase-btn">Finalizar a compra</button>
@@ -69,20 +69,32 @@ export default {
   data() {
     return {
       location: [ 
-        {'name': 'Home', 'id': 0},
-        {'name': 'Carrinho', 'id': 1},
+        {name: 'Home', id: 0, path: '/'},
+        {name: 'Carrinho', id: 1, path: '/cart'},
       ],
-      items: [
-        { id: 0, name: 'Ração Aleatória 1', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        { id: 1, name: 'Ração Aleatória 2', amount: 2, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        { id: 2, name: 'Banho e Tosa', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-        { id: 3, name: 'Ração Aleatória 3', amount: 1, checked: true, price: 99.99, delivery: 5.00, imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg' },
-      ],
-      deliveryPrice: 0,
+      items: [],
+      deliveryFee: 0,
       itemsPrice: 0,
     }
   },
+  created() {
+    this.getItems()
+    this.updatePrices()
+  },
   methods: {
+    getItems() {
+      const cart = JSON.parse(localStorage.getItem('user')).cart;
+      cart.items.forEach(item => {
+        let cartItem = JSON.parse(localStorage.getItem('items')).find(itm => itm.id === item.id)
+        cartItem.amount = item.amount
+        cartItem.checked = true
+        this.items.push(cartItem)
+      });
+    },
+    updatePrices() {
+      this.calculateDeliveryPrice(),
+      this.calculateItemsPrice()
+    },
     calculateItemsPrice() {
       this.itemsPrice = 0
       for (let item of this.items) {
@@ -90,23 +102,29 @@ export default {
       }
     },
     calculateDeliveryPrice() {
-      this.deliveryPrice = 0
       for (let item of this.items) {
-        this.deliveryPrice += item.checked ? item.delivery : 0
+        if (item.checked) {
+          this.deliveryFee = JSON.parse(localStorage.getItem('user')).cart.deliveryFee;
+          return;
+        }
       }
+      this.deliveryFee = 0;
     },
-    updatePrices() {
-      this.calculateDeliveryPrice(),
-        this.calculateItemsPrice()
+    removeItem(itemId) {
+      this.items = this.items.filter(item => item.id !== itemId);
+      const user = JSON.parse(localStorage.getItem('user'));
+      user.cart.items = user.cart.items.filter(item => item.id !== itemId);
+      localStorage.setItem('user', JSON.stringify(user));
     },
     clearCart() {
-      console.log('limpando carrinho')
       this.items = []
       this.updatePrices()
-    }
-  },
-  mounted() {
-    this.updatePrices()
+      const user = JSON.parse(localStorage.getItem('user'));
+      user.cart.items = [];
+      user.cart.deliveryFee = 0;
+      user.cart.cep = '';
+      localStorage.setItem('user', JSON.stringify(user));
+    },
   },
 }
 </script>
@@ -125,8 +143,11 @@ h2 {
   margin-top: 20px;
 }
 
+#items-container {
+  width: 600px
+}
+
 #items-container .header {
-  width: 450px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -151,11 +172,14 @@ h2 {
   align-items: center;
   border: 1px solid var(--txt-terciary-color);
   border-radius: 10px;
-  width: 450px;
   margin-bottom: 10px;
   padding: 5px;
   box-sizing: border-box;
   position: relative;
+}
+
+.item h3 {
+  width: 400px;
 }
 
 .fa-trash-can {
@@ -286,5 +310,23 @@ h2 {
 .horizontal-sep {
   width: 99%;
   border-top: 1px dashed var(--txt-terciary-color);
+}
+
+@media (max-width: 1100px) {
+  #main-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  #items-container {
+    width: 90%;
+  }
+  .item h3 {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  #items-container {
+    width: 95%;
+  }
 }
 </style>
