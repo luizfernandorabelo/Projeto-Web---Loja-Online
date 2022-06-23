@@ -1,7 +1,10 @@
 <template>
   <div id="top-header-container">
-    <h1>Azulão Petshop</h1>
-    <img src="../assets/logo.png" alt="Logo">
+    <router-link to="/">
+      <img src="../assets/name.png" alt="" id="name">
+    </router-link>
+    <!-- <h1>Azulão Petshop</h1> -->
+    <img src="../assets/logo.png" alt="Logo" id="logo">
     <ul id="icon-list">
       <li>
         <router-link to="/cart"><i class="fa fa-shopping-cart"></i></router-link>
@@ -45,17 +48,23 @@ export default {
   color: var(--txt-secondary-color);
 }
 
-h1 {
-  font-size: 1.3rem;
-  font-weight: 900;
-  width: 150px;
+#name {
+  width: 200px;
+}
+
+#logo {
+  height: 60px;
 }
 
 #icon-list {
   list-style-type: none;
   display: flex;
-  width: 150px;
-  justify-content: space-evenly;
+  width: 200px;
+  justify-content: flex-start;
+}
+
+#icon-list li:first-child i {
+  margin: 0 25px 0 75px;
 }
 
 #icon-list li:last-child i {

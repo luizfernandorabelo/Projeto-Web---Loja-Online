@@ -81,11 +81,15 @@ export default {
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
 
 :root {
-  /* --bg-primary-color: rgb(0, 0, 0); */
+  /* --bg-primary-color: rgb(0, 0, 0);
+  --bg-secondary-color: rgb(20, 159, 170);
+  --bg-terciary-color: rgb(255, 255, 255);
+  --txt-primary-color: rgb(255, 255, 255);
+  --txt-secondary-color: rgb(20, 159, 170);
+  --txt-terciary-color: rgb(0, 0, 0); */
   --bg-primary-color: white;
   --bg-secondary-color: rgb(20, 150, 170);
-  /* --txt-primary-color: rgb(255, 255, 255);
-  --txt-secondary-color: rgb(20, 159, 170); */
+  --bg-terciary-color: black;
   --txt-primary-color: white;
   --txt-secondary-color: rgb(20, 159, 170);
   --txt-terciary-color: black;
@@ -102,16 +106,6 @@ export default {
 
 html {
   background-color: var(--bg-primary-color);
-}
-
-hr {
-  height: 5px;
-  background-color: black;
-}
-
-.separator {
-  margin: 30px 0;
-  border-top: 1px dotted black;
 }
 
 .yellow {
