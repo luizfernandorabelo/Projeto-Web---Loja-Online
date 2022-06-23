@@ -64,8 +64,8 @@ export default {
   data() {
     return {
       location: [
-        { 'name': 'Home', 'id': 0 },
-        { 'name': 'Conta', 'id': 1 }
+        { 'name': 'Home', 'id': 0, 'path': '/' },
+        { 'name': 'Conta', 'id': 1, 'path': 'acount' }
       ],
       inputs: {
         name: '',
