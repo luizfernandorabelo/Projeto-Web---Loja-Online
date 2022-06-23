@@ -38,6 +38,11 @@ export default {
         holderCPF: '98765432100',
         billingAddress: 'Rua Adolfo Catani 233, apartamento 12, São Carlos, SP',
         expiringDate: '11/26'
+      },
+      cart: {
+        items: [],
+        cep: '',
+        deliveryFee: 0
       }
     }
   ]
