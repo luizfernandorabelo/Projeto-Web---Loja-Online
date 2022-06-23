@@ -1,7 +1,8 @@
 <template>
   <div id="reviews-container">
     <h3>Avaliações</h3>
-    <Review v-for="review in reviews" :key="review.userName" :userName="review.userName" :stars="review.stars" :comment="review.comment"/>
+    <p v-if="reviews.length === 0" class="no-reviews">Esse produto ainda não tem avaliações</p>
+    <Review v-else v-for="review in reviews" :key="review.userName" :userName="review.userName" :stars="review.stars" :comment="review.comment"/>
   </div>  
 </template>
 
@@ -13,13 +14,10 @@ export default {
   components: {
     Review
   },
-  data() {
-    return {
-      reviews: [
-        { userName: 'Rosângela', stars: 4, comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Vero, ratione eos voluptate blanditiis facilis omnis harum similique!' },
-        { userName: 'Edicreusa', stars: 3, comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur vero cupiditate eligendi, nostrum, numquam ducimus inventore voluptate iste in accusantium quibusdam. Vero, ratione eos voluptate blanditiis facilis omnis harum similique!' }
-      ]
-    };
+  props: {
+    reviews: {
+      default: [],
+    }
   },
 }
 </script>
@@ -29,6 +27,10 @@ export default {
 #reviews-container {
   margin-top: 30px;
   margin-bottom: 30px;
+}
+
+p.no-reviews {
+  margin-left: 3%;
 }
 
 h3 {

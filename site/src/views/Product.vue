@@ -1,137 +1,176 @@
 <template>
   <div id="product-container">
-    <PageLocation :location="location"/>
+    <PageLocation :location="location" />
     <div id="product-area">
-      <img id="product-img" :src="imgUrl" :alt="name + ' image'">
+      <img id="product-img" :src="productInfo.images[0]" :alt="productInfo.name + ' image'" />
       <div id="product-info">
-        <h3 id="product-name">{{ name }}</h3>
+        <h3 id="product-name">{{ productInfo.name }}</h3>
         <div id="short-review-container">
-          <p id="total-stars">{{ review.totalStars.toFixed(2) }}</p>
+          <p id="total-stars">{{ productInfo.rating.totalStars.toFixed(2) }}</p>
           <div id="stars-container">
-            <i class="fa-solid fa-star yellow" v-for="index in review.totalStars" :key="index"></i>
-            <i class="fa-solid fa-star gray" v-for="index in 5 - review.totalStars" :key="index"></i>
+            <i
+              class="fa-solid fa-star yellow"
+              v-for="index in productInfo.rating.totalStars"
+              :key="index"
+            ></i>
+            <i
+              class="fa-solid fa-star gray"
+              v-for="index in 5 - productInfo.rating.totalStars"
+              :key="index"
+            ></i>
           </div>
-          <p id="total-opinions">({{ review.totalOpinions }}) opiniões</p>
+          <p id="total-opinions">({{ productInfo.rating.feedbacks.length }}) opiniões</p>
         </div>
         <div id="price-amount-container">
           <div id="price-container">
-            <p id="product-price">R$ {{ (price * amount).toFixed(2) }}</p>
+            <p id="product-price">R$ {{ (productInfo.price * inputs.amount).toFixed(2) }}</p>
             <p id="payment-type">à vista</p>
           </div>
-          <input type="number" name="product-amount" id="product-amount" min="1" v-model="amount">
+          <input
+            type="number"
+            name="product-amount"
+            id="product-amount"
+            min="1"
+            :max="productInfo.stock"
+            v-model="inputs.amount"
+          />
         </div>
         <div id="cep-container">
           <label for="cep">Calcule o frete e o prazo de entrega:</label>
-          <p v-if="cepError" class="error">{{ cepError }}</p>
-          <input type="text" name="cep" id="cep" placeholder="Digite seu cep" v-model="cep" v-on:keyup.enter="confirmar">
-          <button id="search-cep-btn" @click="calculateDeliveryFee">calcular</button>
-          <p v-if="showFee" class="info">R$ {{ deliveryFee.toFixed(2) }} (entrega em {{ deliveryDays }} dias)</p>
+          <p v-if="errors.cep" class="error">{{ errors.cep }}</p>
+          <input
+            type="text"
+            name="cep"
+            id="cep"
+            placeholder="Digite seu cep"
+            v-model="inputs.cep"
+            v-on:keyup.enter="calculateDeliveryFee"
+          />
+          <button id="search-cep-btn" @click="calculateDeliveryFee">
+            calcular
+          </button>
+          <p v-if="delivery.showFee" class="info">
+            R$ {{ delivery.fee.toFixed(2) }} (entrega em {{ delivery.days }} dias)
+          </p>
         </div>
-        <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
+        <button id="add-to-cart-btn" @click="addToCart">Adicionar ao carrino</button>
       </div>
     </div>
-    <Description :text="description"/>
-    <Reviews />
-    <Avaliar :id="parseInt(this.$route.params.id)" :userId="userId"/>
+    <Description :text="productInfo.description" />
+    <Reviews :reviews="productInfo.rating.feedbacks"/>
+    <!-- <Avaliar :id="parseInt(this.$route.params.id)" :userId="userId" /> -->
   </div>
 </template>
 
 
 <script>
-import PageLocation from '../components/PageLocation.vue'
-import Description from '../components/Description.vue'
-import Reviews from '../components/Reviews.vue'
-import Avaliar from '../components/Avaliar.vue'
-import router from '@/router'
+import PageLocation from "../components/PageLocation.vue";
+import Description from "../components/Description.vue";
+import Reviews from "../components/Reviews.vue";
+import Avaliar from "../components/Avaliar.vue";
+import router from '@/router';
 export default {
-  name: 'Product',
+  name: "Product",
   components: {
     PageLocation,
     Description,
     Reviews,
-    Avaliar
-},
-  beforeMount (){
-    this.getProduct()
+    Avaliar,
   },
   data() {
     return {
       location: [
-        {'name': 'Home', 'id': 0, 'path': '/'},
-        {'name': 'Animal X', 'id': 1, 'path': '/'},
-        // {'name': 'Categoria Y', 'id': 2, 'path': '/product-list'},
-        {'name': 'Ração de Teste', 'id': 2, 'path': ''},
+        { name: "Home", id: 0, path: "/" },
       ],
-      name: 'Ração de teste',
-      price: 99.99,
-      imgUrl: 'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
-      review: {
-        totalOpinions: 99,
-        totalStars: 4,
-        comments: [
-          { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
-          { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
-        ]
+      inputs: {
+        amount: 1,
+        cep: "",
       },
-      amount: 1,
-      cep: '',
-      deliveryFee: 0,
-      deliveryDays: 0,
-      showFee: false,
-      cepError: '',
-      description: '',
-      userId: 0,
-      animal: '',
-      categoria: ''
-    }
+      errors: {
+        cep: "",
+      },
+      delivery: {
+        fee: 0,
+        days: 0,
+        showFee: false,
+      },
+      productInfo: {
+        name: "",
+        images: [],
+        rating: {},
+        price: 0,
+        stock: 0,
+        description: "",
+      },
+    };
+  },
+  created() {
+    this.getProduct();
   },
   methods: {
-    getProduct () {
-      const productId = parseInt(this.$route.params.id)
-      const product = JSON.parse(localStorage.getItem('items')).find(product => product.id == productId)
-      if (product.categories.includes("servicos")){
-        router.push('/service/' + this.$route.params.id)
-      }
-      this.price = product.price
-      this.name = product.name
-      this.imgUrl = product.images[0]
-      // this.amount = product.stock
-      this.description = product.description
-      this.location[1].name = product.categories[0]
-      // this.location[2].name = product.categories[1]
-      this.location[2].name = product.name
-      this.location[2].path = '/product/' + this.$route.params.id
-      // console.log(product.categories[0])
+    getProduct() {
+      const product = JSON.parse(localStorage.getItem("items")).find(
+        (product) => product.id == this.$route.params.id
+      );
+      this.location.push({ name: product.categories[0], id: 1, path: '/' + product.categories[0] })
+      this.location.push({ name: product.name, id: 2, path: "" })
+      this.productInfo.name = product.name;
+      this.productInfo.images = product.images;
+      this.productInfo.rating = product.rating;
+      this.productInfo.price = product.price;
+      this.productInfo.stock = product.stock;
+      this.productInfo.description = product.description
     },
-
     calculateDeliveryFee() {
       if (!this.isValidCep()) {
-        this.cepError = 'Insira um CEP válido!'
-        this.showFee = false
+        this.errors.cep = "Insira um CEP válido!";
+        this.delivery.showFee = false;
       } else {
-        let cepInfo = JSON.parse(localStorage.getItem('cep'))[this.sumCepDigits() % 10]
-        this.deliveryFee = cepInfo.fee
-        this.deliveryDays = cepInfo.days
-        this.showFee = true
-        this.cepError = ''
+        let cepInfo = JSON.parse(localStorage.getItem("cep"))[
+          this.sumCepDigits() % 10
+        ];
+        this.delivery.fee = cepInfo.fee;
+        this.delivery.days = cepInfo.days;
+        this.delivery.showFee = true;
+        this.errors.cep = "";
       }
     },
     isValidCep() {
-      for (let digit of this.cep) {
-        if (isNaN(parseInt(digit)))
-          return false
+      for (let digit of this.inputs.cep) {
+        if (isNaN(parseInt(digit))) return false;
       }
-      return this.cep !== '' && this.cep.length === 8
+      return this.inputs.cep !== "" && this.inputs.cep.length === 8;
     },
     sumCepDigits() {
       let digitSum = 0;
-      for (let digit of this.cep) {
-        digitSum += parseInt(digit)
+      for (let digit of this.inputs.cep) {
+        digitSum += parseInt(digit);
       }
-      return digitSum
+      return digitSum;
+    },
+    addToCart() {
+      if (this.isValidCep()) {
+        this.calculateDeliveryFee()
+        this.updateUser()
+        window.location.href = "/cart"
+      } else {
+        this.errors.cep = "Digite um cep válido para continuar!"
+      }
+    },
+    updateUser() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const existingItem = user.cart.items.find(item => item.id == this.$route.params.id)
+      if (existingItem) {
+        existingItem.amount += this.inputs.amount;
+      } else {
+        user.cart.items.push({id: parseInt(this.$route.params.id), amount: this.inputs.amount});
+      }
+      user.cart.cep = this.inputs.cep;
+      user.cart.deliveryFee = this.delivery.fee;
+      localStorage.setItem('user', JSON.stringify(user));
     }
-  }
-}
+  },
+};
 </script>
 
 
@@ -177,7 +216,7 @@ export default {
 }
 
 #total-opinions {
-  font-size: .8rem;
+  font-size: 0.8rem;
 }
 
 #price-amount-container {
@@ -217,12 +256,12 @@ export default {
 
 #cep-container .error {
   color: red;
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-bottom: 5px;
 }
 
 #cep-container .info {
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-top: 12px;
 }
 

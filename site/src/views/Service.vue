@@ -2,43 +2,43 @@
   <div id="service-container">
     <PageLocation :location="location"/>
     <div id="service-area">
-      <img id="service-img" :src="imgUrl" :alt="name + ' image'">
+      <img id="service-img" :src="serviceInfo.images[0]" :alt="serviceInfo.name + ' image'">
       <div id="service-info">
-        <h3 id="service-name">{{ name }}</h3>
+        <h3 id="service-name">{{ serviceInfo.name }}</h3>
         <div id="short-review-container">
-          <p id="total-stars">{{ review.totalStars.toFixed(2) }}</p>
+          <p id="total-stars">{{ serviceInfo.rating.totalStars.toFixed(2) }}</p>
           <div id="stars-container">
-            <i class="fa-solid fa-star yellow" v-for="index in review.totalStars" :key="index"></i>
-            <i class="fa-solid fa-star gray" v-for="index in 5 - review.totalStars" :key="index"></i>
+            <i class="fa-solid fa-star yellow" v-for="index in serviceInfo.rating.totalStars" :key="index"></i>
+            <i class="fa-solid fa-star gray" v-for="index in 5 - serviceInfo.rating.totalStars" :key="index"></i>
           </div>
-          <p id="total-opinions">({{ review.totalOpinions }}) opiniões</p>
+          <p id="total-opinions">({{ serviceInfo.rating.feedbacks.length }}) opiniões</p>
         </div>
         <div id="price-amount-container">
           <div id="price-container">
-            <p id="service-price">R$ {{ (price * amount).toFixed(2) }}</p>
+            <p id="service-price">R$ {{ (serviceInfo.price * inputs.amount).toFixed(2) }}</p>
             <p id="payment-type">à vista</p>
           </div>
-          <input type="number" name="service-amount" id="service-amount" min="1" v-model="amount">
+          <input type="number" name="service-amount" id="service-amount" min="1" :max="serviceInfo.stock" v-model="inputs.amount">
         </div>
         <div id="cep-container">
           <label for="cep">Informe o CEP</label>
-          <p v-if="cepError" class="error">{{ cepError }}</p>
-          <input type="text" name="cep" id="cep" placeholder="Digite seu cep" v-model="cep">
+          <p v-if="errors.cep" class="error">{{ errors.cep }}</p>
+          <input type="text" name="cep" id="cep" placeholder="Digite seu cep" v-model="inputs.cep">
           <button id="search-cep-btn" @click="checkCepAvailability">Buscar</button>
           <p v-if="cepInfo" class="info"> {{ cepInfo }}</p>
         </div>
         <div id="date-container">
           <label for="date">Informe a data desejada</label>
-          <p v-if="dateError" class="error">{{ dateError }}</p>
-          <input type="date" name="date" id="date" placeholder="dd/mm/aa" v-model="date">
+          <p v-if="errors.date" class="error">{{ errors.date }}</p>
+          <input type="date" name="date" id="date" placeholder="dd/mm/aa" v-model="inputs.date">
           <button id="search-date-btn" @click="checkDateAvailability">Buscar</button>
           <p v-if="dateInfo" class="info"> {{dateInfo}}</p>
         </div>
-        <router-link to="/cart"><button id="add-to-cart-btn">Adicionar ao carrino</button></router-link>
+        <button id="add-to-cart-btn" @click="addToCart">Adicionar ao carrino</button>
       </div>
     </div>
-    <Description />
-    <Reviews />
+    <Description :text="serviceInfo.description"/>
+    <Reviews :reviews="serviceInfo.rating.feedbacks"/>
   </div>
 </template>
 
@@ -47,67 +47,61 @@
 import PageLocation from '../components/PageLocation.vue'
 import Description from '../components/Description.vue'
 import Reviews from '../components/Reviews.vue'
-import router from '@/router'
+import Avaliar from '../components/Avaliar.vue'
 export default {
   name: 'Service',
   components: {
     PageLocation,
     Description,
     Reviews,
-  },
-  beforeMount(){
-    this.getServices()
+    Avaliar,
   },
   data() {
     return {
       location: [
-        {'name': 'Home', 'id': 0, 'path': '/'},
-        {'name': 'Animal X', 'id': 1, 'path': '/'},
-        // {'name': 'Categoria Y', 'id': 2},
-        {'name': 'Banho de Teste', 'id': 2, 'path': ''},
+        { name: "Home", id: 0, path: "/" },
       ],
-      name: 'Banho de teste',
-      price: 99.99,
-      imgUrl: 'https://institutouniversal.vteximg.com.br/arquivos/ids/156886-1000-1000/image_banho_e_tosa.jpg?v=635367146237300000',
-      review: {
-        totalOpinions: 99,
-        totalStars: 4,
-        comments: [
-          { userName: 'Rosângela', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit.' },
-          { userName: 'Edicreusa', comment: 'Lorem ipsilum dolor sit amet, consectetur adipiscing elit. Lorem ipislum dolor. Consectetur adipiscing elit.' }
-        ]
+      inputs: {
+        amount: 1,
+        cep: "",
+        date: "",
       },
-      amount: 1,
-      cep: '',
-      cepError: '', 
-      cepInfo: '',
-      date: '',
-      dateError: '',
-      dateInfo: ''
+      errors: {
+        cep: "",
+        date: "",
+      },
+      serviceInfo: {
+        name: '',
+        images: [],
+        rating: {},
+        price: 0,
+        stock: 0,
+        description: "",
+      },
+      cepInfo: "",
+      dateInfo: "",
     }
   },
+  created() {
+    this.getService();
+  },
   methods: {
-    getServices() {
-      let id = this.$route.params.id;
-      let service = JSON.parse(localStorage.getItem(items)).find(service => service.id == id);
-      // console.log(service);
-      if (!service.categories.includes("servicos")){
-        router.push('/products/' + this.$router.params.id);
-      }
-      else {
-        this.name = service.name;
-        this.price = service.price;
-        this.imgUrl = service.images[0];
-        this.location[2].name = service.name;
-        this.location[2].path = '/service/' + id;
-        this.location[1].name = service.categories[0]
-        // this.review = service.review;
-        // console.log(this.name);
-      }
+    getService() {
+      const service = JSON.parse(localStorage.getItem("items")).find(
+        (service) => service.id == this.$route.params.id
+      );
+      this.location.push({ name: service.categories[0], id: 1, path: '/' + service.categories[0] })
+      this.location.push({ name: service.name, id: 2, path: "" })
+      this.serviceInfo.name = service.name;
+      this.serviceInfo.images = service.images;
+      this.serviceInfo.rating = service.rating;
+      this.serviceInfo.price = service.price;
+      this.serviceInfo.stock = service.stock;
+      this.serviceInfo.description = service.description
     },
     checkCepAvailability() {
       if (!this.isValidCep()) {
-        this.cepError = 'Insira um CEP válido!'
+        this.errors.cep = 'Insira um CEP válido!'
         this.cepInfo = ''
       } else {
         if (!this.isAttendingCep()) {
@@ -115,34 +109,54 @@ export default {
         } else {
           this.cepInfo = 'Atendemos sua região!'
         }
-        this.cepError = ''
+        this.errors.cep = ''
       }
     },
     isValidCep() {
-      for (let digit of this.cep) {
+      for (let digit of this.inputs.cep) {
         if (isNaN(parseInt(digit)))
           return false
       }
-      return this.cep !== '' && this.cep.length === 8
+      return this.inputs.cep !== '' && this.inputs.cep.length === 8
     },
     isAttendingCep() {
-      return this.cep.startsWith('13560')
+      return this.inputs.cep.startsWith('13560')
     },
     checkDateAvailability() {
       if (!this.isValidDate()) {
-        this.dateError = 'Insira uma data válida!'
+        this.errors.date = 'Insira uma data válida!'
         this.dateInfo = ''
       } else {
         this.dateInfo = 'Temos vagas nessa data!'
-        this.dateError = ''
+        this.errors.date = ''
       }
     },
     isValidDate() {
-      if (this.date === '')
+      if (this.inputs.date === '')
         return false;
-      let expectedDay = new Date(this.date)
+      let expectedDay = new Date(this.inputs.date)
       let today = new Date()
       return expectedDay >= today
+    },
+    addToCart() {
+      if (this.isValidCep() && this.isAttendingCep() && this.isValidDate()) {
+        this.updateUser()
+        window.location.href = "/cart"
+      } else {
+        alert('Verifique os campos CEP e DATA!')
+      }
+    },
+    updateUser() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      const existingItem = user.cart.items.find(item => item.id == this.$route.params.id)
+      if (existingItem) {
+        existingItem.amount += this.inputs.amount;
+      } else {
+        user.cart.items.push({id: parseInt(this.$route.params.id), amount: this.inputs.amount});
+      }
+      user.cart.cep = this.inputs.cep;
+      user.cart.deliveryFee = 10;
+      localStorage.setItem('user', JSON.stringify(user));
     }
   }
 }
