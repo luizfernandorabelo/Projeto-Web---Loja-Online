@@ -1,17 +1,26 @@
 <template>
   <div id="top-header-container">
     <router-link to="/">
-      <img src="../assets/name.png" alt="" id="name">
+      <img src="../assets/name.png" alt="" id="name" />
     </router-link>
     <!-- <h1>Azulão Petshop</h1> -->
-    <img src="../assets/logo.png" alt="Logo" id="logo">
+    <img src="../assets/logo.png" alt="Logo" id="logo" />
     <ul id="icon-list">
       <li>
-        <router-link to="/cart"><i class="fa fa-shopping-cart"></i></router-link>
+        <router-link v-if="logged" to="/cart"
+          ><i class="fa fa-shopping-cart"></i
+        ></router-link>
+        <router-link v-else to="/login"
+          ><i class="fa fa-shopping-cart"></i
+        ></router-link>
       </li>
       <li>
-        <router-link v-if="!logged" to="/login"><i class="fa fa-solid fa-user"></i>Entrar</router-link>
-        <router-link v-else to="/account"><i class="fa fa-solid fa-user"></i>Conta</router-link>
+        <router-link v-if="!logged" to="/login"
+          ><i class="fa fa-solid fa-user"></i>Entrar</router-link
+        >
+        <router-link v-else to="/account"
+          ><i class="fa fa-solid fa-user"></i>Conta</router-link
+        >
       </li>
     </ul>
   </div>
@@ -20,21 +29,21 @@
 
 <script>
 export default {
-  name: 'TopHeader',
+  name: "TopHeader",
   data() {
     return {
       logged: false,
-    }
+    };
   },
   created() {
-    this.verifyLogin()
+    this.verifyLogin();
   },
   methods: {
     verifyLogin() {
-      this.logged = localStorage.getItem('user') !== null
-    }
-  }
-}
+      this.logged = localStorage.getItem("user") !== null;
+    },
+  },
+};
 </script>
 
 
