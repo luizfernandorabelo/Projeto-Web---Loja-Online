@@ -51,7 +51,10 @@
         <input type="text" name="expiring-date" id="expiring-date" placeholder="Data de expiração (mm/aa)" v-model="inputs.expiringDate">
       </div>
     </div>
-    <button @click="validateAccount">Salvar</button>
+    <div id="buttons-container">
+      <button @click="logOut" id="logout-btn">Sair</button>
+      <button @click="validateAccount" id="save-btn">Salvar</button>
+    </div>
   </div>
 </template>
 
@@ -348,6 +351,10 @@ export default {
         }
       }
       return false
+    },
+    logOut() {
+      localStorage.removeItem('user');
+      window.location.href = '/login';
     }
   }
 }
@@ -389,8 +396,13 @@ input {
   box-sizing: border-box;
 }
 
+#buttons-container {
+  margin: 30px 5% 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 button {
-  background-color: var(--bg-secondary-color);
   color: var(--txt-primary-color);
   height: 40px;
   width: 75px;
@@ -401,7 +413,15 @@ button {
   cursor: pointer;
   box-sizing: border-box;
   display: block;
-  margin: 30px 89% 20px;
+}
+
+#logout-btn {
+  background-color: rgb(225, 0, 0);
+  margin-right: 10px;
+}
+
+#save-btn {
+  background-color: var(--bg-secondary-color);
 }
 
 @media (max-width: 1000px) {
