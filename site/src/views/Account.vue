@@ -52,11 +52,10 @@
       </div>
     </div>
     <div id="buttons-container">
-      <button  v-if="this.is_adm" id="save-btn"><router-link to="/manageUsers">Gerenciar Usuários</router-link></button>
-      <button  v-if="this.is_adm" id="save-btn"><router-link to="/manageProducts">Gerenciar Produtos</router-link></button>
-      <button @click="logOut" id="logout-btn">Sair</button>
+      <button v-if="this.isAdmin" id="manage-users-btn"><router-link to="/manageUsers">Gerenciar Usuários</router-link></button>
+      <button v-if="this.isAdmin" id="manage-products-btn"><router-link to="/manageProducts">Gerenciar Produtos</router-link></button>
+      <button v-if="this.logged" @click="logOut" id="logout-btn">Sair</button>
       <button @click="validateAccount" id="save-btn">Salvar</button>
-
     </div>
   </div>
 </template>
@@ -102,20 +101,13 @@ export default {
         password: '',
         confirmPasswd: '',
         cep: '',
-        // city: '',
-        // state: '',
-        // district: '',
-        // street: '',
-        // number: '',
-        // complement: '',
         cardNumber: '',
-        // cardHolderName: '',
         cardHolderCPF: '',
         billingAddress: '',
         expiringDate: ''
       },
       logged: false,
-      is_adm: false
+      isAdmin: false
     }
   },
   created() {
@@ -127,8 +119,13 @@ export default {
     fetchUser() {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.users = JSON.parse(localStorage.getItem('users'))
-      this.logged = this.user !== null
-      this.is_adm = this.user.admin
+      if (this.user !== null) {
+        this.logged = true;
+        this.isAdmin = this.user.admin
+      } else {
+        this.logged = false;
+        this.isAdmin = false;
+      }
     },
     autoFillInputs() {
       this.inputs.name = this.user.personalInfo.name
@@ -168,8 +165,8 @@ export default {
           this.updateUserObject()
         else
           this.createUserObject()
+        window.location.href = '/'
       } 
-      window.location.href = '/'
     },
     clearErrors() {
       for (let error in this.errors) {
@@ -427,6 +424,12 @@ button {
 
 #save-btn {
   background-color: var(--bg-secondary-color);
+}
+
+#manage-users-btn, #manage-products-btn {
+  background-color: var(--bg-secondary-color);
+  width: 160px;
+  margin-right: 10px;
 }
 
 @media (max-width: 1000px) {
