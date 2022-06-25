@@ -32,8 +32,6 @@ footer {
   justify-content: space-between;
   color: var(--txt-primary-color);
   padding: 20px 50px;
-  position: sticky;
-  bottom: 0;
 }
 
 footer h3 {
