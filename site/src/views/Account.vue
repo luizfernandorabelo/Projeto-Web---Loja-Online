@@ -52,8 +52,11 @@
       </div>
     </div>
     <div id="buttons-container">
+      <button  v-if="this.is_adm" id="save-btn"><router-link to="/manageUsers">Gerenciar Usuários</router-link></button>
+      <button  v-if="this.is_adm" id="save-btn"><router-link to="/manageProducts">Gerenciar Produtos</router-link></button>
       <button @click="logOut" id="logout-btn">Sair</button>
       <button @click="validateAccount" id="save-btn">Salvar</button>
+
     </div>
   </div>
 </template>
@@ -112,6 +115,7 @@ export default {
         expiringDate: ''
       },
       logged: false,
+      is_adm: false
     }
   },
   created() {
@@ -124,6 +128,7 @@ export default {
       this.user = JSON.parse(localStorage.getItem('user'))
       this.users = JSON.parse(localStorage.getItem('users'))
       this.logged = this.user !== null
+      this.is_adm = this.user.admin
     },
     autoFillInputs() {
       this.inputs.name = this.user.personalInfo.name
