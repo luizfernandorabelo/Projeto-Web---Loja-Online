@@ -49,6 +49,11 @@ export default createRouter({
       component: () => import('../views/ManageUsers.vue'),
     },
     {
+      path: '/finishPurchase',
+      name: 'FinishPurchase',
+      component: () => import('../views/FinishPurchase.vue'),
+    },
+    {
       path: '/service/:id',
       name: 'Service',
       component: () => import('../views/Service.vue'),

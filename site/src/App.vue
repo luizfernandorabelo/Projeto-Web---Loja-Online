@@ -18,6 +18,8 @@ import Cart from './views/Cart.vue'
 import ManageProducts from './views/ManageProducts.vue'
 import ManageProduct from './views/ManageProduct.vue'
 import ManageUsers from './views/ManageUsers.vue'
+import FinishPurchase from './views/FinishPurchase.vue'
+
 import TopHeader from './components/TopHeader.vue'
 import CategoriesBar from './components/CategoriesBar.vue'
 import Footer from './components/Footer.vue'
@@ -41,6 +43,7 @@ export default {
     ManageProducts,
     ManageProduct,
     ManageUsers,
+    FinishPurchase,
     TopHeader,
     CategoriesBar,
     Footer,
