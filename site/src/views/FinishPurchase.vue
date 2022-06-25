@@ -9,22 +9,14 @@
         </div>
         <div class="middle-container">
           <div>
-            <div id="credit-card">Cartão de crédito</div>
-            <div id="botton-middle-container">
+            <div id="credit-card">
+              <img src="../assets/credit-cart.png" alt="Cartão de Crédito">
+              <p>Cartão {{creditCart}}</p>
+            </div>
+            <div id="bottom-middle-container">
               <input id="cvv" type="number" placeholder="CVV" min="000" max="999"/>
               <select id="installments">
-                <option value="1">1x de R$ {{total}}</option>
-                <option value="2">2x de R$ {{total / 2}}</option>
-                <option value="3">3x de R$ {{total / 3}}</option>
-                <option value="4">4x de R$ {{total / 4}}</option>
-                <option value="5">5x de R$ {{total / 5}}</option>
-                <option value="6">6x de R$ {{total / 6}}</option>
-                <option value="7">7x de R$ {{total / 7}}</option>
-                <option value="8">8x de R$ {{total / 8}}</option>
-                <option value="9">9x de R$ {{total / 9}}</option>
-                <option value="10">10x de R$ {{total / 10}}</option>
-                <option value="11">11x de R$ {{total / 11}}</option>
-                <option value="12">12x de R$ {{total / 12}}</option>
+                <option v-for="i in 12" :key="i" value="i">{{i}}x de R$ {{(total / i).toFixed(2)}}</option>
               </select>
             </div>
           </div>
@@ -34,9 +26,12 @@
           <div id="confirmation-message">
             <span>Confirme o endereço</span>
           </div>
-          <div id="adress">Endereço de entrega</div>
+          <div id="address">
+            <img src="../assets/location.png" alt="Localização">
+            <p>Endereço de entrega</p>
+          </div>
           <div id="delivery-time">
-            <span>Prazo de entrega</span>
+            <span>Entrega em {{deliveryDays}} dias</span>
           </div>
           <router-link to="/">
             <button id="finish-purchase-btn">Finalizar compra</button>
@@ -60,8 +55,11 @@ export default {
       location: [ 
         {name: 'Home', id: 0, path: '/'},
         {name: 'Carrinho', id: 1, path: '/cart'},
-        {name: 'Finalizar compra', id: 2, path: '/finishpurchase'},
+        {name: 'Finalizar compra', id: 2, path: '/finishPurchase'},
       ],
+      total: 1000,
+      creditCart: '',
+      deliveryDays: 0,
     }
   },
   methods: {
@@ -79,8 +77,7 @@ export default {
 
 h2 {
   text-align: center;
-  margin-bottom: 40px;
-  margin-top: 20px;
+  margin: 20px 0;
 }
 
 #summary-container {
@@ -97,14 +94,24 @@ h2 {
 
 #credit-card {
   padding: 5px;
-  margin: 15px 5px 5px;
-  width: 300px;
+  margin: 15px 0 5px;
+  width: 100%;
+  height: 40px;
   text-align: center;
   border: 1px solid var(--txt-terciary-color);
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  box-sizing: border-box;
 }
 
-#botton-middle-container {
+#credit-card img {
+  height: 30px;
+  width: 45px;
+}
+
+#bottom-middle-container {
   display: flex;
   justify-content: space-evenly;
 }
@@ -127,24 +134,26 @@ h2 {
   border-radius: 10px;
 }
 
-#summary-container .bottom-container {
-  justify-content: left;
-}
-
 #confirmation-message {
-  padding: 10px 0px;
+  margin: 10px 0px 15px;
+  text-align: center;
 }
 
-#confirmation-message span {
-  justify-content: left;
-}
-
-#adress {
+#address {
+  width: 90%;
   padding: 5px;
-  margin: 5px;
+  margin: 5px auto;
   text-align: center;
   border: 1px solid var(--txt-terciary-color);
   border-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+#address img {
+  width: 30px;
+  height: 35px;
 }
 
 #delivery-time {
@@ -158,14 +167,13 @@ h2 {
   font-size: 0.9rem;
 }
 
-#summary-container .top-container {
-  display: flex;
-  justify-content: left;
-  width: 330px;
-}
-
 #summary-container .middle-container {
   justify-content: center;
+}
+
+#summary-container .bottom-container {
+  width: 100%;
+  margin: 0;
 }
 
 #finish-purchase-btn {
@@ -176,7 +184,7 @@ h2 {
   width: 175px;
   font-weight: 400;
   display: block;
-  justify-content: right;
+  margin: auto;
 }
 
 #finish-purchase-btn {
@@ -191,6 +199,17 @@ h2 {
 .horizontal-sep {
   width: 99%;
   border-top: 1px dashed var(--txt-terciary-color);
+  margin: 20px 0 10px;
+}
+
+/* Remoção das setas do cvv */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 @media (max-width: 1100px) {
