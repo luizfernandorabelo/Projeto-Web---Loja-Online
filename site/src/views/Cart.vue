@@ -47,7 +47,7 @@
             <span>R$ {{ (itemsPrice + deliveryFee).toFixed(2) }}</span>
           </div>
           <div class="bottom-container">
-            <button v-if="items.length > 0" id="finish-purchase-btn">Finalizar a compra</button>
+            <button v-if="items.length > 0" id="finish-purchase-btn" @click="finishPurchase">Finalizar a compra</button>
             <router-link to="/">
               <button id="continue-purchase-btn">Continuar comprando</button>
             </router-link>
@@ -125,6 +125,12 @@ export default {
       user.cart.cep = '';
       localStorage.setItem('user', JSON.stringify(user));
     },
+    finishPurchase() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      user.cart.total = this.itemsPrice + this.deliveryFee;
+      localStorage.setItem('user', JSON.stringify(user));
+      window.location.href = '/finishPurchase';
+    }
   },
 }
 </script>

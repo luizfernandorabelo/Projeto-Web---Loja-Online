@@ -3,7 +3,6 @@
     <router-link to="/">
       <img src="../assets/name.png" alt="" id="name" />
     </router-link>
-    <!-- <h1>Azulão Petshop</h1> -->
     <img src="../assets/logo.png" alt="Logo" id="logo" />
     <ul id="icon-list">
       <li>
@@ -78,5 +77,11 @@ export default {
 
 #icon-list li:last-child i {
   margin: 0 5px;
+}
+
+@media (max-width: 800px) {
+  #logo {
+    display: none;
+  }
 }
 </style>

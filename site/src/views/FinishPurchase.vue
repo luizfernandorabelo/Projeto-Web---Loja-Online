@@ -11,10 +11,10 @@
           <div>
             <div id="credit-card">
               <img src="../assets/credit-cart.png" alt="Cartão de Crédito">
-              <p>Cartão {{creditCart}}</p>
+              <p>Cartão {{creditCard}}</p>
             </div>
             <div id="bottom-middle-container">
-              <input id="cvv" type="number" placeholder="CVV" min="000" max="999"/>
+              <input id="cvv" type="number" placeholder="CVV" min="000" max="999" v-model="cvv"/>
               <select id="installments">
                 <option v-for="i in 12" :key="i" value="i">{{i}}x de R$ {{(total / i).toFixed(2)}}</option>
               </select>
@@ -28,14 +28,12 @@
           </div>
           <div id="address">
             <img src="../assets/location.png" alt="Localização">
-            <p>Endereço de entrega</p>
+            <p>{{address}}</p>
           </div>
           <div id="delivery-time">
             <span>Entrega em {{deliveryDays}} dias</span>
           </div>
-          <router-link to="/">
-            <button id="finish-purchase-btn">Finalizar compra</button>
-          </router-link>
+          <button id="finish-purchase-btn" @click="finishPurchase">Finalizar compra</button>
         </div>
       </div>
     </div>
@@ -58,11 +56,35 @@ export default {
         {name: 'Finalizar compra', id: 2, path: '/finishPurchase'},
       ],
       total: 1000,
-      creditCart: '',
+      creditCard: '',
       deliveryDays: 0,
+      address: '',
+      cvv: '',
     }
   },
+  created() {
+    this.getData()
+  },
   methods: {
+    getData() {
+      const user = JSON.parse(localStorage.getItem('user'));
+      this.creditCard = user.card.number;
+      this.total = user.cart.total;
+      this.address = `${user.address.street} ${user.address.number} ${user.address.city}`
+    },
+    finishPurchase() {
+      if (!this.cvv) {
+        alert('Compra Recusada! O cvv é válido?')
+      } else {
+        alert('Compra Realizada com sucesso!')
+        const user = JSON.parse(localStorage.getItem('user'));
+        user.cart.items = [];
+        user.cart.deliveryFee = 0;
+        user.cart.cep = '';
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = '/'
+      }
+    },
   },
 }
 </script>
@@ -104,6 +126,7 @@ h2 {
   align-items: center;
   justify-content: space-evenly;
   box-sizing: border-box;
+  font-size: 1rem;
 }
 
 #credit-card img {
