@@ -38,7 +38,7 @@
 
 ### Diagrama de navegação:
 
-![Diagrama de Navegação](./mockups/navegacao.png)
+![Diagrama de Navegação](./mockups/Navegacao.png)
 
 <br><br>
 
