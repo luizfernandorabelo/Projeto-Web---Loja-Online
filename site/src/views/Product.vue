@@ -69,7 +69,7 @@
     </div>
     <Description :text="productInfo.description" />
     <Reviews :reviews="productInfo.rating.feedbacks" />
-    <!-- <Avaliar :id="parseInt(this.$route.params.id)" :userId="userId" /> -->
+    <Avaliar :id="parseInt(this.$route.params.id)"/>
   </div>
 </template>
 

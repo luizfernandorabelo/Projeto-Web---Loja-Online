@@ -5,5 +5,8 @@
   "prettier.jsxSingleQuote": true,
   "prettier.quoteProps": "as-needed",
   "javascript.preferences.quoteStyle": "single",
-  "typescript.preferences.quoteStyle": "single"
+  "typescript.preferences.quoteStyle": "single",
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  }
 }
