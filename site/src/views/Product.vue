@@ -71,7 +71,7 @@
     </div>
     <Description :text="productInfo.description" />
     <Reviews :reviews="productInfo.rating.feedbacks" />
-    <Avaliar
+    <Rate
       :id="parseInt(this.$route.params.id)"
       @ratingUpdated="updateRating"
     />
@@ -83,14 +83,14 @@
 import PageLocation from '../components/PageLocation.vue';
 import Description from '../components/Description.vue';
 import Reviews from '../components/Reviews.vue';
-import Avaliar from '../components/Avaliar.vue';
+import Rate from '../components/Rate.vue';
 export default {
   name: 'Product',
   components: {
     PageLocation,
     Description,
     Reviews,
-    Avaliar,
+    Rate,
   },
   data() {
     return {

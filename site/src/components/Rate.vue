@@ -22,6 +22,7 @@
 
 <script>
 export default {
+  name: 'Rate',
   props: {
     id: 0,
   },
