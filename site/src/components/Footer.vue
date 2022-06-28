@@ -1,8 +1,19 @@
 <template>
   <footer>
     <div id="footer-left">
-    <h3>Sobre nós</h3>
-    <p>A Azulão Petshop é uma empresa de varejo de produtos e serviços que atua no ramo de pets. Criada no primeiro trimestre de 2022, a Azulão já está presente no rol das  lojas de e-commerce mais acessadas do país! Aqui já não sei mais o que escrever para preencher esse espaço vertical. Morbi eget dui in dui dapibus venenatis nec ac lectus. Aenean eget lacus tristique, sagittis sem sed, ultrices ante. Nulla iaculis et libero non auctor. Ut ultricies ultricies posuere Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, quod. Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta magni architecto aperiam at, autem fugit.</p>
+      <h3>Sobre nós</h3>
+      <p>
+        A Azulão Petshop é uma empresa de varejo de produtos e serviços que atua
+        no ramo de pets. Criada no primeiro trimestre de 2022, a Azulão já está
+        presente no rol das lojas de e-commerce mais acessadas do país! Aqui já
+        não sei mais o que escrever para preencher esse espaço vertical. Morbi
+        eget dui in dui dapibus venenatis nec ac lectus. Aenean eget lacus
+        tristique, sagittis sem sed, ultrices ante. Nulla iaculis et libero non
+        auctor. Ut ultricies ultricies posuere Lorem ipsum, dolor sit amet
+        consectetur adipisicing elit. Illum, quod. Lorem ipsum dolor sit amet
+        consectetur adipisicing elit. Soluta magni architecto aperiam at, autem
+        fugit.
+      </p>
     </div>
     <div id="footer-right">
       <div id="faq">
@@ -11,7 +22,10 @@
       </div>
       <div id="atendimento">
         <h3>Atendimento</h3>
-        <p>email@email.com <br> (12) 3456-7890</p>
+        <p>
+          email@email.com <br />
+          (12) 3456-7890
+        </p>
       </div>
     </div>
   </footer>
@@ -21,7 +35,7 @@
 <script>
 export default {
   name: 'Footer',
-}
+};
 </script>
 
 
@@ -57,7 +71,8 @@ footer h3 {
   footer {
     flex-direction: column;
   }
-  #footer-left, #footer-right {
+  #footer-left,
+  #footer-right {
     width: 100%;
     margin: auto;
   }

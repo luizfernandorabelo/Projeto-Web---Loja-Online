@@ -2,13 +2,12 @@
   <div id="min-manage-user-container">
     <router-link to="/manageUser">
       <div id="left">
-        <p id="user-name">{{userName}}</p>
-        <p id="user-cpf">{{userCPF}}</p>
-        <p id="user-email">{{userEmail}}</p>
+        <p id="user-name">{{ userName }}</p>
+        <p id="user-cpf">{{ userCPF }}</p>
+        <p id="user-email">{{ userEmail }}</p>
       </div>
-
       <div id="right">
-        <input type="checkbox" v-model="user.admin" id="user-admin">
+        <input type="checkbox" v-model="user.admin" id="user-admin" />
         <label for="admin">Admin</label>
         <i id="fa-solid fa-trash-can"></i>
       </div>
@@ -23,7 +22,7 @@ export default {
     return {
       user: {
         admin: false,
-      }
+      },
     };
   },
   name: 'MinManageUser',
@@ -32,16 +31,16 @@ export default {
       default: 'Usuário',
     },
     userCPF: {
-      default: "123.456.789-10",
+      default: '123.456.789-10',
     },
     userEmail: {
-      default: "email.inventado@gmail.com",
+      default: 'email.inventado@gmail.com',
     },
     trashCan: {
       default: 'fa-trash-can',
-    }  
-  }
-}
+    },
+  },
+};
 </script>
 
 

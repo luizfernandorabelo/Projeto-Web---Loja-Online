@@ -1,6 +1,6 @@
 <template>
   <div id="cart-container">
-    <PageLocation :location="location"/>
+    <PageLocation :location="location" />
     <h2>Carrinho</h2>
     <div id="main-container">
       <div id="items-container">
@@ -9,17 +9,37 @@
           <span id="clear-cart" @click="clearCart">Limpar carrinho</span>
         </div>
         <div v-if="items.length === 0" class="header">
-        <p id="empty-cart"> Ooops... parece que seu carrinho está vazio, volte e faça algumas compras para o seu animalziho!!!</p>
+          <p id="empty-cart">
+            Ooops... parece que seu carrinho está vazio, volte e faça algumas
+            compras para o seu animalziho!!!
+          </p>
         </div>
         <div class="item" v-else v-for="item in items" :key="item.id">
-          <input class="item-check" type="checkbox" name="check" :id="item.id + 'check'" v-model="item.checked"
-            @change="updatePrices">
-          <img class="item-img" :src="item.images[0]" :alt="'Imagem de ' + item.name">
+          <input
+            class="item-check"
+            type="checkbox"
+            name="check"
+            :id="item.id + 'check'"
+            v-model="item.checked"
+            @change="updatePrices"
+          />
+          <img
+            class="item-img"
+            :src="item.images[0]"
+            :alt="'Imagem de ' + item.name"
+          />
           <div id="name-amount-price-container">
             <h3 class="item-name">{{ item.name }}</h3>
             <div>
-              <input class="item-amount" type="number" name="amount" min="1" :id="item.id + 'amount'"
-                v-model="item.amount" @change="updatePrices">
+              <input
+                class="item-amount"
+                type="number"
+                name="amount"
+                min="1"
+                :id="item.id + 'amount'"
+                v-model="item.amount"
+                @change="updatePrices"
+              />
               <span class="item-price">R$ {{ item.price }}</span>
             </div>
           </div>
@@ -47,7 +67,13 @@
             <span>R$ {{ (itemsPrice + deliveryFee).toFixed(2) }}</span>
           </div>
           <div class="bottom-container">
-            <button v-if="items.length > 0" id="finish-purchase-btn" @click="finishPurchase">Finalizar a compra</button>
+            <button
+              v-if="items.length > 0"
+              id="finish-purchase-btn"
+              @click="finishPurchase"
+            >
+              Finalizar a compra
+            </button>
             <router-link to="/">
               <button id="continue-purchase-btn">Continuar comprando</button>
             </router-link>
@@ -55,70 +81,73 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 
 <script>
-import PageLocation from '../components/PageLocation.vue'
+import PageLocation from '../components/PageLocation.vue';
 export default {
   components: {
-    PageLocation
+    PageLocation,
   },
   name: 'Cart',
   data() {
     return {
-      location: [ 
-        {name: 'Home', id: 0, path: '/'},
-        {name: 'Carrinho', id: 1, path: '/cart'},
+      location: [
+        { name: 'Home', id: 0, path: '/' },
+        { name: 'Carrinho', id: 1, path: '/cart' },
       ],
       items: [],
       deliveryFee: 0,
       itemsPrice: 0,
-    }
+    };
   },
   created() {
-    this.getItems()
-    this.updatePrices()
+    this.getItems();
+    this.updatePrices();
   },
   methods: {
     getItems() {
       const cart = JSON.parse(localStorage.getItem('user')).cart;
-      cart.items.forEach(item => {
-        let cartItem = JSON.parse(localStorage.getItem('items')).find(itm => itm.id === item.id)
-        cartItem.amount = item.amount
-        cartItem.checked = true
-        this.items.push(cartItem)
+      cart.items.forEach((item) => {
+        let cartItem = JSON.parse(localStorage.getItem('items')).find(
+          (itm) => itm.id === item.id
+        );
+        cartItem.amount = item.amount;
+        cartItem.checked = true;
+        this.items.push(cartItem);
       });
     },
     updatePrices() {
-      this.calculateDeliveryPrice(),
-      this.calculateItemsPrice()
+      this.calculateDeliveryPrice(), this.calculateItemsPrice();
     },
     calculateItemsPrice() {
-      this.itemsPrice = 0
+      this.itemsPrice = 0;
       for (let item of this.items) {
-        this.itemsPrice += item.checked ? item.amount * item.price : 0
+        this.itemsPrice += item.checked ? item.amount * item.price : 0;
       }
     },
     calculateDeliveryPrice() {
       for (let item of this.items) {
         if (item.checked) {
-          this.deliveryFee = JSON.parse(localStorage.getItem('user')).cart.deliveryFee;
+          this.deliveryFee = JSON.parse(
+            localStorage.getItem('user')
+          ).cart.deliveryFee;
           return;
         }
       }
       this.deliveryFee = 0;
     },
     removeItem(itemId) {
-      this.items = this.items.filter(item => item.id !== itemId);
+      this.items = this.items.filter((item) => item.id !== itemId);
       const user = JSON.parse(localStorage.getItem('user'));
-      user.cart.items = user.cart.items.filter(item => item.id !== itemId);
+      user.cart.items = user.cart.items.filter((item) => item.id !== itemId);
       localStorage.setItem('user', JSON.stringify(user));
     },
     clearCart() {
-      this.items = []
-      this.updatePrices()
+      this.items = [];
+      this.updatePrices();
       const user = JSON.parse(localStorage.getItem('user'));
       user.cart.items = [];
       user.cart.deliveryFee = 0;
@@ -130,9 +159,9 @@ export default {
       user.cart.total = this.itemsPrice + this.deliveryFee;
       localStorage.setItem('user', JSON.stringify(user));
       window.location.href = '/finishPurchase';
-    }
+    },
   },
-}
+};
 </script>
 
 
@@ -150,7 +179,7 @@ h2 {
 }
 
 #items-container {
-  width: 600px
+  width: 600px;
 }
 
 #items-container .header {

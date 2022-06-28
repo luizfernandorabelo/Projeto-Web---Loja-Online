@@ -5,10 +5,27 @@
       <div id="sign-in-container">
         <h2>Já sou Cadastrado</h2>
         <div id="input-container">
-          <p id="email-password-label">Informe seu e-mail e senha de cadastro</p>
-          <p class="error" v-if="errorMessage"> {{ errorMessage }}</p>
-          <input class="input" type="text" name="email" id="email" placeholder="Email" v-model="emailInput">
-          <input class="input" type="password" name="password" id="password" placeholder="Senha" v-model="passwordInput" v-on:keyup.enter="authenticate">
+          <p id="email-password-label">
+            Informe seu e-mail e senha de cadastro
+          </p>
+          <p class="error" v-if="errorMessage">{{ errorMessage }}</p>
+          <input
+            class="input"
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+            v-model="emailInput"
+          />
+          <input
+            class="input"
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Senha"
+            v-model="passwordInput"
+            v-on:keyup.enter="authenticate"
+          />
           <button id="sign-in-btn" @click="authenticate">Entrar</button>
         </div>
         <p id="forgot-password-p">Esqueci minha senha</p>
@@ -16,7 +33,9 @@
       <div id="sign-up-container">
         <div>
           <h2>É minha primeira compra</h2>
-          <router-link to="/account"><button id="sign-up-btn">Cadastre-se</button></router-link>
+          <router-link to="/account"
+            ><button id="sign-up-btn">Cadastre-se</button></router-link
+          >
         </div>
       </div>
     </div>
@@ -25,7 +44,7 @@
 
 
 <script>
-import PageLocation from '../components/PageLocation.vue'
+import PageLocation from '../components/PageLocation.vue';
 export default {
   name: 'Login',
   components: {
@@ -34,33 +53,36 @@ export default {
   data() {
     return {
       location: [
-        {'name': 'Home', 'id': 0, 'path': '/'},
-        {'name': 'Login', 'id': 1, 'path': '/login'},
+        { name: 'Home', id: 0, path: '/' },
+        { name: 'Login', id: 1, path: '/login' },
       ],
       emailInput: '',
       passwordInput: '',
       errorMessage: '',
-    }
+    };
   },
   created() {
-    this.loadUsers()
+    this.loadUsers();
   },
   methods: {
     loadUsers() {
-      this.users = JSON.parse(localStorage.getItem('users'))
+      this.users = JSON.parse(localStorage.getItem('users'));
     },
     authenticate() {
       for (let existingUser of this.users) {
-        if (existingUser.personalInfo.email === this.emailInput && existingUser.personalInfo.password === this.passwordInput) {
-          localStorage.setItem('user', JSON.stringify(existingUser))
-          window.location.href = '/'
-          return
+        if (
+          existingUser.personalInfo.email === this.emailInput &&
+          existingUser.personalInfo.password === this.passwordInput
+        ) {
+          localStorage.setItem('user', JSON.stringify(existingUser));
+          window.location.href = '/';
+          return;
         }
       }
-      this.errorMessage = 'Email ou senha incorretos'
-    }
+      this.errorMessage = 'Email ou senha incorretos';
+    },
   },
-}
+};
 </script>
 
 
@@ -95,7 +117,7 @@ h2 {
 
 #input-container .error {
   color: red;
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin-bottom: 5px;
 }
 

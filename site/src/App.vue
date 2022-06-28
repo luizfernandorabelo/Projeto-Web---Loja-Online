@@ -5,32 +5,29 @@
     <router-view />
     <Footer />
   </div>
-
 </template>
 
 
 <script>
-import Login from './views/Login.vue'
-import ProductList from './views/ProductList.vue'
-import Product from './views/Product.vue'
-import Service from './views/Service.vue'
-import Cart from './views/Cart.vue'
-import ManageProducts from './views/ManageProducts.vue'
-import ManageProduct from './views/ManageProduct.vue'
-import ManageUsers from './views/ManageUsers.vue'
-import FinishPurchase from './views/FinishPurchase.vue'
+import Login from './views/Login.vue';
+import ProductList from './views/ProductList.vue';
+import Product from './views/Product.vue';
+import Service from './views/Service.vue';
+import Cart from './views/Cart.vue';
+import ManageProducts from './views/ManageProducts.vue';
+import ManageProduct from './views/ManageProduct.vue';
+import ManageUsers from './views/ManageUsers.vue';
+import FinishPurchase from './views/FinishPurchase.vue';
 
-import TopHeader from './components/TopHeader.vue'
-import CategoriesBar from './components/CategoriesBar.vue'
-import Footer from './components/Footer.vue'
+import TopHeader from './components/TopHeader.vue';
+import CategoriesBar from './components/CategoriesBar.vue';
+import Footer from './components/Footer.vue';
+import MinManageProduct from './components/MinManageProduct.vue';
+import MinManageUser from './components/MinManageUser.vue';
 
-import fakeUsers from './fakedb/users'
-import fakeCeps from './fakedb/ceps'
-import fakeItems from './fakedb/items'
-
-import MinManageProduct from './components/MinManageProduct.vue'
-import MinManageUser from './components/MinManageUser.vue'
-
+import fakeUsers from './fakedb/users';
+import fakeCeps from './fakedb/ceps';
+import fakeItems from './fakedb/items';
 
 export default {
   name: 'App',
@@ -48,40 +45,34 @@ export default {
     CategoriesBar,
     Footer,
     MinManageProduct,
-    MinManageUser
+    MinManageUser,
   },
   created() {
-    this.initializeLocalStorage()
+    this.initializeLocalStorage();
   },
   methods: {
     initializeLocalStorage() {
-      this.setUsersToLS()
-      this.setCepsToLS()
-      this.setItemsToLS()
+      this.setUsersToLS();
+      this.setCepsToLS();
+      this.setItemsToLS();
     },
     setUsersToLS() {
-      localStorage.setItem('users', JSON.stringify(
-        fakeUsers.users
-      ))
+      localStorage.setItem('users', JSON.stringify(fakeUsers.users));
     },
     setCepsToLS() {
-      localStorage.setItem('ceps', JSON.stringify(
-        fakeCeps.ceps
-      ));
+      localStorage.setItem('ceps', JSON.stringify(fakeCeps.ceps));
     },
     setItemsToLS() {
-      localStorage.setItem('items', JSON.stringify(
-        fakeItems.items 
-      ));
-    }
-  }
-}
+      localStorage.setItem('items', JSON.stringify(fakeItems.items));
+    },
+  },
+};
 </script>
 
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css');
 
 :root {
   /* --bg-primary-color: rgb(0, 0, 0);

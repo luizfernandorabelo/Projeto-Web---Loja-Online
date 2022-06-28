@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "TopHeader",
+  name: 'TopHeader',
   data() {
     return {
       logged: false,
@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     verifyLogin() {
-      this.logged = localStorage.getItem("user") !== null;
+      this.logged = localStorage.getItem('user') !== null;
     },
   },
 };

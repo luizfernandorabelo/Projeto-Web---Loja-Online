@@ -1,25 +1,34 @@
 <template>
   <div id="reviews-container">
     <h3>Avaliações</h3>
-    <p v-if="reviews.length === 0" class="no-reviews">Esse produto ainda não tem avaliações</p>
-    <Review v-else v-for="review in reviews" :key="review.userName" :userName="review.userName" :stars="review.stars" :comment="review.comment"/>
-  </div>  
+    <p v-if="reviews.length === 0" class="no-reviews">
+      Esse produto ainda não tem avaliações
+    </p>
+    <Review
+      v-else
+      v-for="review in reviews"
+      :key="review.userName"
+      :userName="review.userName"
+      :stars="review.stars"
+      :comment="review.comment"
+    />
+  </div>
 </template>
 
 
 <script>
-import Review from './Review.vue'
+import Review from './Review.vue';
 export default {
-  name: "Reviews",
+  name: 'Reviews',
   components: {
-    Review
+    Review,
   },
   props: {
     reviews: {
       default: [],
-    }
+    },
   },
-}
+};
 </script>
 
 

@@ -7,13 +7,13 @@
       <li><router-link to="/peixes">Peixes</router-link></li>
     </ul>
   </div>
-</template>
+</template> 
 
 
 <script>
 export default {
   name: 'CategoriesBar',
-}
+};
 </script>
 
 

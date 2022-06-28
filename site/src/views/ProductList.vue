@@ -9,7 +9,9 @@
           :itemName="product.name"
           :itemPrice="product.price"
           :itemImgUrl="product.images[0]"
-          :itemType="product.categories.includes('servicos') ? 'service' : 'product'"
+          :itemType="
+            product.categories.includes('servicos') ? 'service' : 'product'
+          "
         />
       </li>
     </ul>
@@ -18,9 +20,9 @@
 
 
 <script>
-import MinProduct from "../components/MinProduct.vue";
+import MinProduct from '../components/MinProduct.vue';
 export default {
-  name: "ProductList",
+  name: 'ProductList',
   components: {
     MinProduct,
   },
@@ -36,7 +38,9 @@ export default {
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
       this.h3Content = 'Os melhores produtos para ' + targetAnimal;
-      this.products = JSON.parse(localStorage.getItem('items')).filter(item => item.categories.includes(targetAnimal));
+      this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+        item.categories.includes(targetAnimal)
+      );
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos mais vendidos';
@@ -48,7 +52,9 @@ export default {
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
       this.h3Content = 'Os melhores produtos para ' + targetAnimal;
-      this.products = JSON.parse(localStorage.getItem('items')).filter(item => item.categories.includes(targetAnimal));
+      this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+        item.categories.includes(targetAnimal)
+      );
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos mais vendidos';

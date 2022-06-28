@@ -1,6 +1,6 @@
 <template>
   <div id="finishpurchase-container">
-    <PageLocation :location="location"/>
+    <PageLocation :location="location" />
     <h2>Finalizar compra</h2>
     <div id="main-container">
       <div id="summary-container">
@@ -10,13 +10,22 @@
         <div class="middle-container">
           <div>
             <div id="credit-card">
-              <img src="../assets/credit-cart.png" alt="Cartão de Crédito">
-              <p>Cartão {{creditCard}}</p>
+              <img src="../assets/credit-cart.png" alt="Cartão de Crédito" />
+              <p>Cartão {{ creditCard }}</p>
             </div>
             <div id="bottom-middle-container">
-              <input id="cvv" type="number" placeholder="CVV" min="000" max="999" v-model="cvv"/>
+              <input
+                id="cvv"
+                type="number"
+                placeholder="CVV"
+                min="000"
+                max="999"
+                v-model="cvv"
+              />
               <select id="installments">
-                <option v-for="i in 12" :key="i" value="i">{{i}}x de R$ {{(total / i).toFixed(2)}}</option>
+                <option v-for="i in 12" :key="i" value="i">
+                  {{ i }}x de R$ {{ (total / i).toFixed(2) }}
+                </option>
               </select>
             </div>
           </div>
@@ -27,66 +36,68 @@
             <span>Confirme o endereço</span>
           </div>
           <div id="address">
-            <img src="../assets/location.png" alt="Localização">
-            <p>{{address}}</p>
+            <img src="../assets/location.png" alt="Localização" />
+            <p>{{ address }}</p>
           </div>
           <div id="delivery-time">
-            <span>Entrega em {{deliveryDays}} dias</span>
+            <span>Entrega em {{ deliveryDays }} dias</span>
           </div>
-          <button id="finish-purchase-btn" @click="finishPurchase">Finalizar compra</button>
+          <button id="finish-purchase-btn" @click="finishPurchase">
+            Finalizar compra
+          </button>
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </template>
 
 
 <script>
-import PageLocation from '../components/PageLocation.vue'
+import PageLocation from '../components/PageLocation.vue';
 export default {
   components: {
-    PageLocation
+    PageLocation,
   },
   name: 'FinishPurchase',
   data() {
     return {
-      location: [ 
-        {name: 'Home', id: 0, path: '/'},
-        {name: 'Carrinho', id: 1, path: '/cart'},
-        {name: 'Finalizar compra', id: 2, path: '/finishPurchase'},
+      location: [
+        { name: 'Home', id: 0, path: '/' },
+        { name: 'Carrinho', id: 1, path: '/cart' },
+        { name: 'Finalizar compra', id: 2, path: '/finishPurchase' },
       ],
       total: 1000,
       creditCard: '',
       deliveryDays: 0,
       address: '',
       cvv: '',
-    }
+    };
   },
   created() {
-    this.getData()
+    this.getData();
   },
   methods: {
     getData() {
       const user = JSON.parse(localStorage.getItem('user'));
       this.creditCard = user.card.number;
       this.total = user.cart.total;
-      this.address = `${user.address.street} ${user.address.number} ${user.address.city}`
+      this.address = `${user.address.street} ${user.address.number} ${user.address.city}`;
     },
     finishPurchase() {
       if (!this.cvv) {
-        alert('Compra Recusada! O cvv é válido?')
+        alert('Compra Recusada! O cvv é válido?');
       } else {
-        alert('Compra Realizada com sucesso!')
+        alert('Compra Realizada com sucesso!');
         const user = JSON.parse(localStorage.getItem('user'));
         user.cart.items = [];
         user.cart.deliveryFee = 0;
         user.cart.cep = '';
         localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = '/'
+        window.location.href = '/';
       }
     },
   },
-}
+};
 </script>
 
 
@@ -231,7 +242,7 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
 }
 

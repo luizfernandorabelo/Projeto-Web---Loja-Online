@@ -85,12 +85,12 @@
 
 
 <script>
-import PageLocation from "../components/PageLocation.vue";
-import Description from "../components/Description.vue";
-import Reviews from "../components/Reviews.vue";
-import Avaliar from "../components/Avaliar.vue";
+import PageLocation from '../components/PageLocation.vue';
+import Description from '../components/Description.vue';
+import Reviews from '../components/Reviews.vue';
+import Avaliar from '../components/Avaliar.vue';
 export default {
-  name: "Service",
+  name: 'Service',
   components: {
     PageLocation,
     Description,
@@ -99,44 +99,44 @@ export default {
   },
   data() {
     return {
-      location: [{ name: "Home", id: 0, path: "/" }],
+      location: [{ name: 'Home', id: 0, path: '/' }],
       inputs: {
         amount: 1,
-        cep: "",
-        date: "",
+        cep: '',
+        date: '',
       },
       errors: {
-        cep: "",
-        date: "",
+        cep: '',
+        date: '',
       },
       serviceInfo: {
-        name: "",
+        name: '',
         images: [],
         rating: {},
         price: 0,
         stock: 0,
-        description: "",
+        description: '',
       },
-      cepInfo: "",
-      dateInfo: "",
+      cepInfo: '',
+      dateInfo: '',
       logged: false,
     };
   },
   created() {
     this.getService();
-    this.logged = JSON.parse(localStorage.getItem("user")) !== null;
+    this.logged = JSON.parse(localStorage.getItem('user')) !== null;
   },
   methods: {
     getService() {
-      const service = JSON.parse(localStorage.getItem("items")).find(
+      const service = JSON.parse(localStorage.getItem('items')).find(
         (service) => service.id == this.$route.params.id
       );
       this.location.push({
         name: service.categories[0],
         id: 1,
-        path: "/" + service.categories[0],
+        path: '/' + service.categories[0],
       });
-      this.location.push({ name: service.name, id: 2, path: "" });
+      this.location.push({ name: service.name, id: 2, path: '' });
       this.serviceInfo.name = service.name;
       this.serviceInfo.images = service.images;
       this.serviceInfo.rating = service.rating;
@@ -146,55 +146,55 @@ export default {
     },
     checkCepAvailability() {
       if (!this.isValidCep()) {
-        this.errors.cep = "Insira um CEP válido!";
-        this.cepInfo = "";
+        this.errors.cep = 'Insira um CEP válido!';
+        this.cepInfo = '';
       } else {
         if (!this.isAttendingCep()) {
-          this.cepInfo = "Não atendemos sua região :(";
+          this.cepInfo = 'Não atendemos sua região :(';
         } else {
-          this.cepInfo = "Atendemos sua região!";
+          this.cepInfo = 'Atendemos sua região!';
         }
-        this.errors.cep = "";
+        this.errors.cep = '';
       }
     },
     isValidCep() {
       for (let digit of this.inputs.cep) {
         if (isNaN(parseInt(digit))) return false;
       }
-      return this.inputs.cep !== "" && this.inputs.cep.length === 8;
+      return this.inputs.cep !== '' && this.inputs.cep.length === 8;
     },
     isAttendingCep() {
-      return this.inputs.cep.startsWith("13560");
+      return this.inputs.cep.startsWith('13560');
     },
     checkDateAvailability() {
       if (!this.isValidDate()) {
-        this.errors.date = "Insira uma data válida!";
-        this.dateInfo = "";
+        this.errors.date = 'Insira uma data válida!';
+        this.dateInfo = '';
       } else {
-        this.dateInfo = "Temos vagas nessa data!";
-        this.errors.date = "";
+        this.dateInfo = 'Temos vagas nessa data!';
+        this.errors.date = '';
       }
     },
     isValidDate() {
-      if (this.inputs.date === "") return false;
+      if (this.inputs.date === '') return false;
       let expectedDay = new Date(this.inputs.date);
       let today = new Date();
       return expectedDay >= today;
     },
     addToCart() {
       if (!this.logged) {
-        window.location.href = "/login";
+        window.location.href = '/login';
       } else if (this.isValidCep()) {
         if (this.isValidCep() && this.isAttendingCep() && this.isValidDate()) {
           this.updateUser();
-          window.location.href = "/cart";
+          window.location.href = '/cart';
         } else {
-          alert("Verifique os campos CEP e DATA!");
+          alert('Verifique os campos CEP e DATA!');
         }
       }
     },
     updateUser() {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem('user'));
       const existingItem = user.cart.items.find(
         (item) => item.id == this.$route.params.id
       );
@@ -208,7 +208,7 @@ export default {
       }
       user.cart.cep = this.inputs.cep;
       user.cart.deliveryFee = 10;
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     },
   },
 };

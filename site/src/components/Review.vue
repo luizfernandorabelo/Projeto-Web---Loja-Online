@@ -1,19 +1,27 @@
 <template>
   <div id="review-container">
     <div id="review-left">
-      <p id="user-name">{{userName}}</p>
+      <p id="user-name">{{ userName }}</p>
       <div id="total-stars-container">
-        <p id="total-stars">{{stars.toFixed(2)}}</p>
+        <p id="total-stars">{{ stars.toFixed(2) }}</p>
         <div id="stars-container">
-          <i class="fa-solid fa-star yellow" v-for="index in stars" :key="index"></i>
-          <i class="fa-solid fa-star gray" v-for="index in 5 - stars" :key="index"></i>
+          <i
+            class="fa-solid fa-star yellow"
+            v-for="index in stars"
+            :key="index"
+          ></i>
+          <i
+            class="fa-solid fa-star gray"
+            v-for="index in 5 - stars"
+            :key="index"
+          ></i>
         </div>
       </div>
     </div>
     <div id="review-right">
-      <p>{{comment}}</p>
+      <p>{{ comment }}</p>
     </div>
-  </div>  
+  </div>
 </template>
 
 
@@ -25,7 +33,7 @@ export default {
     stars: { default: 0 },
     comment: { default: '' },
   },
-}
+};
 </script>
 
 

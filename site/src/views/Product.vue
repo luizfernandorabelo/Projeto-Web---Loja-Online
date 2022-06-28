@@ -69,18 +69,18 @@
     </div>
     <Description :text="productInfo.description" />
     <Reviews :reviews="productInfo.rating.feedbacks" />
-    <Avaliar :id="parseInt(this.$route.params.id)"/>
+    <Avaliar :id="parseInt(this.$route.params.id)" />
   </div>
 </template>
 
 
 <script>
-import PageLocation from "../components/PageLocation.vue";
-import Description from "../components/Description.vue";
-import Reviews from "../components/Reviews.vue";
-import Avaliar from "../components/Avaliar.vue";
+import PageLocation from '../components/PageLocation.vue';
+import Description from '../components/Description.vue';
+import Reviews from '../components/Reviews.vue';
+import Avaliar from '../components/Avaliar.vue';
 export default {
-  name: "Product",
+  name: 'Product',
   components: {
     PageLocation,
     Description,
@@ -89,13 +89,13 @@ export default {
   },
   data() {
     return {
-      location: [{ name: "Home", id: 0, path: "/" }],
+      location: [{ name: 'Home', id: 0, path: '/' }],
       inputs: {
         amount: 1,
-        cep: "",
+        cep: '',
       },
       errors: {
-        cep: "",
+        cep: '',
       },
       delivery: {
         fee: 0,
@@ -103,31 +103,31 @@ export default {
         showFee: false,
       },
       productInfo: {
-        name: "",
+        name: '',
         images: [],
         rating: {},
         price: 0,
         stock: 0,
-        description: "",
+        description: '',
       },
       logged: false,
     };
   },
   created() {
     this.getProduct();
-    this.logged = JSON.parse(localStorage.getItem("user")) !== null;
+    this.logged = JSON.parse(localStorage.getItem('user')) !== null;
   },
   methods: {
     getProduct() {
-      const product = JSON.parse(localStorage.getItem("items")).find(
+      const product = JSON.parse(localStorage.getItem('items')).find(
         (product) => product.id == this.$route.params.id
       );
       this.location.push({
         name: product.categories[0],
         id: 1,
-        path: "/" + product.categories[0],
+        path: '/' + product.categories[0],
       });
-      this.location.push({ name: product.name, id: 2, path: "" });
+      this.location.push({ name: product.name, id: 2, path: '' });
       this.productInfo.name = product.name;
       this.productInfo.images = product.images;
       this.productInfo.rating = product.rating;
@@ -137,23 +137,23 @@ export default {
     },
     calculateDeliveryFee() {
       if (!this.isValidCep()) {
-        this.errors.cep = "Insira um CEP válido!";
+        this.errors.cep = 'Insira um CEP válido!';
         this.delivery.showFee = false;
       } else {
-        let cepInfo = JSON.parse(localStorage.getItem("cep"))[
+        let cepInfo = JSON.parse(localStorage.getItem('cep'))[
           this.sumCepDigits() % 10
         ];
         this.delivery.fee = cepInfo.fee;
         this.delivery.days = cepInfo.days;
         this.delivery.showFee = true;
-        this.errors.cep = "";
+        this.errors.cep = '';
       }
     },
     isValidCep() {
       for (let digit of this.inputs.cep) {
         if (isNaN(parseInt(digit))) return false;
       }
-      return this.inputs.cep !== "" && this.inputs.cep.length === 8;
+      return this.inputs.cep !== '' && this.inputs.cep.length === 8;
     },
     sumCepDigits() {
       let digitSum = 0;
@@ -164,17 +164,17 @@ export default {
     },
     addToCart() {
       if (!this.logged) {
-        window.location.href = "/login";
+        window.location.href = '/login';
       } else if (this.isValidCep()) {
         this.calculateDeliveryFee();
         this.updateUser();
-        window.location.href = "/cart";
+        window.location.href = '/cart';
       } else {
-        this.errors.cep = "Digite um cep válido para continuar!";
+        this.errors.cep = 'Digite um cep válido para continuar!';
       }
     },
     updateUser() {
-      const user = JSON.parse(localStorage.getItem("user"));
+      const user = JSON.parse(localStorage.getItem('user'));
       const existingItem = user.cart.items.find(
         (item) => item.id == this.$route.params.id
       );
@@ -188,7 +188,7 @@ export default {
       }
       user.cart.cep = this.inputs.cep;
       user.cart.deliveryFee = this.delivery.fee;
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
     },
   },
 };
