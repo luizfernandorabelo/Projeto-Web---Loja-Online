@@ -135,18 +135,18 @@ export default {
       this.inputs.telephone = this.user.personalInfo.telephone
       this.inputs.password = this.user.personalInfo.password
       this.inputs.confirmPasswd = this.user.personalInfo.password
-      // this.inputs.cep = this.user.address.cep
-      // this.inputs.city = this.user.address.city
-      // this.inputs.state = this.user.address.state
-      // this.inputs.district = this.user.address.district
-      // this.inputs.street = this.user.address.street
-      // this.inputs.number = this.user.address.number
-      // this.inputs.complement = this.user.address.complement
-      // this.inputs.cardNumber = this.user.card.number
-      // this.inputs.cardHolderName = this.user.card.holderName
-      // this.inputs.cardHolderCPF = this.user.card.holderCPF
-      // this.inputs.billingAddress = this.user.card.billingAddress
-      // this.inputs.expiringDate = this.user.card.expiringDate
+      this.inputs.cep = this.user.address.cep
+      this.inputs.city = this.user.address.city
+      this.inputs.state = this.user.address.state
+      this.inputs.district = this.user.address.district
+      this.inputs.street = this.user.address.street
+      this.inputs.number = this.user.address.number
+      this.inputs.complement = this.user.address.complement
+      this.inputs.cardNumber = this.user.card.number
+      this.inputs.cardHolderName = this.user.card.holderName
+      this.inputs.cardHolderCPF = this.user.card.holderCPF
+      this.inputs.billingAddress = this.user.card.billingAddress
+      this.inputs.expiringDate = this.user.card.expiringDate
     },
     validateAccount() {
       this.clearErrors()
