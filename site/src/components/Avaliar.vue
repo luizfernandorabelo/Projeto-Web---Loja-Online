@@ -67,6 +67,7 @@ export default {
       console.log(items);
       localStorage.setItem('items', JSON.stringify(items));
       console.log('review enviada');
+      this.$emit('ratingUpdated', product.rating);
     },
   },
 };

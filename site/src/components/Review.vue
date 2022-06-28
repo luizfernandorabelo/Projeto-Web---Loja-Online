@@ -7,12 +7,12 @@
         <div id="stars-container">
           <i
             class="fa-solid fa-star yellow"
-            v-for="index in stars"
+            v-for="index in parseInt(stars)"
             :key="index"
           ></i>
           <i
             class="fa-solid fa-star gray"
-            v-for="index in 5 - stars"
+            v-for="index in parseInt(5 - stars)"
             :key="index"
           ></i>
         </div>

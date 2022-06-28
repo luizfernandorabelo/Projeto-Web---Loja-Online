@@ -10,16 +10,18 @@
       <div id="service-info">
         <h3 id="service-name">{{ serviceInfo.name }}</h3>
         <div id="short-review-container">
-          <p id="total-stars">{{ serviceInfo.rating.totalStars.toFixed(2) }}</p>
+          <p id="total-stars">
+            {{ parseInt(serviceInfo.rating.totalStars.toFixed(2)) }}
+          </p>
           <div id="stars-container">
             <i
               class="fa-solid fa-star yellow"
-              v-for="index in serviceInfo.rating.totalStars"
+              v-for="index in parseInt(serviceInfo.rating.totalStars)"
               :key="index"
             ></i>
             <i
               class="fa-solid fa-star gray"
-              v-for="index in 5 - serviceInfo.rating.totalStars"
+              v-for="index in 5 - parseInt(serviceInfo.rating.totalStars)"
               :key="index"
             ></i>
           </div>
@@ -80,6 +82,10 @@
     </div>
     <Description :text="serviceInfo.description" />
     <Reviews :reviews="serviceInfo.rating.feedbacks" />
+    <Avaliar
+      :id="parseInt(this.$route.params.id)"
+      @ratingUpdated="updateRating"
+    />
   </div>
 </template>
 
@@ -192,6 +198,9 @@ export default {
           alert('Verifique os campos CEP e DATA!');
         }
       }
+    },
+    updateRating(newRating) {
+      this.serviceInfo.rating = newRating;
     },
     updateUser() {
       const user = JSON.parse(localStorage.getItem('user'));

@@ -10,16 +10,18 @@
       <div id="product-info">
         <h3 id="product-name">{{ productInfo.name }}</h3>
         <div id="short-review-container">
-          <p id="total-stars">{{ productInfo.rating.totalStars.toFixed(2) }}</p>
+          <p id="total-stars">
+            {{ parseInt(productInfo.rating.totalStars).toFixed(2) }}
+          </p>
           <div id="stars-container">
             <i
               class="fa-solid fa-star yellow"
-              v-for="index in productInfo.rating.totalStars"
+              v-for="index in parseInt(productInfo.rating.totalStars)"
               :key="index"
             ></i>
             <i
               class="fa-solid fa-star gray"
-              v-for="index in 5 - productInfo.rating.totalStars"
+              v-for="index in 5 - parseInt(productInfo.rating.totalStars)"
               :key="index"
             ></i>
           </div>
@@ -69,7 +71,10 @@
     </div>
     <Description :text="productInfo.description" />
     <Reviews :reviews="productInfo.rating.feedbacks" />
-    <Avaliar :id="parseInt(this.$route.params.id)" />
+    <Avaliar
+      :id="parseInt(this.$route.params.id)"
+      @ratingUpdated="updateRating"
+    />
   </div>
 </template>
 
@@ -173,6 +178,9 @@ export default {
         this.errors.cep = 'Digite um cep válido para continuar!';
       }
     },
+    updateRating(newRating) {
+      this.productInfo.rating = newRating;
+    },
     updateUser() {
       const user = JSON.parse(localStorage.getItem('user'));
       const existingItem = user.cart.items.find(
@@ -182,7 +190,7 @@ export default {
         existingItem.amount += this.inputs.amount;
       } else {
         user.cart.items.push({
-          id: parseInt(this.$route.params.id),
+          id: parseInt(parseInt(this.$route.params.id)),
           amount: this.inputs.amount,
         });
       }
