@@ -1,22 +1,27 @@
 <template>
-  <div class="container">
-    <p>avalie o produto</p>
-    <input
-      type="text"
-      name="avaliacao"
-      id="review"
-      placeholder="escreva sua avalaiação"
-      v-model="this.review.comment"
-    />
-    <input
-      type="number"
-      name="avaliacao"
-      id="rating"
-      v-model="this.review.stars"
-      min="0"
-      max="5"
-    />
-    <button @click="postReview">enviar</button>
+  <div id="rate-container">
+    <div class="input-container">
+      <label for="stars">De 0 a 5, qual é a sua nota para o produto?</label>
+      <input
+        type="number"
+        name="stars"
+        id="stars"
+        v-model="this.review.stars"
+        min="0"
+        max="5"
+      />
+    </div>
+    <div class="input-container">
+      <label for="comment">Deixe o seu comentário:</label>
+      <input
+        type="text"
+        name="comment"
+        id="comment"
+        placeholder="Escreva aqui sua avalaiação..."
+        v-model="this.review.comment"
+      />
+    </div>
+    <button @click="postReview">Enviar</button>
   </div>
 </template>
 
@@ -75,5 +80,63 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
+#rate-container {
+  margin: 0 3% 15px;
+  border: 1px solid var(--bg-terciary-color);
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.input-container:nth-of-type(1) {
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#comment {
+  margin-top: 5px;
+  height: 1.2rem;
+  font-size: 1.01rem;
+  outline: 0;
+  padding: 5px;
+  border: 1px solid var(--bg-terciary-color);
+  border-radius: 5px;
+}
+
+#stars {
+  margin-left: 5px;
+  outline: 0;
+  border: 1px solid var(--bg-terciary-color);
+  height: 20px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+#stars::-webkit-inner-spin-button,
+#stars::-webkit-outer-spin-button {
+  opacity: 1;
+}
+
+button {
+  background-color: var(--bg-secondary-color);
+  color: var(--txt-primary-color);
+  border: 0;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 400;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 70px;
+  height: 30px;
+  margin-bottom: 5px;
+  margin-top: 15px;
+  margin-left: calc(100% - 70px);
+}
 </style>

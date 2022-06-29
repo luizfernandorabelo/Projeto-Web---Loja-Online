@@ -82,7 +82,18 @@
     </div>
     <Description :text="serviceInfo.description" />
     <Reviews :reviews="serviceInfo.rating.feedbacks" />
-    <Rate :id="parseInt(this.$route.params.id)" @ratingUpdated="updateRating" />
+    <button
+      v-if="!readingRatingState"
+      id="rate-service-btn"
+      @click="changeRatingState"
+    >
+      Avaliar Produto
+    </button>
+    <Rate
+      v-else
+      :id="parseInt(this.$route.params.id)"
+      @ratingUpdated="updateRating"
+    />
   </div>
 </template>
 
@@ -123,6 +134,7 @@ export default {
       cepInfo: '',
       dateInfo: '',
       logged: false,
+      readingRatingState: false,
     };
   },
   created() {
@@ -196,8 +208,12 @@ export default {
         }
       }
     },
+    changeRatingState() {
+      this.readingRatingState = !this.readingRatingState;
+    },
     updateRating(newRating) {
       this.serviceInfo.rating = newRating;
+      this.changeRatingState();
     },
     updateUser() {
       const user = JSON.parse(localStorage.getItem('user'));
@@ -314,9 +330,7 @@ export default {
   outline: 0;
 }
 
-#search-cep-btn,
-#search-date-btn,
-#add-to-cart-btn {
+button {
   background-color: var(--bg-secondary-color);
   color: var(--txt-primary-color);
   border: 0;
@@ -332,6 +346,13 @@ export default {
   height: 25px;
   width: 75px;
   margin-left: 5px;
+}
+
+#rate-service-btn {
+  width: 130px;
+  height: 35px;
+  margin-left: 3%;
+  margin-bottom: 15px;
 }
 
 .error {

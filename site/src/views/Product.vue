@@ -71,7 +71,15 @@
     </div>
     <Description :text="productInfo.description" />
     <Reviews :reviews="productInfo.rating.feedbacks" />
+    <button
+      v-if="!readingRatingState"
+      id="rate-product-btn"
+      @click="changeRatingState"
+    >
+      Avaliar Produto
+    </button>
     <Rate
+      v-else
       :id="parseInt(this.$route.params.id)"
       @ratingUpdated="updateRating"
     />
@@ -116,6 +124,7 @@ export default {
         description: '',
       },
       logged: false,
+      readingRatingState: false,
     };
   },
   created() {
@@ -178,8 +187,12 @@ export default {
         this.errors.cep = 'Digite um cep válido para continuar!';
       }
     },
+    changeRatingState() {
+      this.readingRatingState = !this.readingRatingState;
+    },
     updateRating(newRating) {
       this.productInfo.rating = newRating;
+      this.changeRatingState();
     },
     updateUser() {
       const user = JSON.parse(localStorage.getItem('user'));
@@ -304,8 +317,7 @@ export default {
   outline: 0;
 }
 
-#search-cep-btn,
-#add-to-cart-btn {
+button {
   background-color: var(--bg-secondary-color);
   color: var(--txt-primary-color);
   border: 0;
@@ -326,5 +338,12 @@ export default {
   margin-top: 20px;
   height: 35px;
   width: 170px;
+}
+
+#rate-product-btn {
+  width: 130px;
+  height: 35px;
+  margin-left: 3%;
+  margin-bottom: 15px;
 }
 </style>
