@@ -93,6 +93,8 @@ export default {
   text-align: center;
   margin-top: 30px;
   margin-bottom: 40px;
+  min-height: calc(100vh - 350px);
+  align-items: center;
 }
 
 h2 {

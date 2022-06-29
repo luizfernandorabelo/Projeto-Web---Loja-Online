@@ -48,7 +48,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 55vh;
+  min-height: 70vh;
   margin-top: 10px;
 }
 

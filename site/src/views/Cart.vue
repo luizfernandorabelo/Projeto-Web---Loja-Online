@@ -169,7 +169,9 @@ export default {
 #main-container {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   margin-bottom: 50px;
+  min-height: calc(100vh - 450px);
 }
 
 h2 {

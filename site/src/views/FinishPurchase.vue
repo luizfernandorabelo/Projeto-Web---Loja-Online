@@ -105,12 +105,14 @@ export default {
 #main-container {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  min-height: calc(100vh - 400px);
   margin-bottom: 50px;
 }
 
 h2 {
   text-align: center;
-  margin: 20px 0;
+  margin: 40px 0 20px 0;
 }
 
 #summary-container {

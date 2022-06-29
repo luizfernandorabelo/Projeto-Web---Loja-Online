@@ -66,6 +66,10 @@ export default {
 
 
 <style scoped>
+#product-list-container {
+  min-height: calc(100vh - 300px);
+}
+
 h2,
 h3 {
   text-align: center;

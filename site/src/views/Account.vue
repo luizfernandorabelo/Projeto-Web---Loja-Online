@@ -1,189 +1,191 @@
 <template>
   <div id="account-container">
     <PageLocation :location="location" />
-    <div id="main-container">
-      <div id="edit-personal-info-container" class="input-container">
-        <h3>Informações pessoais</h3>
-        <p v-if="errors.name" class="error">{{ errors.name }}</p>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          placeholder="Nome"
-          v-model="inputs.name"
-        />
-        <p v-if="errors.email" class="error">{{ errors.email }}</p>
-        <input
-          type="text"
-          name="email"
-          id="email"
-          placeholder="Email"
-          v-model="inputs.email"
-        />
-        <p v-if="errors.cpf" class="error">{{ errors.cpf }}</p>
-        <input
-          type="text"
-          name="cpf"
-          id="cpf"
-          placeholder="CPF"
-          v-model="inputs.cpf"
-        />
-        <p v-if="errors.gender" class="error">{{ errors.gender }}</p>
-        <input
-          type="text"
-          name="gender"
-          id="gender"
-          placeholder="Gênero"
-          v-model="inputs.gender"
-        />
-        <p v-if="errors.telephone" class="error">{{ errors.telephone }}</p>
-        <input
-          type="text"
-          name="telephone"
-          id="telephone"
-          placeholder="Telefone"
-          v-model="inputs.telephone"
-        />
-        <p v-if="errors.password" class="error">{{ errors.password }}</p>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Senha"
-          v-model="inputs.password"
-        />
-        <p v-if="errors.confirmPasswd" class="error">
-          {{ errors.confirmPasswd }}
-        </p>
-        <input
-          type="password"
-          name="confirm-password"
-          id="confirm-password"
-          placeholder="Confirme sua nova senha"
-          v-model="inputs.confirmPasswd"
-          v-on:keyup.enter="validateAccount"
-        />
+    <div id="fiting-container">
+      <div id="main-container">
+        <div id="edit-personal-info-container" class="input-container">
+          <h3>Informações pessoais</h3>
+          <p v-if="errors.name" class="error">{{ errors.name }}</p>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Nome"
+            v-model="inputs.name"
+          />
+          <p v-if="errors.email" class="error">{{ errors.email }}</p>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+            v-model="inputs.email"
+          />
+          <p v-if="errors.cpf" class="error">{{ errors.cpf }}</p>
+          <input
+            type="text"
+            name="cpf"
+            id="cpf"
+            placeholder="CPF"
+            v-model="inputs.cpf"
+          />
+          <p v-if="errors.gender" class="error">{{ errors.gender }}</p>
+          <input
+            type="text"
+            name="gender"
+            id="gender"
+            placeholder="Gênero"
+            v-model="inputs.gender"
+          />
+          <p v-if="errors.telephone" class="error">{{ errors.telephone }}</p>
+          <input
+            type="text"
+            name="telephone"
+            id="telephone"
+            placeholder="Telefone"
+            v-model="inputs.telephone"
+          />
+          <p v-if="errors.password" class="error">{{ errors.password }}</p>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="Senha"
+            v-model="inputs.password"
+          />
+          <p v-if="errors.confirmPasswd" class="error">
+            {{ errors.confirmPasswd }}
+          </p>
+          <input
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            placeholder="Confirme sua nova senha"
+            v-model="inputs.confirmPasswd"
+            v-on:keyup.enter="validateAccount"
+          />
+        </div>
+        <div id="edit-home-address-container" class="input-container">
+          <h3>Endereço de entrega</h3>
+          <p v-if="errors.cep" class="error">{{ errors.cep }}</p>
+          <input
+            type="text"
+            name="cep"
+            id="cep"
+            placeholder="CEP"
+            v-model="inputs.cep"
+          />
+          <p v-if="errors.city" class="error">{{ errors.city }}</p>
+          <input
+            type="text"
+            name="city"
+            id="city"
+            placeholder="Cidade"
+            v-model="inputs.city"
+          />
+          <p v-if="errors.state" class="error">{{ errors.state }}</p>
+          <input
+            type="text"
+            name="state"
+            id="state"
+            placeholder="Estado"
+            v-model="inputs.state"
+          />
+          <p v-if="errors.district" class="error">{{ errors.district }}</p>
+          <input
+            type="text"
+            name="district"
+            id="district"
+            placeholder="Bairro"
+            v-model="inputs.district"
+          />
+          <p v-if="errors.street" class="error">{{ errors.street }}</p>
+          <input
+            type="text"
+            name="street"
+            id="street"
+            placeholder="Logradouro"
+            v-model="inputs.street"
+          />
+          <p v-if="errors.number" class="error">{{ errors.number }}</p>
+          <input
+            type="text"
+            name="number"
+            id="number"
+            placeholder="Número"
+            v-model="inputs.number"
+          />
+          <p v-if="errors.complement" class="error">{{ errors.complement }}</p>
+          <input
+            type="text"
+            name="complement"
+            id="complement"
+            placeholder="Complemento"
+            v-model="inputs.complement"
+          />
+        </div>
+        <div id="edit-paying-info-container" class="input-container">
+          <h3>Informações de pagamento</h3>
+          <p v-if="errors.cardNumber" class="error">{{ errors.cardNumber }}</p>
+          <input
+            type="text"
+            name="card-number"
+            id="card-number"
+            placeholder="Número do cartão"
+            v-model="inputs.cardNumber"
+          />
+          <p v-if="errors.cardHolderName" class="error">
+            {{ errors.cardHolderName }}
+          </p>
+          <input
+            type="text"
+            name="card-holder-name"
+            id="card-holder-name"
+            placeholder="Titular do cartão"
+            v-model="inputs.cardHolderName"
+          />
+          <p v-if="errors.cardHolderCPF" class="error">
+            {{ errors.cardHolderCPF }}
+          </p>
+          <input
+            type="text"
+            name="card-holder-cpf"
+            id="card-holder-cpf"
+            placeholder="CPF do titular"
+            v-model="inputs.cardHolderCPF"
+          />
+          <p v-if="errors.billingAddress" class="error">
+            {{ errors.billingAddress }}
+          </p>
+          <input
+            type="text"
+            name="billing-address"
+            id="billing-address"
+            placeholder="Endereço completo de cobrança"
+            v-model="inputs.billingAddress"
+          />
+          <p v-if="errors.expiringDate" class="error">
+            {{ errors.expiringDate }}
+          </p>
+          <input
+            type="text"
+            name="expiring-date"
+            id="expiring-date"
+            placeholder="Data de expiração (mm/aa)"
+            v-model="inputs.expiringDate"
+          />
+        </div>
       </div>
-      <div id="edit-home-address-container" class="input-container">
-        <h3>Endereço de entrega</h3>
-        <p v-if="errors.cep" class="error">{{ errors.cep }}</p>
-        <input
-          type="text"
-          name="cep"
-          id="cep"
-          placeholder="CEP"
-          v-model="inputs.cep"
-        />
-        <p v-if="errors.city" class="error">{{ errors.city }}</p>
-        <input
-          type="text"
-          name="city"
-          id="city"
-          placeholder="Cidade"
-          v-model="inputs.city"
-        />
-        <p v-if="errors.state" class="error">{{ errors.state }}</p>
-        <input
-          type="text"
-          name="state"
-          id="state"
-          placeholder="Estado"
-          v-model="inputs.state"
-        />
-        <p v-if="errors.district" class="error">{{ errors.district }}</p>
-        <input
-          type="text"
-          name="district"
-          id="district"
-          placeholder="Bairro"
-          v-model="inputs.district"
-        />
-        <p v-if="errors.street" class="error">{{ errors.street }}</p>
-        <input
-          type="text"
-          name="street"
-          id="street"
-          placeholder="Logradouro"
-          v-model="inputs.street"
-        />
-        <p v-if="errors.number" class="error">{{ errors.number }}</p>
-        <input
-          type="text"
-          name="number"
-          id="number"
-          placeholder="Número"
-          v-model="inputs.number"
-        />
-        <p v-if="errors.complement" class="error">{{ errors.complement }}</p>
-        <input
-          type="text"
-          name="complement"
-          id="complement"
-          placeholder="Complemento"
-          v-model="inputs.complement"
-        />
+      <div id="buttons-container">
+        <button v-if="this.isAdmin" id="manage-users-btn">
+          <router-link to="/manageUsers">Gerenciar Usuários</router-link>
+        </button>
+        <button v-if="this.isAdmin" id="manage-products-btn">
+          <router-link to="/manageProducts">Gerenciar Produtos</router-link>
+        </button>
+        <button v-if="this.logged" @click="logOut" id="logout-btn">Sair</button>
+        <button @click="validateAccount" id="save-btn">Salvar</button>
       </div>
-      <div id="edit-paying-info-container" class="input-container">
-        <h3>Informações de pagamento</h3>
-        <p v-if="errors.cardNumber" class="error">{{ errors.cardNumber }}</p>
-        <input
-          type="text"
-          name="card-number"
-          id="card-number"
-          placeholder="Número do cartão"
-          v-model="inputs.cardNumber"
-        />
-        <p v-if="errors.cardHolderName" class="error">
-          {{ errors.cardHolderName }}
-        </p>
-        <input
-          type="text"
-          name="card-holder-name"
-          id="card-holder-name"
-          placeholder="Titular do cartão"
-          v-model="inputs.cardHolderName"
-        />
-        <p v-if="errors.cardHolderCPF" class="error">
-          {{ errors.cardHolderCPF }}
-        </p>
-        <input
-          type="text"
-          name="card-holder-cpf"
-          id="card-holder-cpf"
-          placeholder="CPF do titular"
-          v-model="inputs.cardHolderCPF"
-        />
-        <p v-if="errors.billingAddress" class="error">
-          {{ errors.billingAddress }}
-        </p>
-        <input
-          type="text"
-          name="billing-address"
-          id="billing-address"
-          placeholder="Endereço completo de cobrança"
-          v-model="inputs.billingAddress"
-        />
-        <p v-if="errors.expiringDate" class="error">
-          {{ errors.expiringDate }}
-        </p>
-        <input
-          type="text"
-          name="expiring-date"
-          id="expiring-date"
-          placeholder="Data de expiração (mm/aa)"
-          v-model="inputs.expiringDate"
-        />
-      </div>
-    </div>
-    <div id="buttons-container">
-      <button v-if="this.isAdmin" id="manage-users-btn">
-        <router-link to="/manageUsers">Gerenciar Usuários</router-link>
-      </button>
-      <button v-if="this.isAdmin" id="manage-products-btn">
-        <router-link to="/manageProducts">Gerenciar Produtos</router-link>
-      </button>
-      <button v-if="this.logged" @click="logOut" id="logout-btn">Sair</button>
-      <button @click="validateAccount" id="save-btn">Salvar</button>
     </div>
   </div>
 </template>
@@ -500,6 +502,13 @@ export default {
   display: flex;
 }
 
+#fiting-container {
+  min-height: calc(100vh - 300px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
@@ -531,7 +540,7 @@ input {
 }
 
 #buttons-container {
-  margin: 30px 5% 20px;
+  margin: 40px 5% 20px;
   display: flex;
   justify-content: flex-end;
 }
@@ -571,6 +580,12 @@ button {
   }
   button {
     margin: 30px auto;
+  }
+}
+
+@media (min-width: 1920px) {
+  #buttons-container {
+    margin-right: 8%;
   }
 }
 </style>
