@@ -4,7 +4,7 @@ export default {
       id: '0',
       admin: true,
       personalInfo: {
-        name: 'adm',
+        name: 'Admin',
         email: 'admin@azulaops.com',
         password: 'admin',
         CPF: '12345678900',
@@ -18,26 +18,26 @@ export default {
         district: 'Centro',
         street: 'Adolfo Catani',
         number: '233',
-        complement: 'apto 95'
+        complement: 'apto 95',
       },
       card: {
         number: '1234567890123456',
         holderName: 'Cliente da Silva',
         holderCPF: '98765432100',
         billingAddress: 'Rua Adolfo Catani 233, apartamento 12, São Carlos, SP',
-        expiringDate: '11/26'
+        expiringDate: '11/26',
       },
       cart: {
         items: [],
         cep: '',
-        deliveryFee: 0
-      }
+        deliveryFee: 0,
+      },
     },
     {
       id: '1',
       admin: false,
       personalInfo: {
-        name: 'cliente',
+        name: 'Cliente',
         email: 'cliente@gmail.com',
         password: 'cliente',
         CPF: '98765432100',
@@ -51,20 +51,20 @@ export default {
         district: 'Centro',
         street: 'Adolfo Catani',
         number: '233',
-        complement: 'apto 95'
+        complement: 'apto 95',
       },
       card: {
         number: '1234567890123456',
         holderName: 'Cliente da Silva',
         holderCPF: '98765432100',
         billingAddress: 'Rua Adolfo Catani 233, apartamento 12, São Carlos, SP',
-        expiringDate: '11/26'
+        expiringDate: '11/26',
       },
       cart: {
         items: [],
         cep: '',
-        deliveryFee: 0
-      }
-    }
-  ]
-}
+        deliveryFee: 0,
+      },
+    },
+  ],
+};
