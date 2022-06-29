@@ -6,9 +6,9 @@
         <MinManageUser
           v-for="user in users"
           :key="user.id"
-          :userName="user.name"
-          :userCPF="user.cpf"
-          :userEmail="user.email"
+          :userName="user.personalInfo.name"
+          :userCPF="user.personalInfo.cpf"
+          :userEmail="user.personalInfo.email"
           :admin="user.admin"
         />
       </div>
@@ -49,12 +49,12 @@ export default {
   flex-direction: column;
   justify-content: center;
   min-height: 55vh;
+  margin-top: 10px;
 }
 
 #users {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  list-style-type: none;
 }
 </style>
