@@ -9,11 +9,6 @@
 <script>
 export default {
   name: 'Description',
-  // data() {
-  //   return {
-  //     text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam atque ab dolorum enim a quia tenetur reiciendis delectus voluptate quidem impedit cupiditate, accusamus repellat earum quam quis ipsum perspiciatis doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur vero cupiditate eligendi, nostrum, numquam ducimus inventore voluptate iste in accusantium quibusdam. Vero, ratione eos voluptate blanditiis facilis omnis harum similique! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam atque ab dolorum enim a quia tenetur reiciendis delectus voluptate quidem impedit cupiditate, accusamus repellat earum quam quis ipsum perspiciatis doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur vero cupiditate eligendi, nostrum, numquam ducimus inventore voluptate iste in accusantium quibusdam. Vero, ratione eos voluptate blanditiis facilis omnis harum similique! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam atque ab dolorum enim a quia tenetur reiciendis delectus voluptate quidem impedit cupiditate, accusamus repellat earum quam quis ipsum perspiciatis doloremque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur vero cupiditate eligendi, nostrum, numquam ducimus inventore voluptate iste in accusantium quibusdam. Vero, ratione eos voluptate blanditiis facilis omnis harum similique!'
-  //   }
-  // }
   props: {
     text: String,
   },

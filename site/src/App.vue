@@ -9,21 +9,9 @@
 
 
 <script>
-import Login from './views/Login.vue';
-import ProductList from './views/ProductList.vue';
-import Product from './views/Product.vue';
-import Service from './views/Service.vue';
-import Cart from './views/Cart.vue';
-import ManageProducts from './views/ManageProducts.vue';
-import ManageProduct from './views/ManageProduct.vue';
-import ManageUsers from './views/ManageUsers.vue';
-import FinishPurchase from './views/FinishPurchase.vue';
-
 import TopHeader from './components/TopHeader.vue';
 import CategoriesBar from './components/CategoriesBar.vue';
 import Footer from './components/Footer.vue';
-import MinManageProduct from './components/MinManageProduct.vue';
-import MinManageUser from './components/MinManageUser.vue';
 
 import fakeUsers from './fakedb/users';
 import fakeCeps from './fakedb/ceps';
@@ -32,20 +20,9 @@ import fakeItems from './fakedb/items';
 export default {
   name: 'App',
   components: {
-    Login,
-    ProductList,
-    Product,
-    Service,
-    Cart,
-    ManageProducts,
-    ManageProduct,
-    ManageUsers,
-    FinishPurchase,
     TopHeader,
     CategoriesBar,
     Footer,
-    MinManageProduct,
-    MinManageUser,
   },
   created() {
     this.initializeLocalStorage();
