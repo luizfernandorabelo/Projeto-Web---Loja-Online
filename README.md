@@ -114,11 +114,11 @@ As funcionalidades visadas pelo nosso site são:
 - Complemento
 <br><br>
 
-**Cartões Salvos:**
+**Cartão Salvos:**
 
-- Conta associada
+- CPF do titular
 - Número do cartão
-- Nome no cartão
+- Nome do titular
 <br><br>
 
 **Produtos:**
@@ -142,7 +142,8 @@ As funcionalidades visadas pelo nosso site são:
 
 ## 3. Comentários sobre o código
 <p align="justify">
-    O código ainda está em uma fase muito inicial, em que ainda não possui responsividade, apenas a estrutura do site e uma estilização compatível com desktops tradicionais.
+    O código ainda não possui responsividade, apenas a estrutura do site e uma estilização compatível com desktops tradicionais.
+    Como o código foi feito em Vue não tivemos grandes dificuldades exceto para aprender como utilizava, e para realizar o uso do localStorage, porem uma vez compreendido esses conceitos, a escrita do código foi apenas trabalhosa pela enorme quantidade de scripts a serem feitos.
 </p><br>
 
 ## 4. Plano de teste
@@ -152,7 +153,7 @@ As funcionalidades visadas pelo nosso site são:
 
 ## 5. Resultados dos testes
 <p align="justify">
-    Considerando o quão inicial está o projeto, ele apresenta resultado satisfatório, que está apenas visualizável, ainda não apresentando nenhuma responsividade (dado que ainda não foi implementada).
+    Ele apresenta resultado satisfatório, ainda não apresentando responsividade (dado que ainda não foi implementada), porém há uma integração entre todas as abas de forma que tanto o  cliente quanto o administrador não caiam em páginas "vazias"
 </p><br>
 
 ## 6. Building
@@ -179,11 +180,12 @@ npm run build
 
 ## 7. Problemas
 <p align="justify">
-    Por enquanto o único problema está sendo passar os mockups para .html e .css dado que é um trabalho que demanda tarefas longas e repetitivas.
+    Os maiores problemas foram o aprendizado da estrutura do vue e o gerenciamento do local storage (armazenamento de contas, dados dos produtos, etc...) além do tempo necessário para fazer o cadastro de cada um dos produtos
 </p><br>
 
 ## 8. Comentários
 <p align="justify">
     A segurança da aplicação foi completamente negligenciada por fins educativos. Para fins de produção, procure alternativas mais seguras.<br>
-    A ferramento utilizada para o desenvolvimento dos mockups foi o Figma.
+    A ferramenta utilizada para o desenvolvimento dos mockups foi o Figma.
+    Para o desenvolvimento de scripts tais como, html, CSS, javascript, utilizamos o framework VueJS
 </p>
