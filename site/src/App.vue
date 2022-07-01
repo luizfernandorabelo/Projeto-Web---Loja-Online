@@ -25,7 +25,7 @@ export default {
     Footer,
   },
   created() {
-    this.initializeLocalStorage();
+    // this.initializeLocalStorage();
   },
   methods: {
     initializeLocalStorage() {
