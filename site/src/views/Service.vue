@@ -371,4 +371,19 @@ button {
   height: 35px;
   width: 170px;
 }
+
+@media (max-width: 768px) {
+  #service-area {
+    flex-direction: column;
+  }
+  #service-img {
+    margin-bottom: 20px;
+  }
+  #service-info {
+    width: 80%;
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+  }
+}
 </style>

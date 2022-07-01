@@ -28,6 +28,7 @@ export default {
 #page-location {
   display: flex;
   margin-left: 3%;
+  flex-wrap: wrap;
 }
 
 #page-location div {

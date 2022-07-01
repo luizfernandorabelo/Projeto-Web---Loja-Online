@@ -346,4 +346,19 @@ button {
   margin-left: 3%;
   margin-bottom: 15px;
 }
+
+@media (max-width: 768px) {
+  #product-area {
+    flex-direction: column;
+  }
+  #product-img {
+    margin-bottom: 20px;
+  }
+  #product-info {
+    width: 80%;
+    margin-top: 20px;
+    align-items: center;
+    text-align: center;
+  }
+}
 </style>
