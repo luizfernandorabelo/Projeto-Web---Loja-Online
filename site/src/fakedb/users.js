@@ -68,7 +68,7 @@ export default {
     },
     {
       id: '2',
-      admin: true,
+      admin: false,
       personalInfo: {
         name: 'Rosângela da Silva',
         email: 'rosangela@gmail.com',
@@ -101,7 +101,7 @@ export default {
     },
     {
       id: '3',
-      admin: true,
+      admin: false,
       personalInfo: {
         name: 'Edicreusa',
         email: 'edicreusa@azulaops.com',
