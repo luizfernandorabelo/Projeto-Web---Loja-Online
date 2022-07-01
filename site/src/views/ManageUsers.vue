@@ -7,9 +7,11 @@
           v-for="user in users"
           :key="user.id"
           :userName="user.personalInfo.name"
-          :userCPF="user.personalInfo.cpf"
+          :userCPF="user.personalInfo.CPF"
           :userEmail="user.personalInfo.email"
           :admin="user.admin"
+          @adminUpdated="updateAdmin"
+          @userDeleted="deleteUser"
         />
       </div>
     </div>
@@ -38,6 +40,23 @@ export default {
   created() {
     this.users = JSON.parse(localStorage.getItem('users'));
     console.log(this.users);
+  },
+  methods: {
+    updateAdmin(userEmail, admin) {
+      const updatedUser = this.users.find(
+        (user) => user.personalInfo.email === userEmail
+      );
+      updatedUser.admin = admin;
+      localStorage.setItem('users', JSON.stringify(this.users));
+    },
+    deleteUser(userEmail) {
+      if (confirm('Clique em OK para confirmar a exclusão de usuário')) {
+        this.users = this.users.filter(
+          (user) => user.personalInfo.email !== userEmail
+        );
+        localStorage.setItem('users', JSON.stringify(this.users));
+      }
+    },
   },
 };
 </script>

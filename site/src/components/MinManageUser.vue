@@ -1,43 +1,48 @@
 <template>
   <div id="min-manage-user-container">
-    <router-link to="/manageUser">
-      <div id="left">
-        <p id="user-name">{{ userName }}</p>
-        <p id="user-cpf">{{ userCPF }}</p>
-        <p id="user-email">{{ userEmail }}</p>
-      </div>
-      <div id="right">
-        <input type="checkbox" v-model="user.admin" id="user-admin" />
-        <label for="admin">Admin</label>
-        <i id="fa-solid fa-trash-can"></i>
-      </div>
-    </router-link>
+    <div id="left">
+      <p id="user-name">{{ userName }}</p>
+      <p id="user-cpf">{{ userCPF }}</p>
+      <p id="user-email">{{ userEmail }}</p>
+    </div>
+    <div id="right">
+      <input
+        type="checkbox"
+        v-model="admin"
+        name="user-admin"
+        id="user-admin"
+        @input="onInput"
+      />
+      <label for="user-admin">Admin</label>
+    </div>
+    <i class="fa-solid fa-trash-can" @click="onClick"></i>
   </div>
 </template>
 
 
 <script>
 export default {
-  data() {
-    return {
-      user: {
-        admin: false,
-      },
-    };
-  },
   name: 'MinManageUser',
   props: {
+    admin: {
+      default: false,
+    },
     userName: {
-      default: 'Usuário',
+      default: '',
     },
     userCPF: {
-      default: '123.456.789-10',
+      default: '',
     },
     userEmail: {
-      default: 'email.inventado@gmail.com',
+      default: '',
     },
-    trashCan: {
-      default: 'fa-trash-can',
+  },
+  methods: {
+    onInput() {
+      this.$emit('adminUpdated', this.userEmail, !this.admin);
+    },
+    onClick() {
+      this.$emit('userDeleted', this.userEmail);
     },
   },
 };
@@ -47,34 +52,36 @@ export default {
 <style scoped>
 #min-manage-user-container {
   margin: 10px 20px 15px;
-  height: 170px;
+  height: 150px;
   width: 500px;
-  text-align: justify;
   border: 1px solid black;
   border-radius: 10px;
   padding: 10px;
+  display: flex;
+  position: relative;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 #left {
-  float: left;
-}
-
-#right {
-  float: right;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
 }
 
 #user-name {
-  font-size: 28px;
+  font-size: 1.5rem;
   margin-bottom: 5px;
 }
 
 #user-cpf {
-  font-size: 28px;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 
 #user-email {
-  font-size: 28px;
+  font-size: 1.2rem;
   display: inline-block;
   margin-bottom: 5px;
 }
@@ -84,11 +91,12 @@ export default {
   width: 20px;
 }
 
-#fa-trash-can {
+.fa-trash-can {
   display: inline-block;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   cursor: pointer;
+  color: var(--txt-terciary-color);
 }
 </style>
