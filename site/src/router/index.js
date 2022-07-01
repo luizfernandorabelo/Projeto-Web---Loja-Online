@@ -39,7 +39,7 @@ export default createRouter({
       component: () => import('../views/ManageProducts.vue'),
     },
     {
-      path: '/manageProduct',
+      path: '/manageProduct/:id',
       name: 'ManageProduct',
       component: () => import('../views/ManageProduct.vue'),
     },

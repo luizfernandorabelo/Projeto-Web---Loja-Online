@@ -2,28 +2,42 @@
   <div id="product-container">
     <PageLocation :location="location" />
     <div id="product-area">
-      <img id="product-img" :src="imgUrl" :alt="name + ' image'" />
+      <img
+        id="product-img"
+        :src="product.images[0]"
+        :alt="product.name + ' image'"
+      />
       <div id="product-info">
-        <h3 id="product-name">{{ name }}</h3>
+        <h3 id="product-name">{{ product.name }}</h3>
         <div id="short-review-container">
-          <p id="total-stars">{{ review.totalStars.toFixed(2) }}</p>
+          <p id="total-stars">
+            {{ parseInt(product.rating.totalStars).toFixed(2) }}
+          </p>
           <div id="stars-container">
             <i
               class="fa-solid fa-star yellow"
-              v-for="index in review.totalStars"
+              v-for="index in parseInt(product.rating.totalStars)"
               :key="index"
             ></i>
             <i
               class="fa-solid fa-star gray"
-              v-for="index in 5 - review.totalStars"
+              v-for="index in 5 - parseInt(product.rating.totalStars)"
               :key="index"
             ></i>
           </div>
-          <p id="total-opinions">({{ review.totalOpinions }}) opiniões</p>
+          <p id="total-opinions">
+            ({{ product.rating.feedbacks.length }}) opiniões
+          </p>
         </div>
         <div id="price-container">
           <p>Preço do produto:</p>
-          <p id="product-price">R$ {{ price.toFixed(2) }}</p>
+          <input
+            type="number"
+            name="product-price"
+            id="product-price"
+            min="0"
+            v-model="product.price"
+          />
         </div>
         <div id="stock-container">
           <p>Quantidade em estoque:</p>
@@ -32,21 +46,28 @@
             name="product-stock"
             id="product-stock"
             min="0"
-            v-model="stock"
+            v-model="product.stock"
           />
         </div>
-        <div id="category-container">
+        <!-- <div id="category-container">
           <p>Categoria:</p>
           <p id="product-category">{{ category }} ></p>
-        </div>
+        </div> -->
         <div id="btn-container">
-          <button id="save-editions-btn">Salvar edições</button>
-          <button id="exclude-product-btn">Excluir produto</button>
+          <button id="save-editions-btn" @click="saveEditions">
+            Salvar Edições
+          </button>
+          <button id="exclude-product-btn" @click="excludeProduct">
+            Excluir Produto
+          </button>
         </div>
       </div>
     </div>
-    <Description />
-    <Reviews />
+    <Description
+      :text="product.description"
+      editable="true"
+      @edit="updateDescription"
+    />
   </div>
 </template>
 
@@ -63,26 +84,41 @@ export default {
   data() {
     return {
       location: [
-        { name: 'Home', id: 0 },
-        { name: 'Animal X', id: 1 },
-        { name: 'Categoria Y', id: 2 },
-        { name: 'Ração de Teste', id: 3 },
+        { name: 'Home', id: 0, path: '/' },
+        { name: 'Gerenciar Produtos', id: 1, path: '/manageProducts' },
       ],
-      name: 'Ração de teste',
-      price: 99.99,
-      imgUrl:
-        'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
-      review: {
-        totalOpinions: 99,
-        totalStars: 4,
-      },
-      stock: 60,
-      category: [
-        { name: 'Animal X', id: 0 },
-        { name: 'Categoria Y', id: 1 },
-        { name: 'Ração de Teste', id: 2 },
-      ],
+      product: {},
     };
+  },
+  created() {
+    this.product = JSON.parse(localStorage.getItem('items')).find(
+      (item) => item.id === parseInt(this.$route.params.id)
+    );
+  },
+  methods: {
+    updateDescription(newContent) {
+      this.product.description = newContent;
+    },
+    saveEditions() {
+      if (confirm('Clique em OK para confirmar a edição do produto')) {
+        let items = JSON.parse(localStorage.getItem('items'));
+        items = items.filter((item) => item.id !== this.product.id);
+        items.unshift(this.product);
+        localStorage.setItem('items', JSON.stringify(items));
+        alert('Produto atualizado com sucesso!');
+        console.log(items);
+        window.location.href = '/manageProducts';
+      }
+    },
+    excludeProduct() {
+      if (confirm('Clique em OK para confirmar a exclusão do produto')) {
+        let items = JSON.parse(localStorage.getItem('items'));
+        items = items.filter((item) => item.id !== this.product.id);
+        localStorage.setItem('items', JSON.stringify(items));
+        alert('Produto excluído com sucesso!');
+        window.location.href = '/manageProducts';
+      }
+    },
   },
 };
 </script>
@@ -151,14 +187,23 @@ export default {
   align-items: center;
 }
 
-#product-stock {
-  width: 45px;
-  height: 30px;
+#product-stock,
+#product-price {
   border: 1px solid var(--txt-terciary-color);
   border-radius: 5px;
   text-align: center;
   outline: 0;
   margin-left: 15px;
+}
+
+#product-stock {
+  width: 45px;
+  height: 30px;
+}
+
+#product-price {
+  width: 75px;
+  height: 35px;
 }
 
 #category-container {
@@ -171,7 +216,9 @@ export default {
 }
 
 #product-stock::-webkit-inner-spin-button,
-#product-stock::-webkit-outer-spin-button {
+#product-stock::-webkit-outer-spin-button,
+#product-price::-webkit-inner-spin-button,
+#product-price::-webkit-outer-spin-button {
   opacity: 1;
 }
 

@@ -3,13 +3,16 @@
     <PageLocation :location="location" />
     <div id="main-container">
       <div id="products">
-        <MinManageProduct
-          v-for="item in items"
-          :key="item.id"
-          :productName="item.name"
-          :productPrice="item.price"
-          :productImgUrl="item.images[0]"
-        />
+        <div v-for="item in items" :key="item.id">
+          <router-link :to="'/manageProduct/' + item.id">
+            <MinManageProduct
+              :productId="item.id"
+              :productName="item.name"
+              :productPrice="item.price"
+              :productImgUrl="item.images[0]"
+            />
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -29,14 +32,13 @@ export default {
     return {
       location: [
         { id: 0, name: 'Home', path: '/' },
-        { id: 1, name: 'Gerenciar Usuários', path: '/manageUsers' },
+        { id: 1, name: 'Gerenciar Produtos', path: '/manageProducts' },
       ],
       items: [],
     };
   },
   created() {
     this.items = JSON.parse(localStorage.getItem('items'));
-    console.log(this.items);
   },
 };
 </script>

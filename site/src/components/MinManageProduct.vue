@@ -1,6 +1,7 @@
 <template>
   <div id="min-manage-product-container">
-    <router-link to="/manageProduct">
+    <h3 id="product-name">{{ productName }}</h3>
+    <div id="left-right-container">
       <div id="left">
         <img
           id="product-img"
@@ -9,12 +10,12 @@
         />
       </div>
       <div id="right">
-        <p id="product-name">{{ productName }}</p>
-        <p id="product-price">{{ productPrice }}</p>
-        <p id="product-code">Cód. Prod.: {{ productCode }}</p>
-        <i id="fa-solid fa-trash-can"></i>
+        <div id="price-code-container">
+          <p id="product-price">Preço: {{ productPrice }}</p>
+          <p id="product-code">Identificador: {{ productId }}</p>
+        </div>
       </div>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -23,21 +24,17 @@
 export default {
   name: 'MinManageProduct',
   props: {
+    productId: {
+      default: -1,
+    },
     productName: {
-      default: 'Ração de Teste',
+      default: '',
     },
     productPrice: {
-      default: 99.99,
+      default: 0,
     },
     productImgUrl: {
-      default:
-        'https://lojaludica.com.br/media/catalog/product/cache/1/image/800x/9df78eab33525d08d6e5fb8d27136e95/p/r/produto-teste_1.jpg',
-    },
-    productCode: {
-      default: '1eC45X',
-    },
-    trashCan: {
-      default: 'fa-trash-can',
+      default: '',
     },
   },
 };
@@ -46,45 +43,51 @@ export default {
 
 <style scoped>
 #min-manage-product-container {
-  margin: 10px 20px 15px;
-  height: 170px;
-  width: 500px;
-  text-align: justify;
+  height: 230px;
+  width: 550px;
+  margin: 30px 15px;
+  padding: 10px;
+  box-sizing: border-box;
   border: 1px solid black;
   border-radius: 10px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
-#left {
-  float: left;
-}
-
-#right {
-  float: right;
+#left-right-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 img {
   height: 150px;
   width: 150px;
-  border: 1px solid black;
   border-radius: 10px;
-  padding-bottom: 5px;
-  margin-bottom: 10px;
-  cursor: pointer;
 }
 
 #product-name {
-  font-size: 28px;
-  margin-bottom: 5px;
+  font-size: 1.3rem;
+  text-align: center;
+  font-weight: normal;
+  margin: 10px 0;
+}
+
+#price-code-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 150px;
 }
 
 #product-price {
-  font-size: 28px;
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
 #product-code {
-  font-size: 28px;
+  font-size: 1.3rem;
   display: inline-block;
   margin-bottom: 5px;
 }
@@ -95,5 +98,11 @@ img {
   top: 10px;
   right: 10px;
   cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  #min-manage-product-container {
+    width: 450px;
+  }
 }
 </style>
