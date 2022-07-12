@@ -14,12 +14,11 @@ const URI =
 mongoose.connect(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
 });
 
 const db = mongoose.connection;
 
-db.on('error', console.error('Error connecting to database.'));
+db.on('error', () => console.error('Error connecting to database.'));
 db.once('open', () => {
   console.log('Connected to database.\nRunning on port ' + PORT);
   server.listen(PORT);
