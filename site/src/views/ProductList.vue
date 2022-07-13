@@ -33,33 +33,51 @@ export default {
       products: [],
     };
   },
-  created() {
+  async created() {
     const targetAnimal = this.$route.params.animal;
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
       this.h3Content = 'Os melhores produtos para ' + targetAnimal;
-      this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+      // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+      //   item.categories.includes(targetAnimal)
+      // );
+      this.products = await this.fetchProducts();
+      this.products = this.products.filter((item) =>
         item.categories.includes(targetAnimal)
       );
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos mais vendidos';
-      this.products = JSON.parse(localStorage.getItem('items'));
+      // this.products = JSON.parse(localStorage.getItem('items'));
+      this.products = await this.fetchProducts();
     }
   },
-  updated() {
+  async updated() {
     const targetAnimal = this.$route.params.animal;
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
       this.h3Content = 'Os melhores produtos para ' + targetAnimal;
-      this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+      // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+      //   item.categories.includes(targetAnimal)
+      // );
+      this.products = await this.fetchProducts();
+      this.products = this.products.filter((item) =>
         item.categories.includes(targetAnimal)
       );
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos mais vendidos';
-      this.products = JSON.parse(localStorage.getItem('items'));
+      // this.products = JSON.parse(localStorage.getItem('items'));
+      this.products = await this.fetchProducts();
     }
+  },
+  methods: {
+    async fetchProducts() {
+      const response = await fetch('http://localhost:3000/items');
+      const products = await response.json();
+      console.log(products);
+      return products;
+    },
   },
 };
 </script>
