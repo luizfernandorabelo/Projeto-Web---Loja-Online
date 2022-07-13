@@ -30,7 +30,7 @@ exports.put = async (req, res, next) => {
   const id = req.params.id;
   const item = await Item.findOne({ id: id });
   if (item) {
-    const updated = await item.updateOne({ _id: item._id }, req.body);
+    const updated = await Item.updateOne({ _id: item._id }, { $set: req.body });
     res.status(201).send(updated);
   } else {
     res.status(404).send();
