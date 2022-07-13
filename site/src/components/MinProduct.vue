@@ -46,7 +46,6 @@ img {
   width: 200px;
   border: 1px solid var(--bg-terciary-color);
   border-radius: 10px;
-  padding-bottom: 5px;
   margin-bottom: 10px;
   cursor: pointer;
 }
