@@ -12,6 +12,20 @@ exports.getById = async (req, res, next) => {
   else res.status(404).send();
 };
 
+exports.post = async (req, res, next) => {
+  const user = req.body;
+  if (!user) {
+    res.status(404).send();
+  } else {
+    try {
+      const inserted = await User.insertMany(user);
+      res.status(200).json({ msg: 'Ok' });
+    } catch (err) {
+      res.status(404).json({ error: err.message });
+    }
+  }
+};
+
 exports.put = async (req, res, next) => {
   const id = req.params.id;
   const user = await User.findOne({ id: id });
