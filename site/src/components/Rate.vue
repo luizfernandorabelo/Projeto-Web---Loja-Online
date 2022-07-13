@@ -21,7 +21,7 @@
         v-model="this.review.comment"
       />
     </div>
-    <button @click="postReview">Enviar</button>
+    <button @click="sendReview">Enviar</button>
   </div>
 </template>
 
@@ -29,7 +29,9 @@
 export default {
   name: 'Rate',
   props: {
-    id: 0,
+    id: {
+      default: 0,
+    },
   },
   data() {
     return {
@@ -40,40 +42,54 @@ export default {
         stars: 0,
       },
       user: {},
-      product: {},
+      // product: {},
     };
   },
   created() {
-    this.user = this.getUser();
+    this.user = this.getCurrUserFromLS();
   },
   methods: {
-    getUser() {
+    getCurrUserFromLS() {
       return JSON.parse(localStorage.getItem('user'));
     },
-    getProduct() {
-      return JSON.parse(localStorage.getItem('items')).find(
-        (product) => product.id === this.id
-      );
-    },
-    postReview() {
+    async sendReview() {
       if (this.user === null) {
         alert('Você precisa estar logado para avaliar');
         window.location.href = '/login';
         return;
       }
-      const items = JSON.parse(localStorage.getItem('items'));
-      console.log(items);
-      const product = items.find((product) => product.id === this.id);
+      // const items = JSON.parse(localStorage.getItem('items'));
+      // const item = items.find((item) => item.id === this.id);
+      const item = await this.getItem();
       this.review.userName = this.user.personalInfo.name;
       this.review.email = this.user.personalInfo.email;
-      product.rating.totalStars =
-        (this.review.stars + product.rating.totalStars) / 2;
-      product.rating.feedbacks.push(this.review);
-      console.log(product.rating);
-      console.log(items);
-      localStorage.setItem('items', JSON.stringify(items));
-      console.log('review enviada');
-      this.$emit('ratingUpdated', product.rating);
+      item.rating.feedbacks.push(this.review);
+      item.rating.totalStars = this.evaluateStars(item.rating.feedbacks);
+      const updated = await this.putItem(item);
+      // localStorage.setItem('items', JSON.stringify(items));
+      this.$emit('ratingUpdated', item.rating);
+    },
+    evaluateStars(feedbacks) {
+      let totalStars = 0;
+      feedbacks.forEach((f) => (totalStars += f.stars));
+      return parseInt(totalStars / feedbacks.length);
+    },
+    async getItem() {
+      const response = await fetch(`http://localhost:3000/items/${this.id}`);
+      const item = await response.json();
+      return item;
+    },
+    async putItem(item) {
+      const response = await fetch(`http://localhost:3000/items/${this.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(item),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const updated = await response.json();
+      return updated;
     },
   },
 };
