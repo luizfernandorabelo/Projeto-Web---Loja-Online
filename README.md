@@ -158,24 +158,40 @@ As funcionalidades visadas pelo nosso site são:
 
 ## 6. Building
 
-Todos os comandos abaixo devem ser digitados no escopo da pasta `site`:
+### Front
 
-### Instalação de Dependências:
+```
+cd site
+```
+
+#### Instalação de Dependências:
 
 ```
 npm install
 ```
 
-### Compilação no Modo de Desenvolvimento:
+#### Compilação no Modo de Desenvolvimento:
 
 ```
 npm run serve
 ```
 
-### Compilação e Minificação para Produção:
+#### Compilação e Minificação para Produção:
 
 ```
 npm run build
+```
+
+### Back
+
+```
+cd server
+```
+
+#### Inicialização do servidor
+
+```
+npm start
 ```
 
 ## 7. Problemas
