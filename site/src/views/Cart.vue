@@ -36,9 +36,11 @@
                 type="number"
                 name="amount"
                 min="1"
+                :max="item.stock"
                 :id="item.id + 'amount'"
                 v-model="item.amount"
                 @change="updatePrices"
+                onkeydown="return false"
               />
               <span class="item-price">R$ {{ item.price }}</span>
             </div>
@@ -103,24 +105,31 @@ export default {
       itemsPrice: 0,
     };
   },
-  created() {
+  async created() {
+    this.user = JSON.parse(localStorage.getItem('user'));
     this.getItems();
-    this.updatePrices();
+  },
+  updated() {
+    // this.updatePrices();
   },
   methods: {
     getItems() {
-      const cart = JSON.parse(localStorage.getItem('user')).cart;
-      cart.items.forEach((item) => {
-        let cartItem = JSON.parse(localStorage.getItem('items')).find(
-          (itm) => itm.id === item.id
-        );
+      // const cart = JSON.parse(localStorage.getItem('user')).cart;
+      this.user.cart.items.forEach(async (item) => {
+        // let cartItem = JSON.parse(localStorage.getItem('items')).find(
+        //   (itm) => itm.id === item.id
+        // );
+        const response = await fetch(`http://localhost:3000/items/${item.id}`);
+        const cartItem = await response.json();
         cartItem.amount = item.amount;
         cartItem.checked = true;
         this.items.push(cartItem);
+        this.updatePrices();
       });
     },
     updatePrices() {
-      this.calculateDeliveryPrice(), this.calculateItemsPrice();
+      this.calculateItemsPrice();
+      this.calculateDeliveryPrice();
     },
     calculateItemsPrice() {
       this.itemsPrice = 0;
@@ -130,35 +139,58 @@ export default {
     },
     calculateDeliveryPrice() {
       for (let item of this.items) {
-        if (item.checked) {
-          this.deliveryFee = JSON.parse(
-            localStorage.getItem('user')
-          ).cart.deliveryFee;
+        if (item.checked && !item.categories.includes('servicos')) {
+          this.deliveryFee = this.user.cart.deliveryFee;
           return;
         }
       }
       this.deliveryFee = 0;
     },
-    removeItem(itemId) {
+    async removeItem(itemId) {
       this.items = this.items.filter((item) => item.id !== itemId);
-      const user = JSON.parse(localStorage.getItem('user'));
-      user.cart.items = user.cart.items.filter((item) => item.id !== itemId);
-      localStorage.setItem('user', JSON.stringify(user));
-    },
-    clearCart() {
-      this.items = [];
+      // const user = JSON.parse(localStorage.getItem('user'));
+      this.user.cart.items = this.user.cart.items.filter(
+        (item) => item.id !== itemId
+      );
+      localStorage.setItem('user', JSON.stringify(this.user));
+      const updated = await this.putUser();
       this.updatePrices();
-      const user = JSON.parse(localStorage.getItem('user'));
-      user.cart.items = [];
-      user.cart.deliveryFee = 0;
-      user.cart.cep = '';
-      localStorage.setItem('user', JSON.stringify(user));
     },
-    finishPurchase() {
-      const user = JSON.parse(localStorage.getItem('user'));
-      user.cart.total = this.itemsPrice + this.deliveryFee;
-      localStorage.setItem('user', JSON.stringify(user));
+    async clearCart() {
+      this.items = [];
+      // const user = JSON.parse(localStorage.getItem('user'));
+      this.user.cart.items = [];
+      this.user.cart.deliveryFee = 0;
+      this.user.cart.cep = '';
+      localStorage.setItem('user', JSON.stringify(this.user));
+      const updated = await this.putUser();
+      this.updatePrices();
+    },
+    async finishPurchase() {
+      // const user = JSON.parse(localStorage.getItem('user'));
+      this.user.cart.total = this.itemsPrice + this.deliveryFee;
+      if (this.user.cart.total === 0) {
+        alert('Insira ao menos 1 produto no carrinho para finalizar a compra!');
+        return;
+      }
+      localStorage.setItem('user', JSON.stringify(this.user));
+      const updated = await this.putUser();
       window.location.href = '/finishPurchase';
+    },
+    async putUser() {
+      const response = await fetch(
+        `http://localhost:3000/users/${this.user.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(this.user),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const updated = await response.json();
+      return updated;
     },
   },
 };
