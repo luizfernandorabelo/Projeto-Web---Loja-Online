@@ -49,10 +49,6 @@
             v-model="product.stock"
           />
         </div>
-        <!-- <div id="category-container">
-          <p>Categoria:</p>
-          <p id="product-category">{{ category }} ></p>
-        </div> -->
         <div id="btn-container">
           <button id="save-editions-btn" @click="saveEditions">
             Salvar Edições
@@ -87,37 +83,83 @@ export default {
         { name: 'Home', id: 0, path: '/' },
         { name: 'Gerenciar Produtos', id: 1, path: '/manageProducts' },
       ],
-      product: {},
+      product: {
+        name: '',
+        images: [''],
+        rating: {
+          totalStars: 0,
+          feedbacks: [],
+        },
+        price: 0,
+        stock: 0,
+        description: '',
+      },
     };
   },
-  created() {
-    this.product = JSON.parse(localStorage.getItem('items')).find(
-      (item) => item.id === parseInt(this.$route.params.id)
-    );
+  async created() {
+    // this.product = JSON.parse(localStorage.getItem('items')).find(
+    //   (item) => item.id === parseInt(this.$route.params.id)
+    // );
+    this.product = await this.getProduct();
   },
   methods: {
     updateDescription(newContent) {
       this.product.description = newContent;
     },
-    saveEditions() {
-      if (confirm('Clique em OK para confirmar a edição do produto')) {
-        let items = JSON.parse(localStorage.getItem('items'));
-        items = items.filter((item) => item.id !== this.product.id);
-        items.unshift(this.product);
-        localStorage.setItem('items', JSON.stringify(items));
-        alert('Produto atualizado com sucesso!');
-        console.log(items);
-        window.location.href = '/manageProducts';
-      }
-    },
-    excludeProduct() {
+    async excludeProduct() {
       if (confirm('Clique em OK para confirmar a exclusão do produto')) {
-        let items = JSON.parse(localStorage.getItem('items'));
-        items = items.filter((item) => item.id !== this.product.id);
-        localStorage.setItem('items', JSON.stringify(items));
+        // let items = JSON.parse(localStorage.getItem('items'));
+        // items = items.filter((item) => item.id !== this.product.id);
+        // localStorage.setItem('items', JSON.stringify(items));
+        const deleted = await this.deleteProduct(this.product);
         alert('Produto excluído com sucesso!');
         window.location.href = '/manageProducts';
       }
+    },
+    async saveEditions() {
+      if (confirm('Clique em OK para confirmar a edição do produto')) {
+        // let items = JSON.parse(localStorage.getItem('items'));
+        // items = items.filter((item) => item.id !== this.product.id);
+        // items.unshift(this.product);
+        // localStorage.setItem('items', JSON.stringify(items));
+        const updated = await this.putProduct(this.product);
+        alert('Produto atualizado com sucesso!');
+        window.location.href = '/manageProducts';
+      }
+    },
+    async getProduct() {
+      // const product = JSON.parse(localStorage.getItem('items')).find(
+      //   (product) => product.id == this.$route.params.id
+      // );
+      const response = await fetch(
+        `http://localhost:3000/items/${this.$route.params.id}`
+      );
+      const product = await response.json();
+      return product;
+    },
+    async putProduct(product) {
+      const response = await fetch(
+        `http://localhost:3000/items/${product.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(product),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const updated = await response.json();
+      return updated;
+    },
+    async deleteProduct(product) {
+      const response = await fetch(
+        `http://localhost:3000/items/${product.id}`,
+        {
+          method: 'DELETE',
+        }
+      );
+      return response;
     },
   },
 };

@@ -37,8 +37,16 @@ export default {
       items: [],
     };
   },
-  created() {
-    this.items = JSON.parse(localStorage.getItem('items'));
+  async created() {
+    // this.items = JSON.parse(localStorage.getItem('items'));
+    this.items = await this.getProducts();
+  },
+  methods: {
+    async getProducts() {
+      const response = await fetch('http://localhost:3000/items');
+      const products = await response.json();
+      return products;
+    },
   },
 };
 </script>
