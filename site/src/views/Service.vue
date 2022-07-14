@@ -43,6 +43,7 @@
             min="1"
             :max="serviceInfo.stock"
             v-model="inputs.amount"
+            onkeydown="return false"
           />
         </div>
         <div id="cep-container">
@@ -125,8 +126,11 @@ export default {
       },
       serviceInfo: {
         name: '',
-        images: [],
-        rating: {},
+        images: [''],
+        rating: {
+          totalStars: 0,
+          feedbacks: [],
+        },
         price: 0,
         stock: 0,
         description: '',
@@ -137,15 +141,19 @@ export default {
       readingRatingState: false,
     };
   },
-  created() {
-    this.getService();
+  async created() {
+    await this.getService();
     this.logged = JSON.parse(localStorage.getItem('user')) !== null;
   },
   methods: {
-    getService() {
-      const service = JSON.parse(localStorage.getItem('items')).find(
-        (service) => service.id == this.$route.params.id
+    async getService() {
+      // const service = JSON.parse(localStorage.getItem('items')).find(
+      //   (service) => service.id == this.$route.params.id
+      // );
+      const response = await fetch(
+        `http://localhost:3000/items/${this.$route.params.id}`
       );
+      const service = await response.json();
       this.location.push({
         name: service.categories[0],
         id: 1,
@@ -196,12 +204,12 @@ export default {
       let today = new Date();
       return expectedDay >= today;
     },
-    addToCart() {
+    async addToCart() {
       if (!this.logged) {
         window.location.href = '/login';
       } else if (this.isValidCep()) {
         if (this.isValidCep() && this.isAttendingCep() && this.isValidDate()) {
-          this.updateUser();
+          await this.updateUser();
           window.location.href = '/cart';
         } else {
           alert('Verifique os campos CEP e DATA!');
@@ -215,7 +223,7 @@ export default {
       this.serviceInfo.rating = newRating;
       this.changeRatingState();
     },
-    updateUser() {
+    async updateUser() {
       const user = JSON.parse(localStorage.getItem('user'));
       const existingItem = user.cart.items.find(
         (item) => item.id == this.$route.params.id
@@ -229,8 +237,21 @@ export default {
         });
       }
       user.cart.cep = this.inputs.cep;
-      user.cart.deliveryFee = 10;
       localStorage.setItem('user', JSON.stringify(user));
+      const updated = await this.putUser(user);
+    },
+    async putUser(user) {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const updated = await response.json();
+      console.log(user);
+      return updated;
     },
   },
 };

@@ -43,6 +43,7 @@
             min="1"
             :max="productInfo.stock"
             v-model="inputs.amount"
+            onkeydown="return false"
           />
         </div>
         <div id="cep-container">
@@ -117,8 +118,11 @@ export default {
       },
       productInfo: {
         name: '',
-        images: [],
-        rating: {},
+        images: [''],
+        rating: {
+          totalStars: 0,
+          feedbacks: [],
+        },
         price: 0,
         stock: 0,
         description: '',
@@ -127,15 +131,19 @@ export default {
       readingRatingState: false,
     };
   },
-  created() {
-    this.getProduct();
+  async created() {
+    await this.getProduct();
     this.logged = JSON.parse(localStorage.getItem('user')) !== null;
   },
   methods: {
-    getProduct() {
-      const product = JSON.parse(localStorage.getItem('items')).find(
-        (product) => product.id == this.$route.params.id
+    async getProduct() {
+      // const product = JSON.parse(localStorage.getItem('items')).find(
+      //   (product) => product.id == this.$route.params.id
+      // );
+      const response = await fetch(
+        `http://localhost:3000/items/${this.$route.params.id}`
       );
+      const product = await response.json();
       this.location.push({
         name: product.categories[0],
         id: 1,
@@ -149,14 +157,18 @@ export default {
       this.productInfo.stock = product.stock;
       this.productInfo.description = product.description;
     },
-    calculateDeliveryFee() {
+    async calculateDeliveryFee() {
       if (!this.isValidCep()) {
         this.errors.cep = 'Insira um CEP válido!';
         this.delivery.showFee = false;
       } else {
-        let cepInfo = JSON.parse(localStorage.getItem('cep'))[
-          this.sumCepDigits() % 10
-        ];
+        // let cepInfo = JSON.parse(localStorage.getItem('cep'))[
+        //   this.sumCepDigits() % 10
+        // ];
+        const response = await fetch(
+          `http://localhost:3000/ceps/${this.sumCepDigits() % 10}`
+        );
+        const cepInfo = await response.json();
         this.delivery.fee = cepInfo.fee;
         this.delivery.days = cepInfo.days;
         this.delivery.showFee = true;
@@ -176,12 +188,12 @@ export default {
       }
       return digitSum;
     },
-    addToCart() {
+    async addToCart() {
       if (!this.logged) {
         window.location.href = '/login';
       } else if (this.isValidCep()) {
-        this.calculateDeliveryFee();
-        this.updateUser();
+        await this.calculateDeliveryFee();
+        await this.updateUser();
         window.location.href = '/cart';
       } else {
         this.errors.cep = 'Digite um cep válido para continuar!';
@@ -194,7 +206,7 @@ export default {
       this.productInfo.rating = newRating;
       this.changeRatingState();
     },
-    updateUser() {
+    async updateUser() {
       const user = JSON.parse(localStorage.getItem('user'));
       const existingItem = user.cart.items.find(
         (item) => item.id == this.$route.params.id
@@ -210,6 +222,20 @@ export default {
       user.cart.cep = this.inputs.cep;
       user.cart.deliveryFee = this.delivery.fee;
       localStorage.setItem('user', JSON.stringify(user));
+      const updated = await this.putUser(user);
+    },
+    async putUser(user) {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const updated = await response.json();
+      console.log(user);
+      return updated;
     },
   },
 };
