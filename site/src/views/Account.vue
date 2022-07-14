@@ -4,7 +4,8 @@
     <div id="fiting-container">
       <div id="main-container">
         <div id="edit-personal-info-container" class="input-container">
-          <h3>Informações pessoais</h3>
+          <h3>Informações pessoais</h3><br>
+          <span class="description">Nome:</span>
           <p v-if="errors.name" class="error">{{ errors.name }}</p>
           <input
             type="text"
@@ -13,6 +14,7 @@
             placeholder="Nome"
             v-model="inputs.name"
           />
+          <span class="description">E-mail:</span>
           <p v-if="errors.email" class="error">{{ errors.email }}</p>
           <input
             type="text"
@@ -21,6 +23,7 @@
             placeholder="Email"
             v-model="inputs.email"
           />
+          <span class="description">CPF:</span>
           <p v-if="errors.cpf" class="error">{{ errors.cpf }}</p>
           <input
             type="text"
@@ -29,6 +32,7 @@
             placeholder="CPF"
             v-model="inputs.cpf"
           />
+          <span class="description">Gênero:</span>
           <p v-if="errors.gender" class="error">{{ errors.gender }}</p>
           <input
             type="text"
@@ -37,6 +41,7 @@
             placeholder="Gênero"
             v-model="inputs.gender"
           />
+          <span class="description">Telefone:</span>
           <p v-if="errors.telephone" class="error">{{ errors.telephone }}</p>
           <input
             type="text"
@@ -45,6 +50,7 @@
             placeholder="Telefone"
             v-model="inputs.telephone"
           />
+          <span class="description">Senha atual:</span>
           <p v-if="errors.password" class="error">{{ errors.password }}</p>
           <input
             type="password"
@@ -53,6 +59,7 @@
             placeholder="Senha"
             v-model="inputs.password"
           />
+          <span class="description">Confirme sua senha:</span>
           <p v-if="errors.confirmPasswd" class="error">
             {{ errors.confirmPasswd }}
           </p>
@@ -66,7 +73,8 @@
           />
         </div>
         <div id="edit-home-address-container" class="input-container">
-          <h3>Endereço de entrega</h3>
+        <h3>Endereço de entrega</h3><br>
+          <span class="description">CEP:</span>
           <p v-if="errors.cep" class="error">{{ errors.cep }}</p>
           <input
             type="text"
@@ -75,6 +83,7 @@
             placeholder="CEP"
             v-model="inputs.cep"
           />
+          <span class="description">Cidade:</span>
           <p v-if="errors.city" class="error">{{ errors.city }}</p>
           <input
             type="text"
@@ -83,6 +92,7 @@
             placeholder="Cidade"
             v-model="inputs.city"
           />
+          <span class="description">Estado:</span>
           <p v-if="errors.state" class="error">{{ errors.state }}</p>
           <input
             type="text"
@@ -91,6 +101,7 @@
             placeholder="Estado"
             v-model="inputs.state"
           />
+          <span class="description">Bairro:</span>
           <p v-if="errors.district" class="error">{{ errors.district }}</p>
           <input
             type="text"
@@ -99,6 +110,7 @@
             placeholder="Bairro"
             v-model="inputs.district"
           />
+          <span class="description">Logradouro:</span>
           <p v-if="errors.street" class="error">{{ errors.street }}</p>
           <input
             type="text"
@@ -107,6 +119,7 @@
             placeholder="Logradouro"
             v-model="inputs.street"
           />
+          <span class="description">Número:</span>
           <p v-if="errors.number" class="error">{{ errors.number }}</p>
           <input
             type="text"
@@ -115,6 +128,7 @@
             placeholder="Número"
             v-model="inputs.number"
           />
+          <span class="description">Complemento:</span>
           <p v-if="errors.complement" class="error">{{ errors.complement }}</p>
           <input
             type="text"
@@ -125,7 +139,8 @@
           />
         </div>
         <div id="edit-paying-info-container" class="input-container">
-          <h3>Informações de pagamento</h3>
+          <h3>Informações de pagamento</h3><br>
+          <span class="description">Número do cartão:</span>
           <p v-if="errors.cardNumber" class="error">{{ errors.cardNumber }}</p>
           <input
             type="text"
@@ -134,6 +149,7 @@
             placeholder="Número do cartão"
             v-model="inputs.cardNumber"
           />
+          <span class="description">Nome no cartão:</span>
           <p v-if="errors.cardHolderName" class="error">
             {{ errors.cardHolderName }}
           </p>
@@ -144,6 +160,7 @@
             placeholder="Titular do cartão"
             v-model="inputs.cardHolderName"
           />
+          <span class="description">CPF do titular:</span>
           <p v-if="errors.cardHolderCPF" class="error">
             {{ errors.cardHolderCPF }}
           </p>
@@ -154,6 +171,7 @@
             placeholder="CPF do titular"
             v-model="inputs.cardHolderCPF"
           />
+          <span class="description">Endereço de cobrança:</span>
           <p v-if="errors.billingAddress" class="error">
             {{ errors.billingAddress }}
           </p>
@@ -164,6 +182,7 @@
             placeholder="Endereço completo de cobrança"
             v-model="inputs.billingAddress"
           />
+          <span class="description">Data de vencimento:</span>
           <p v-if="errors.expiringDate" class="error">
             {{ errors.expiringDate }}
           </p>
@@ -183,7 +202,6 @@
         <button v-if="this.isAdmin" id="manage-products-btn">
           <router-link to="/manageProducts">Gerenciar Produtos</router-link>
         </button>
-        <button v-if="this.logged" @click="logOut" id="logout-btn">Sair</button>
         <button @click="validateAccount" id="save-btn">Salvar</button>
       </div>
     </div>
@@ -488,10 +506,6 @@ export default {
       }
       return false;
     },
-    logOut() {
-      localStorage.removeItem('user');
-      window.location.href = '/login';
-    },
   },
 };
 </script>
@@ -514,12 +528,16 @@ export default {
   flex-direction: column;
   margin: auto;
   margin-top: 20px;
-  width: 310px;
+  padding: 20px;
+  width: 400px;
+  border: 1px solid var(--txt-terciary-color);
+  border-radius: 20px;
 }
 
 .input-container h3 {
   text-align: center;
   margin-bottom: 5px;
+  margin-top: 20px;
 }
 
 .input-container p.error {
@@ -539,6 +557,11 @@ input {
   box-sizing: border-box;
 }
 
+.description {
+  margin-top: 5px;
+  color: var(--txt-secondary-color);
+}
+
 #buttons-container {
   margin: 40px 5% 20px;
   display: flex;
@@ -556,11 +579,6 @@ button {
   cursor: pointer;
   box-sizing: border-box;
   display: block;
-}
-
-#logout-btn {
-  background-color: rgb(225, 0, 0);
-  margin-right: 10px;
 }
 
 #save-btn {
