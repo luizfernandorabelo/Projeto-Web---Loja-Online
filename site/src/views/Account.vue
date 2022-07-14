@@ -240,14 +240,14 @@ export default {
       isAdmin: false,
     };
   },
-  created() {
-    this.fetchUser();
+  async created() {
+    this.users = await this.fetchUsers();
+    this.initUser();
     if (this.logged) this.autoFillInputs();
   },
   methods: {
-    fetchUser() {
+    initUser() {
       this.user = JSON.parse(localStorage.getItem('user'));
-      this.users = JSON.parse(localStorage.getItem('users'));
       if (this.user !== null) {
         this.logged = true;
         this.isAdmin = this.user.admin;
@@ -255,6 +255,11 @@ export default {
         this.logged = false;
         this.isAdmin = false;
       }
+    },
+    async fetchUsers() {
+      const response = await fetch('http://localhost:3000/users');
+      const users = await response.json();
+      return users;
     },
     autoFillInputs() {
       this.inputs.name = this.user.personalInfo.name;
@@ -408,7 +413,7 @@ export default {
       }
       return true;
     },
-    updateUserObject() {
+    async updateUserObject() {
       this.user.personalInfo.name = this.inputs.name;
       this.user.personalInfo.email = this.inputs.email;
       this.user.personalInfo.CPF = this.inputs.cpf;
@@ -428,15 +433,17 @@ export default {
       this.user.card.holderCPF = this.inputs.cardHolderCPF;
       this.user.card.billingAddress = this.inputs.billingAddress;
       this.user.card.expiringDate = this.inputs.expiringDate;
-      let users = JSON.parse(localStorage.getItem('users')).filter(
-        (user) => user.id !== this.user.id
-      );
-      users.push(this.user);
-      localStorage.setItem('users', JSON.stringify(users));
+      // let users = JSON.parse(localStorage.getItem('users')).filter(
+      //   (user) => user.id !== this.user.id
+      // );
+      this.users = this.users.filter((user) => user.id !== this.user.id);
+      this.users.push(this.user);
+      // localStorage.setItem('users', JSON.stringify(users));
+      const updated = await this.putUser();
       localStorage.setItem('user', JSON.stringify(this.user));
       alert('Dados atualizados com sucesso!');
     },
-    createUserObject() {
+    async createUserObject() {
       if (this.isExistingUser()) throw Error;
       let user = {
         personalInfo: {
@@ -467,13 +474,30 @@ export default {
         id: this.users.length,
         adimin: false,
       };
-      let users = JSON.parse(localStorage.getItem('users')).filter(
-        (usr) => usr.id !== user.id
-      );
-      users.push(user);
-      localStorage.setItem('users', JSON.stringify(users));
+      // let users = JSON.parse(localStorage.getItem('users')).filter(
+      //   (usr) => usr.id !== user.id
+      // );
+      this.users = this.users.filter((user) => user.id !== this.user.id);
+      this.users.push(user);
+      // localStorage.setItem('users', JSON.stringify(users));
+      const updated = await this.putUser();
       localStorage.setItem('user', JSON.stringify(user));
       alert('Conta criada com sucesso!');
+    },
+    async putUser() {
+      const response = await fetch(
+        `http://localhost:3000/users/${this.user.id}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(this.user),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const updated = await response.json();
+      return updated;
     },
     isExistingUser() {
       for (let existingUser of this.users) {
