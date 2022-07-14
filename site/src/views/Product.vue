@@ -221,6 +221,7 @@ export default {
       }
       user.cart.cep = this.inputs.cep;
       user.cart.deliveryFee = this.delivery.fee;
+      user.cart.deliveryDays = this.delivery.days;
       localStorage.setItem('user', JSON.stringify(user));
       const updated = await this.putUser(user);
     },

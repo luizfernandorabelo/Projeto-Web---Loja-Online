@@ -161,6 +161,7 @@ export default {
       // const user = JSON.parse(localStorage.getItem('user'));
       this.user.cart.items = [];
       this.user.cart.deliveryFee = 0;
+      this.user.cart.deliveryDays = 0;
       this.user.cart.cep = '';
       localStorage.setItem('user', JSON.stringify(this.user));
       const updated = await this.putUser();
