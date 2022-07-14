@@ -45,6 +45,7 @@ const userSchema = new Schema({
     items: [Object],
     cep: String,
     deliveryFee: Number,
+    deliveryDays: Number,
   },
 });
 
