@@ -22,7 +22,11 @@
         >
       </li>
       <li>
-        <i v-if="logged" @click="logOut" class="fa fa-solid fa-sign-out-alt"></i>
+        <i
+          v-if="logged"
+          @click="logOut"
+          class="fa fa-solid fa-sign-out-alt"
+        ></i>
       </li>
     </ul>
   </div>
@@ -76,14 +80,6 @@ export default {
   display: flex;
   width: 200px;
   justify-content: space-evenly;
-}
-
-#icon-list li:first-child i {
-  /*margin: 0 25px 0 75px;*/
-}
-
-#icon-list li:last-child i {
-  /*margin: 0 5px;*/
 }
 
 @media (max-width: 800px) {
