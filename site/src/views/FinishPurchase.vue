@@ -39,7 +39,7 @@
             <img src="../assets/location.png" alt="Localização" />
             <p>{{ address }}</p>
           </div>
-          <div id="delivery-time">
+          <div v-if="deliveryDays !== 0" id="delivery-time">
             <span>Entrega em {{ deliveryDays }} dias</span>
           </div>
           <button id="finish-purchase-btn" @click="finishPurchase">
@@ -74,16 +74,17 @@ export default {
     };
   },
   created() {
-    this.getData();
+    this.initData();
   },
   methods: {
-    getData() {
+    initData() {
       const user = JSON.parse(localStorage.getItem('user'));
       this.creditCard = user.card.number;
       this.total = user.cart.total;
+      this.deliveryDays = user.cart.deliveryDays || 0;
       this.address = `${user.address.street} ${user.address.number} ${user.address.city}`;
     },
-    finishPurchase() {
+    async finishPurchase() {
       if (!this.cvv) {
         alert('Compra Recusada! O cvv é válido?');
       } else {
@@ -91,10 +92,24 @@ export default {
         const user = JSON.parse(localStorage.getItem('user'));
         user.cart.items = [];
         user.cart.deliveryFee = 0;
+        user.cart.deliveryDays = 0;
         user.cart.cep = '';
         localStorage.setItem('user', JSON.stringify(user));
+        const updated = await this.putUser(user);
         window.location.href = '/';
       }
+    },
+    async putUser(user) {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const updated = await response.json();
+      return updated;
     },
   },
 };
