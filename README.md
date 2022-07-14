@@ -188,6 +188,12 @@ npm run build
 cd server
 ```
 
+#### Instalação de Dependências:
+
+```
+npm install
+```
+
 #### Inicialização do servidor
 
 ```
