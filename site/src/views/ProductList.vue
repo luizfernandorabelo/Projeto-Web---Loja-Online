@@ -37,7 +37,7 @@ export default {
     const targetAnimal = this.$route.params.animal;
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
-      this.h3Content = 'Os melhores produtos para ' + targetAnimal;
+      this.h3Content = 'Os melhores produtos e serviços para ' + targetAnimal;
       // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
       //   item.categories.includes(targetAnimal)
       // );
@@ -47,7 +47,7 @@ export default {
       );
     } else {
       this.h2Content = 'Destaques';
-      this.h3Content = 'Os nossos produtos mais vendidos';
+      this.h3Content = 'Os nossos produtos e serviços mais vendidos';
       // this.products = JSON.parse(localStorage.getItem('items'));
       this.products = await this.fetchProducts();
     }
@@ -56,7 +56,7 @@ export default {
     const targetAnimal = this.$route.params.animal;
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
-      this.h3Content = 'Os melhores produtos para ' + targetAnimal;
+      this.h3Content = 'Os melhores produtos e serviços para ' + targetAnimal;
       // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
       //   item.categories.includes(targetAnimal)
       // );
@@ -66,7 +66,7 @@ export default {
       );
     } else {
       this.h2Content = 'Destaques';
-      this.h3Content = 'Os nossos produtos mais vendidos';
+      this.h3Content = 'Os nossos produtos e serviços mais vendidos';
       // this.products = JSON.parse(localStorage.getItem('items'));
       this.products = await this.fetchProducts();
     }
@@ -75,7 +75,6 @@ export default {
     async fetchProducts() {
       const response = await fetch('http://localhost:3000/items');
       const products = await response.json();
-      console.log(products);
       return products;
     },
   },
