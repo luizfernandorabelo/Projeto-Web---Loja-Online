@@ -1129,17 +1129,62 @@ async function postCep(index) {
   console.log(data);
 }
 
-// Save initial items to db:
+async function deleteItem(index) {
+  const response = await fetch(
+    'http://localhost:3000/items/' + initialItems[index].id,
+    {
+      method: 'DELETE',
+    }
+  );
+  console.log(response);
+}
+
+async function deleteUser(index) {
+  const response = await fetch(
+    'http://localhost:3000/users/' + initialUsers[index].id,
+    {
+      method: 'DELETE',
+    }
+  );
+  console.log(response);
+}
+
+async function deleteCep(index) {
+  const response = await fetch(
+    'http://localhost:3000/ceps/' + initialCeps[index].id,
+    {
+      method: 'DELETE',
+    }
+  );
+  console.log(response);
+}
+
+// // Save initial items to db:
+// for (let i = 0; i < initialItems.length; i++) {
+//   postItem(i);
+// }
+
+// // Save initial users to db:
+// for (let i = 0; i < initialUsers.length; i++) {
+//   postUser(i);
+// }
+
+// // Save initial ceps to db:
+// for (let i = 0; i < initialCeps.length; i++) {
+//   postCep(i);
+// }
+
+// Delete all inital items from db:
 for (let i = 0; i < initialItems.length; i++) {
-  postItem(i);
+  deleteItem(i);
 }
 
-// Save initial users to db:
+// Delete all initial users from db:
 for (let i = 0; i < initialUsers.length; i++) {
-  postUser(i);
+  deleteUser(i);
 }
 
-// Save initial ceps to db:
+// Delete all initial ceps from db:
 for (let i = 0; i < initialCeps.length; i++) {
-  postCep(i);
+  deleteCep(i);
 }
