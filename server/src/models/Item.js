@@ -17,6 +17,7 @@ const itemSchema = new Schema({
     feedbacks: [Object],
   },
   stock: Number,
+  price: Number,
 });
 
 module.exports = mongoose.model('Item', itemSchema);

@@ -14,9 +14,15 @@ const userSchema = new Schema({
   },
   personalInfo: {
     name: String,
-    email: String,
+    email: {
+      type: String,
+      unique: true,
+    },
     password: String,
-    CPF: String,
+    CPF: {
+      type: String,
+      unique: true,
+    },
     telephone: String,
     gender: String,
   },
