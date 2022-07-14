@@ -11,7 +11,7 @@
           :userEmail="user.personalInfo.email"
           :admin="user.admin"
           @adminUpdated="updateAdmin"
-          @userDeleted="deleteUser"
+          @userDeleted="excludeUser"
         />
       </div>
     </div>
@@ -37,25 +37,55 @@ export default {
       users: [],
     };
   },
-  created() {
-    this.users = JSON.parse(localStorage.getItem('users'));
-    console.log(this.users);
+  async created() {
+    this.users = await this.getUsers();
   },
   methods: {
-    updateAdmin(userEmail, admin) {
+    async updateAdmin(userEmail, admin) {
+      this.users = await this.getUsers();
       const updatedUser = this.users.find(
         (user) => user.personalInfo.email === userEmail
       );
       updatedUser.admin = admin;
-      localStorage.setItem('users', JSON.stringify(this.users));
+      await this.putUser(updatedUser);
+      // localStorage.setItem('users', JSON.stringify(this.users));
     },
-    deleteUser(userEmail) {
+    async excludeUser(userEmail) {
       if (confirm('Clique em OK para confirmar a exclusão de usuário')) {
-        this.users = this.users.filter(
-          (user) => user.personalInfo.email !== userEmail
+        // this.users = this.users.filter(
+        //   (user) => user.personalInfo.email !== userEmail
+        // );
+        // localStorage.setItem('users', JSON.stringify(this.users));
+        this.users = await this.getUsers();
+        const deletedUser = this.users.find(
+          (user) => user.personalInfo.email === userEmail
         );
-        localStorage.setItem('users', JSON.stringify(this.users));
+        await this.deleteUser(deletedUser);
       }
+    },
+    async getUsers() {
+      const response = await fetch('http://localhost:3000/users');
+      const users = await response.json();
+      return users;
+    },
+    async putUser(user) {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'PUT',
+        body: JSON.stringify(user),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      const updated = await response.json();
+      return updated;
+    },
+    async deleteUser(user) {
+      const response = await fetch(`http://localhost:3000/users/${user.id}`, {
+        method: 'DELETE',
+      });
+      this.users = await this.getUsers();
+      return response;
     },
   },
 };
