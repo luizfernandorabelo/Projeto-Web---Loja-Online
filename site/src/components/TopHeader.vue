@@ -15,11 +15,14 @@
       </li>
       <li>
         <router-link v-if="!logged" to="/login"
-          ><i class="fa fa-solid fa-user"></i>Entrar</router-link
+          ><i class="fa fa-solid fa-user"></i>&nbsp;Entrar</router-link
         >
         <router-link v-else to="/account"
-          ><i class="fa fa-solid fa-user"></i>Conta</router-link
+          ><i class="fa fa-solid fa-user"></i>&nbsp;Conta</router-link
         >
+      </li>
+      <li>
+        <i v-if="logged" @click="logOut" class="fa fa-solid fa-sign-out-alt"></i>
       </li>
     </ul>
   </div>
@@ -40,6 +43,10 @@ export default {
   methods: {
     verifyLogin() {
       this.logged = localStorage.getItem('user') !== null;
+    },
+    logOut() {
+      localStorage.removeItem('user');
+      window.location.href = '/login';
     },
   },
 };
@@ -68,15 +75,15 @@ export default {
   list-style-type: none;
   display: flex;
   width: 200px;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 }
 
 #icon-list li:first-child i {
-  margin: 0 25px 0 75px;
+  /*margin: 0 25px 0 75px;*/
 }
 
 #icon-list li:last-child i {
-  margin: 0 5px;
+  /*margin: 0 5px;*/
 }
 
 @media (max-width: 800px) {
