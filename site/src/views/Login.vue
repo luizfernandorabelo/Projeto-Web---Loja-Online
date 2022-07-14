@@ -62,13 +62,16 @@ export default {
     };
   },
   created() {
-    this.loadUsers();
+    this.getUsers();
   },
   methods: {
-    loadUsers() {
-      this.users = JSON.parse(localStorage.getItem('users'));
+    async getUsers() {
+      // this.users = JSON.parse(localStorage.getItem('users'));
+      const response = await fetch('http://localhost:3000/users');
+      this.users = await response.json();
     },
     authenticate() {
+      // 100% unsafe
       for (let existingUser of this.users) {
         if (
           existingUser.personalInfo.email === this.emailInput &&
