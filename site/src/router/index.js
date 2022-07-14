@@ -63,5 +63,10 @@ export default createRouter({
       name: 'Account',
       component: () => import('../views/Account.vue'),
     },
+    {
+      path: '/createProduct',
+      name: 'CreateProduct',
+      component: () => import('../views/CreateProduct.vue'),
+    }
   ],
 });
