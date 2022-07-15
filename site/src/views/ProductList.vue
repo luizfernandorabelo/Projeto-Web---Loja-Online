@@ -46,11 +46,13 @@ export default {
       this.products = this.products.filter((item) =>
         item.categories.includes(targetAnimal)
       );
+      this.products = this.products.filter((item) => item.stock > 0);
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos e serviços mais vendidos';
       // this.products = JSON.parse(localStorage.getItem('items'));
       this.products = await this.fetchProducts();
+      this.products = this.products.filter((item) => item.stock > 0);
     }
   },
   async updated() {
@@ -66,11 +68,13 @@ export default {
       this.products = this.products.filter((item) =>
         item.categories.includes(targetAnimal)
       );
+      this.products = this.products.filter((item) => item.stock > 0);
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos e serviços mais vendidos';
       // this.products = JSON.parse(localStorage.getItem('items'));
       this.products = await this.fetchProducts();
+      this.products = this.products.filter((item) => item.stock > 0);
     }
   },
   methods: {
