@@ -15,6 +15,9 @@
         </div>
       </div>
     </div>
+    <router-link to="/createProduct">
+      <button id="create-product-btn"><i class="fa-solid fa-plus"></i></button>
+    </router-link>
   </div>
 </template>
 
@@ -57,5 +60,24 @@ export default {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+#create-product-btn {
+  background-color: var(--bg-secondary-color);
+  color: var(--txt-primary-color);
+  height: 100px;
+  width: 100px;
+  margin-left: calc(97% - 100px);
+  margin-bottom: 15px;
+  border: 0;
+  border-radius: 50%;
+  font-size: 3rem;
+  font-weight: 400;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: block;
+  position: fixed;
+  right: 1%;
+  top: 85%;
 }
 </style>
