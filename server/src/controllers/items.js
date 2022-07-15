@@ -1,7 +1,8 @@
 const Item = require('../models/Item');
 
 exports.get = async (req, res, next) => {
-  const items = await Item.find({});
+  // const items = await Item.find({});
+  const items = await Item.find({}).sort({ id: 'asc' });
   res.status(200).send(items);
 };
 
