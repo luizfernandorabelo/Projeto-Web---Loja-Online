@@ -37,7 +37,8 @@ export default {
     const targetAnimal = this.$route.params.animal;
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
-      this.h3Content = 'Os melhores produtos e serviços para ' + targetAnimal;
+      this.h3Content =
+        'Os melhores produtos e serviços para ' + targetAnimal.toLowerCase();
       // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
       //   item.categories.includes(targetAnimal)
       // );
@@ -56,7 +57,8 @@ export default {
     const targetAnimal = this.$route.params.animal;
     if (targetAnimal) {
       this.h2Content = targetAnimal.toUpperCase();
-      this.h3Content = 'Os melhores produtos e serviços para ' + targetAnimal;
+      this.h3Content =
+        'Os melhores produtos e serviços para ' + targetAnimal.toLowerCase();
       // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
       //   item.categories.includes(targetAnimal)
       // );
