@@ -794,7 +794,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 51,
@@ -810,7 +810,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 46,
@@ -826,7 +826,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 52,
@@ -842,7 +842,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 47,
@@ -858,7 +858,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 48,
@@ -874,7 +874,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 49,
@@ -890,7 +890,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 53,
@@ -906,7 +906,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 54,
@@ -922,7 +922,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
   {
     id: 50,
@@ -938,7 +938,7 @@ const initialItems = [
       totalStars: 0,
       feedbacks: [],
     },
-    stock: 15,
+    dates: [],
   },
 ];
 
@@ -1175,16 +1175,16 @@ async function deleteCep(index) {
 // }
 
 // Delete all inital items from db:
-for (let i = 0; i < initialItems.length; i++) {
+for (let i = -1; i < initialItems.length; i++) {
   deleteItem(i);
 }
 
 // Delete all initial users from db:
-for (let i = 0; i < initialUsers.length; i++) {
+for (let i = -1; i < initialUsers.length; i++) {
   deleteUser(i);
 }
 
 // Delete all initial ceps from db:
-for (let i = 0; i < initialCeps.length; i++) {
+for (let i = -1; i < initialCeps.length; i++) {
   deleteCep(i);
 }
