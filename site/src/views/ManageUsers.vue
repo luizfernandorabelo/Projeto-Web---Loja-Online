@@ -35,10 +35,19 @@ export default {
         { id: 1, name: 'Gerenciar Usuários', path: '/manageUsers' },
       ],
       users: [],
+      isAdm: false,
+      logged: false,
     };
   },
   async created() {
     this.users = await this.getUsers();
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.logged = JSON.parse(localStorage.getItem('user')) !== null;
+      this.isAdm = JSON.parse(localStorage.getItem('user')).admin;
+    }
+    if (!this.isAdm || !this.logged) {
+      window.location.href = '/';
+    }
   },
   methods: {
     async updateAdmin(userEmail, admin) {

@@ -38,11 +38,20 @@ export default {
         { id: 1, name: 'Gerenciar Produtos', path: '/manageProducts' },
       ],
       items: [],
+      isAdm: false,
+      logged: false,
     };
   },
   async created() {
     // this.items = JSON.parse(localStorage.getItem('items'));
     this.items = await this.getProducts();
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.logged = JSON.parse(localStorage.getItem('user')) !== null;
+      this.isAdm = JSON.parse(localStorage.getItem('user')).admin;
+    }
+    if (!this.isAdm || !this.logged) {
+      window.location.href = '/';
+    }
   },
   methods: {
     async getProducts() {

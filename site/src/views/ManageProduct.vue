@@ -93,6 +93,8 @@ export default {
         price: 0,
         stock: 0,
         description: '',
+        isAdm: false,
+        logged: false,
       },
     };
   },
@@ -101,6 +103,13 @@ export default {
     //   (item) => item.id === parseInt(this.$route.params.id)
     // );
     this.product = await this.getProduct();
+    if (JSON.parse(localStorage.getItem('user'))) {
+      this.logged = JSON.parse(localStorage.getItem('user')) !== null;
+      this.isAdm = JSON.parse(localStorage.getItem('user')).admin;
+    }
+    if (!this.isAdm || !this.logged) {
+      window.location.href = '/';
+    }
   },
   methods: {
     updateDescription(newContent) {
