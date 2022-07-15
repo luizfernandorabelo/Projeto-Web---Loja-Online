@@ -18,6 +18,7 @@ const itemSchema = new Schema({
   },
   stock: Number,
   price: Number,
+  dates: [String],
 });
 
 module.exports = mongoose.model('Item', itemSchema);
