@@ -4,7 +4,8 @@
     <div id="fiting-container">
       <div id="main-container">
         <div id="edit-personal-info-container" class="input-container">
-          <h3>Informações pessoais</h3><br>
+          <h3>Informações pessoais</h3>
+          <br />
           <span class="description">Nome:</span>
           <p v-if="errors.name" class="error">{{ errors.name }}</p>
           <input
@@ -73,7 +74,8 @@
           />
         </div>
         <div id="edit-home-address-container" class="input-container">
-        <h3>Endereço de entrega</h3><br>
+          <h3>Endereço de entrega</h3>
+          <br />
           <span class="description">CEP:</span>
           <p v-if="errors.cep" class="error">{{ errors.cep }}</p>
           <input
@@ -139,7 +141,8 @@
           />
         </div>
         <div id="edit-paying-info-container" class="input-container">
-          <h3>Informações de pagamento</h3><br>
+          <h3>Informações de pagamento</h3>
+          <br />
           <span class="description">Número do cartão:</span>
           <p v-if="errors.cardNumber" class="error">{{ errors.cardNumber }}</p>
           <input
@@ -553,7 +556,7 @@ export default {
   margin: auto;
   margin-top: 20px;
   padding: 20px;
-  width: 400px;
+  width: calc(100vw / 3 - 90px);
   border: 1px solid var(--txt-terciary-color);
   border-radius: 20px;
 }
@@ -622,6 +625,9 @@ button {
   }
   button {
     margin: 30px auto;
+  }
+  .input-container {
+    width: 350px;
   }
 }
 
