@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <div>
     <h3>Criar Novo Produto</h3>
     <div id="main-container">
       <div id="first-container">
@@ -19,7 +19,7 @@
           >Categorias do produto (separar por virgulas):</span
         >
         <input type="text" placeholder="Categorias" v-model="rawCategories" />
-        <span class="description">Preço do produto:</span> <br />
+        <span class="description">Preço do item:</span> <br />
         <input
           id="product-price"
           type="number"
@@ -28,15 +28,17 @@
           v-model="product.price"
         />
         <br />
+        <div v-if="this.tipo == 'produto'">
         <span class="description">Quantidade em estoque:</span> <br />
         <input
           id="product-stock"
           type="number"
           min="0"
           placeholder="0"
-          v-model="product.quantity"
+          v-model="product.stock"
         />
         <br />
+        </div>
       </div>
       <div id="second-container">
         <span class="description"
@@ -62,7 +64,7 @@
     <div id="btn-container">
       <button id="create-btn" @click="createProduct">Adicionar produto</button>
     </div>
-  </form>
+  </div>
 </template>
 
 
@@ -76,10 +78,15 @@ export default {
   data() {
     return {
       product: {
+        id: 0,
         name: '',
         description: '',
         price: '',
-        quantity: '',
+        stock: 0,
+        rating: {
+          totalStars: 0,
+          feedbacks: [],
+        },
         categories: [],
         images: [],
       },
@@ -90,13 +97,24 @@ export default {
       tipo: 'produto',
     };
   },
-  created() {
+  async created() {
     this.fetchUser();
     if (!this.isAdmin) {
       window.location.href = '/';
     }
+    this.product.id = await this.getID();
   },
   methods: {
+    async getID() {
+      // const product = JSON.parse(localStorage.getItem('items')).find(
+      //   (product) => product.id == this.$route.params.id
+      // );
+      const response = await fetch(
+        `http://localhost:3000/items`
+      );
+      const products = await response.json();
+      return products[products.length - 1].id + 100;
+    },
     fetchUser() {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.users = JSON.parse(localStorage.getItem('users'));
@@ -109,6 +127,10 @@ export default {
       }
     },
     createProduct() {
+      let servico = {}
+      if (this.tipo === 'servico'){
+        this.product.stock = 1;
+      }
       if (this.checkError()) {
         return;
       }
@@ -116,31 +138,66 @@ export default {
       const images = this.rawImages.split(',');
       this.product.categories = categories;
       this.product.images = images;
-      //   localStorage.setItem('items', JSON.stringify([this.product]));
       if (this.tipo === 'servico') {
-        // insere na tabela de serviços
+        this.product.categories.push('servicos');
+        servico = this.formataServico()
+        this.insereProduto(servico);
         alert('servico adicionado adicionado');
-        this.product.categories.push('servico');
+        // insere na tabela de serviços
       } else {
+        this.insereProduto(this.product);
         alert('produto adicionado adicionado');
       }
       console.log(this.product.categories);
       //   window.location.href = '/ManageProducts';
     },
     checkError() {
-      const error = false;
-      Object.keys(this.product).some((campo) => {
-        console.log(campo);
-        if (this.product[campo] == '') {
+      const inputs = Object.keys(this.product)
+      for (let i = 0; i < inputs.length; i++) {
+        // if (this.product['stock'] === '' && this.tipo === 'servico') {
+        //   continue;
+        // }
+        if (this.product[inputs[i]] === '') {
           alert('Preencha todos os campos');
-          error = true;
-          return true;
-        } else {
           return true;
         }
-      });
-      return error;
+      }
+      return false
+
     },
+    async insereProduto(product) {
+      const response = await fetch(
+        `http://localhost:3000/items`,
+        {
+          method: 'POST',
+          body: JSON.stringify(product),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+        const updated = await response.json();
+        return updated;
+
+    },
+    formataServico() {
+      const servico = {
+        id: this.product.id,
+        name: this.product.name,
+        description: this.product.description,
+        price: this.product.price,
+        categories: this.product.categories,
+        images: this.product.images,
+        rating: {
+          totalStars: 0,
+          feedbacks: [],
+        },
+        stock: 1,
+        dates: []
+      };
+      return servico
+    }
   },
 };
 </script>

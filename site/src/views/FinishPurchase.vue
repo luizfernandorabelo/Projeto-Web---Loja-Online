@@ -84,12 +84,40 @@ export default {
       this.deliveryDays = user.cart.deliveryDays || 0;
       this.address = `${user.address.street} ${user.address.number} ${user.address.city}`;
     },
+    async getProduct(id){
+
+      const response = await fetch(
+        `http://localhost:3000/items/${id}`
+      );
+      const product = await response.json();
+      return product;
+    },
+    async checkoutItems(user){
+      for (let i = 0; i < user.cart.items.length; i++) {
+        const product = await this.getProduct(user.cart.items[i].id);
+        console.log(user.cart.items[i]);
+        if (user.cart.items[i].data){
+          product.dates.push(user.cart.items[i].data);
+        }
+        else{
+          product.stock = product.stock - user.cart.items[i].amount;
+        }
+        await fetch(`http://localhost:3000/items/${product.id}`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(product),
+        });
+      }
+    },
     async finishPurchase() {
       if (!this.cvv) {
         alert('Compra Recusada! O cvv é válido?');
       } else {
-        alert('Compra Realizada com sucesso!');
         const user = JSON.parse(localStorage.getItem('user'));
+        await this.checkoutItems(user)
+        alert('Compra Realizada com sucesso!');
         user.cart.items = [];
         user.cart.deliveryFee = 0;
         user.cart.deliveryDays = 0;

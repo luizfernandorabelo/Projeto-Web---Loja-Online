@@ -36,7 +36,7 @@
             </p>
             <p id="payment-type">à vista</p>
           </div>
-          <input
+          <!-- <input
             type="number"
             name="service-amount"
             id="service-amount"
@@ -44,7 +44,7 @@
             :max="serviceInfo.stock"
             v-model="inputs.amount"
             onkeydown="return false"
-          />
+          /> -->
         </div>
         <div id="cep-container">
           <label for="cep">Informe o CEP</label>
@@ -88,7 +88,7 @@
       id="rate-service-btn"
       @click="changeRatingState"
     >
-      Avaliar Produto
+      Avaliar serviço
     </button>
     <Rate
       v-else
@@ -139,6 +139,7 @@ export default {
       dateInfo: '',
       logged: false,
       readingRatingState: false,
+      datas: [],
     };
   },
   async created() {
@@ -166,18 +167,22 @@ export default {
       this.serviceInfo.price = service.price;
       this.serviceInfo.stock = service.stock;
       this.serviceInfo.description = service.description;
+      this.datas = service.dates;
     },
     checkCepAvailability() {
       if (!this.isValidCep()) {
         this.errors.cep = 'Insira um CEP válido!';
         this.cepInfo = '';
+        return false;
       } else {
         if (!this.isAttendingCep()) {
           this.cepInfo = 'Não atendemos sua região :(';
+          return false;
         } else {
           this.cepInfo = 'Atendemos sua região!';
+          this.errors.cep = '';
+          return true;
         }
-        this.errors.cep = '';
       }
     },
     isValidCep() {
@@ -190,15 +195,27 @@ export default {
       return this.inputs.cep.startsWith('13560');
     },
     checkDateAvailability() {
+      for (let date of this.datas) {
+        console.log(date);
+        if (date === this.inputs.date) {
+          this.dateInfo = '';
+          this.errors.date = 'A data selecionada ja foi reservada';
+          return false
+        }
+      }
       if (!this.isValidDate()) {
         this.errors.date = 'Insira uma data válida!';
         this.dateInfo = '';
+        return false
       } else {
         this.dateInfo = 'Temos vagas nessa data!';
         this.errors.date = '';
+        return true
       }
     },
     isValidDate() {
+      
+      console.log(this.inputs.date);
       if (this.inputs.date === '') return false;
       let expectedDay = new Date(this.inputs.date);
       let today = new Date();
@@ -207,14 +224,14 @@ export default {
     async addToCart() {
       if (!this.logged) {
         window.location.href = '/login';
-      } else if (this.isValidCep()) {
-        if (this.isValidCep() && this.isAttendingCep() && this.isValidDate()) {
+        console.log(this.isValidCep())
+      }
+      else if (this.checkCepAvailability() && this.checkDateAvailability()) {
           await this.updateUser();
           window.location.href = '/cart';
         } else {
           alert('Verifique os campos CEP e DATA!');
         }
-      }
     },
     changeRatingState() {
       this.readingRatingState = !this.readingRatingState;
@@ -234,6 +251,7 @@ export default {
         user.cart.items.push({
           id: parseInt(this.$route.params.id),
           amount: this.inputs.amount,
+          data: this.inputs.date,
         });
       }
       user.cart.cep = this.inputs.cep;

@@ -32,6 +32,7 @@
             <h3 class="item-name">{{ item.name }}</h3>
             <div>
               <input
+                v-if="!item.categories.includes('servicos')"
                 class="item-amount"
                 type="number"
                 name="amount"
