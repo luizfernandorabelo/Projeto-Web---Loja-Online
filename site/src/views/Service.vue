@@ -83,18 +83,20 @@
     </div>
     <Description :text="serviceInfo.description" />
     <Reviews :reviews="serviceInfo.rating.feedbacks" />
-    <button
-      v-if="!readingRatingState"
-      id="rate-service-btn"
-      @click="changeRatingState"
-    >
-      Avaliar serviço
-    </button>
-    <Rate
-      v-else
-      :id="parseInt(this.$route.params.id)"
-      @ratingUpdated="updateRating"
-    />
+    <div v-if="this.canRate">
+      <button
+        v-if="!readingRatingState"
+        id="rate-service-btn"
+        @click="changeRatingState"
+      >
+        Avaliar serviço
+      </button>
+      <Rate
+        v-else
+        :id="parseInt(this.$route.params.id)"
+        @ratingUpdated="updateRating"
+      />
+    </div>
   </div>
 </template>
 
@@ -140,13 +142,30 @@ export default {
       logged: false,
       readingRatingState: false,
       datas: [],
+      canRate: true,
     };
   },
   async created() {
     await this.getService();
     this.logged = JSON.parse(localStorage.getItem('user')) !== null;
+    this.canRate = this.userCanRate(this.serviceInfo.rating);
   },
   methods: {
+    userCanRate(rating) {
+      for (let i = 0; i < rating['feedbacks'].length; i++) {
+        if (
+          rating['feedbacks'][i].userName ==
+          JSON.parse(localStorage.getItem('user')).personalInfo.name
+        ) {
+          console.log(rating['feedbacks'][i].userName);
+          console.log(
+            JSON.parse(localStorage.getItem('user')).personalInfo.name
+          );
+          return false;
+        }
+      }
+      return true;
+    },
     async getService() {
       // const service = JSON.parse(localStorage.getItem('items')).find(
       //   (service) => service.id == this.$route.params.id
@@ -200,21 +219,20 @@ export default {
         if (date === this.inputs.date) {
           this.dateInfo = '';
           this.errors.date = 'A data selecionada ja foi reservada';
-          return false
+          return false;
         }
       }
       if (!this.isValidDate()) {
         this.errors.date = 'Insira uma data válida!';
         this.dateInfo = '';
-        return false
+        return false;
       } else {
         this.dateInfo = 'Temos vagas nessa data!';
         this.errors.date = '';
-        return true
+        return true;
       }
     },
     isValidDate() {
-      
       console.log(this.inputs.date);
       if (this.inputs.date === '') return false;
       let expectedDay = new Date(this.inputs.date);
@@ -224,17 +242,17 @@ export default {
     async addToCart() {
       if (!this.logged) {
         window.location.href = '/login';
-        console.log(this.isValidCep())
+        console.log(this.isValidCep());
+      } else if (this.checkCepAvailability() && this.checkDateAvailability()) {
+        await this.updateUser();
+        window.location.href = '/cart';
+      } else {
+        alert('Verifique os campos CEP e DATA!');
       }
-      else if (this.checkCepAvailability() && this.checkDateAvailability()) {
-          await this.updateUser();
-          window.location.href = '/cart';
-        } else {
-          alert('Verifique os campos CEP e DATA!');
-        }
     },
     changeRatingState() {
       this.readingRatingState = !this.readingRatingState;
+      this.canRate = this.userCanRate(this.serviceInfo.rating);
     },
     updateRating(newRating) {
       this.serviceInfo.rating = newRating;

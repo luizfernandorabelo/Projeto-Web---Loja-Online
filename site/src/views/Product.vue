@@ -72,18 +72,20 @@
     </div>
     <Description :text="productInfo.description" />
     <Reviews :reviews="productInfo.rating.feedbacks" />
-    <button
-      v-if="!readingRatingState"
-      id="rate-product-btn"
-      @click="changeRatingState"
-    >
-      Avaliar Produto
-    </button>
-    <Rate
-      v-else
-      :id="parseInt(this.$route.params.id)"
-      @ratingUpdated="updateRating"
-    />
+    <div v-if="this.canRate">
+      <button
+        v-if="!readingRatingState"
+        id="rate-product-btn"
+        @click="changeRatingState"
+      >
+        Avaliar Produto
+      </button>
+      <Rate
+        v-else
+        :id="parseInt(this.$route.params.id)"
+        @ratingUpdated="updateRating"
+      />
+    </div>
   </div>
 </template>
 
@@ -129,13 +131,31 @@ export default {
       },
       logged: false,
       readingRatingState: false,
+      canRate: true,
     };
   },
   async created() {
     await this.getProduct();
     this.logged = JSON.parse(localStorage.getItem('user')) !== null;
+    // console.log(this.productInfo.rating);
+    this.canRate = this.userCanRate(this.productInfo.rating);
   },
   methods: {
+    userCanRate(rating) {
+      for (let i = 0; i < rating['feedbacks'].length; i++) {
+        if (
+          rating['feedbacks'][i].userName ==
+          JSON.parse(localStorage.getItem('user')).personalInfo.name
+        ) {
+          console.log(rating['feedbacks'][i].userName);
+          console.log(
+            JSON.parse(localStorage.getItem('user')).personalInfo.name
+          );
+          return false;
+        }
+      }
+      return true;
+    },
     async getProduct() {
       // const product = JSON.parse(localStorage.getItem('items')).find(
       //   (product) => product.id == this.$route.params.id
