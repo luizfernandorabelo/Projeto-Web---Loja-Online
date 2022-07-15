@@ -198,7 +198,10 @@ const initialItems = [
     ],
     description:
       'Caixa de Transporte produzida com material de alta qualidade, com furos nas laterais, proporcionando todo conforto necessário durante o transporte.',
-    categories: ['Cachorros', 'Acessórios para transporte', 'Caixa de transporte',
+    categories: [
+      'Cachorros',
+      'Acessórios para transporte',
+      'Caixa de transporte',
     ],
     rating: {
       totalStars: 0,
@@ -653,7 +656,7 @@ const initialItems = [
     ],
     description:
       'Indicado para Calopsitas, Agapornis e Rose faces.Alimento completo de alta digestibilidade, mais saúde, proteção, nutrição e longevidade para seu pássaro.',
-    categories: ['Pássaros', 'Ração'],
+    categories: ['Passaros', 'Ração'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -670,7 +673,7 @@ const initialItems = [
     ],
     description:
       'Alimentação para Periquitos.Alimento de alta digestibilidade.Mais saúde, proteção, nutrição e longevidade para seu pássaro.',
-    categories: ['Pássaros', 'Ração'],
+    categories: ['Passaros', 'Ração'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -688,7 +691,7 @@ const initialItems = [
     ],
     description:
       'Gaiola Para Canário Contrera Com 04 Comedouros Zincada Prata A Gaiola para Canário Contrera possui uma divisória interna que permite, se necessário, separar o casal de canários dentro da gaiola. A Gaiola para Canário é feita em Arame de primeira qualidade com tratamento de Zincagem que evita a ferrugem Comprando sua Gaiola para Canário na Vmart você recebe o produto em casa com segurança, devidamente embalado e protegido. Ficha Técnica: Saiba mais sobre o produto A Gaiola Para Canário é perfeita para acondicionar seus canários. Confira os detalhes: Medidas 30cm de altura 22cm de largura 45cm de comprimento Material Arame de alto padrão com zincagem em prata, que reduz a incidência de ferrugem. Itens Inclusos no Pacote Acompanha 01 Gaiola, 04 comedouros em meia lua (CORES SORTIDAS), poleiros e 01 bandeja zincada prata para recolhimento de fezes.',
-    categories: ['Pássaros', 'Gaiolas'],
+    categories: ['Passaros', 'Gaiolas'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -705,7 +708,7 @@ const initialItems = [
     ],
     description:
       'Avitrin Vermífugo de amplo espectro para pássaros e aves ornamentais. Combate verme entérico e respiratório. Combate a verminoses gastrintestinais e pulmonares.',
-    categories: ['Pássaros', 'Medicamentos', 'Vermífugos'],
+    categories: ['Passaros', 'Medicamentos', 'Vermífugos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -721,7 +724,7 @@ const initialItems = [
     ],
     description:
       'Bebedouro para pássaro (tamanho médio).O melhor Bebedouro pra alimentar seu pet!Ideal para você colocar a água do seu pássaro em um recipiente amplo e limpoProduzido com excelente material, que cabe a quantidade ideal pra seu pet e que não acumule sujeira. Esse é o produto correto!Ele é ultra-resistente e confeccionado com excelente acabamento para que seu pet possa se alimentar com qualidade, praticidade e beleza!Além de ser produzido com material de ótima qualidade, o Bebedouro Pássaros Alvorada tem preço imperdível.',
-    categories: ['Pássaros', 'Acessórios para alimentação', 'Bebedouro'],
+    categories: ['Passaros', 'Acessórios para alimentação', 'Bebedouro'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -738,7 +741,7 @@ const initialItems = [
     ],
     description:
       'Produzido com poleiros cilindricos de Pinus, corante alimentício 100% seguro, arame galvanizado, miçangas de plástico e fechos de metal para fixação no recinto.',
-    categories: ['Pássaros', 'Brinquedos e poleiros', 'Brinquedos'],
+    categories: ['Passaros', 'Brinquedos e poleiros', 'Brinquedos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -754,7 +757,7 @@ const initialItems = [
     ],
     description:
       'Comedouro para aves Chalesco feito de inox material resistente para uma alimentação segura e prática das suas aves.',
-    categories: ['Pássaros', 'Acessórios para alimentação', 'Comedouro'],
+    categories: ['Passaros', 'Acessórios para alimentação', 'Comedouro'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -786,7 +789,7 @@ const initialItems = [
     ],
     description:
       'Seu pet bem cuidado enquanto você estiver fora. Hospedagem em ambiente familiar na casa do Anjo, com atenção exclusiva, muito amor e carinho para o pet se sentir à vontade.',
-    categories: ['Cachorros', 'Serviços'],
+    categories: ['Cachorros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -802,7 +805,7 @@ const initialItems = [
     ],
     description:
       'Seu pet bem cuidado enquanto você estiver fora. Hospedagem em ambiente familiar na casa do Anjo, com atenção exclusiva, muito amor e carinho para o pet se sentir à vontade.',
-    categories: ['Gatos', 'Serviços'],
+    categories: ['Gatos', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -818,7 +821,7 @@ const initialItems = [
     ],
     description:
       'Não tem com quem deixar o seu cachorro? Um Anjo vai até a sua casa para cuidar dele com todo carinho e atenção. É claro que não vão faltar brincadeiras, alimentação e banheiro sempre limpo.',
-    categories: ['Cachorros', 'Serviços'],
+    categories: ['Cachorros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -834,7 +837,7 @@ const initialItems = [
     ],
     description:
       'Não tem com quem deixar o seu pet? Um Anjo vai até a sua casa para cuidar dele com todo carinho e atenção. É claro que não vão faltar brincadeiras, alimentação e banheiro sempre limpo.',
-    categories: ['Gatos', 'Serviços'],
+    categories: ['Gatos', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -850,7 +853,7 @@ const initialItems = [
     ],
     description:
       'Passear é fundamental para seu pet gastar energia e curtir bons momentos ao ar livre. Os passeios são realizados por profissionais e ajudam a deixar seu cachorro mais saudável e feliz.',
-    categories: ['Cachorros', 'Serviços'],
+    categories: ['Cachorros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -866,7 +869,7 @@ const initialItems = [
     ],
     description:
       'A melhor solução para o seu pet não ficar sozinho. Ele terá cuidados personalizados, brincadeiras educativas, aconchego e muita diversão para curtir o dia inteiro na casa do Anjo.',
-    categories: ['Cachorros', 'Serviços'],
+    categories: ['Cachorros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -882,7 +885,7 @@ const initialItems = [
     ],
     description:
       'Seu pet educado com adestramento de profissionais. Ele aprenderá truques e comandos com atividades direcionadas, cuidado, atenção, brincadeiras e petiscos de recompensa.',
-    categories: ['Cachorros', 'Serviços'],
+    categories: ['Cachorros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -898,7 +901,7 @@ const initialItems = [
     ],
     description:
       'Seu pet educado com adestramento de profissionais. Ele aprenderá truques e comandos com atividades direcionadas, cuidado, atenção, brincadeiras e petiscos de recompensa.',
-    categories: ['Gatos', 'Serviços'],
+    categories: ['Gatos', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -914,7 +917,7 @@ const initialItems = [
     ],
     description:
       'Seu pet educado com adestramento de profissionais. Ele aprenderá truques e comandos com atividades direcionadas, cuidado, atenção, brincadeiras e petiscos de recompensa.',
-    categories: ['Pássaros', 'Serviços'],
+    categories: ['Passaros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
@@ -930,7 +933,7 @@ const initialItems = [
     ],
     description:
       'Seu pet limpinho e cheiroso, cuidado por profissionais parceiros especialistas no assunto.',
-    categories: ['Cachorros', 'Serviços'],
+    categories: ['Cachorros', 'servicos'],
     rating: {
       totalStars: 0,
       feedbacks: [],
