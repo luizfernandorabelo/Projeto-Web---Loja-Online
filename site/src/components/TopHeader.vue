@@ -82,6 +82,10 @@ export default {
   justify-content: space-evenly;
 }
 
+.fa {
+  cursor: pointer;
+}
+
 @media (max-width: 800px) {
   #logo {
     display: none;
