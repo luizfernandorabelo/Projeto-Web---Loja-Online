@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 exports.get = async (req, res, next) => {
-  const users = await User.find({});
+  const users = await User.find({}).sort({ id: 'asc' });
   res.status(200).send(users);
 };
 
@@ -33,7 +33,8 @@ exports.put = async (req, res, next) => {
     const updated = await User.updateOne({ _id: user._id }, { $set: req.body });
     res.status(201).send(updated);
   } else {
-    res.status(404).send();
+    const inserted = await User.insertMany(req.body);
+    res.status(200).json({ msg: 'Ok' });
   }
 };
 
