@@ -46,36 +46,46 @@ export default {
       this.products = this.products.filter((item) =>
         item.categories.includes(targetAnimal)
       );
-      this.products = this.products.filter((item) => item.stock > 0);
+      this.products = this.products.filter(
+        (item) => item.categories.includes('servicos') || item.stock > 0
+      );
     } else {
       this.h2Content = 'Destaques';
       this.h3Content = 'Os nossos produtos e serviços mais vendidos';
       // this.products = JSON.parse(localStorage.getItem('items'));
       this.products = await this.fetchProducts();
-      this.products = this.products.filter((item) => item.stock > 0);
+      this.products = this.products.filter(
+        (item) => item.categories.includes('servicos') || item.stock > 0
+      );
     }
   },
-  async updated() {
-    const targetAnimal = this.$route.params.animal;
-    if (targetAnimal) {
-      this.h2Content = targetAnimal.toUpperCase();
-      this.h3Content =
-        'Os melhores produtos e serviços para ' + targetAnimal.toLowerCase();
-      // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
-      //   item.categories.includes(targetAnimal)
-      // );
-      this.products = await this.fetchProducts();
-      this.products = this.products.filter((item) =>
-        item.categories.includes(targetAnimal)
-      );
-      this.products = this.products.filter((item) => item.stock > 0);
-    } else {
-      this.h2Content = 'Destaques';
-      this.h3Content = 'Os nossos produtos e serviços mais vendidos';
-      // this.products = JSON.parse(localStorage.getItem('items'));
-      this.products = await this.fetchProducts();
-      this.products = this.products.filter((item) => item.stock > 0);
-    }
+  watch: {
+    async $route(to, from) {
+      const targetAnimal = to.params.animal;
+      if (targetAnimal) {
+        this.h2Content = targetAnimal.toUpperCase();
+        this.h3Content =
+          'Os melhores produtos e serviços para ' + targetAnimal.toLowerCase();
+        // this.products = JSON.parse(localStorage.getItem('items')).filter((item) =>
+        //   item.categories.includes(targetAnimal)
+        // );
+        this.products = await this.fetchProducts();
+        this.products = this.products.filter((item) =>
+          item.categories.includes(targetAnimal)
+        );
+        this.products = this.products.filter(
+          (item) => item.categories.includes('servicos') || item.stock > 0
+        );
+      } else {
+        this.h2Content = 'Destaques';
+        this.h3Content = 'Os nossos produtos e serviços mais vendidos';
+        // this.products = JSON.parse(localStorage.getItem('items'));
+        this.products = await this.fetchProducts();
+        this.products = this.products.filter(
+          (item) => item.categories.includes('servicos') || item.stock > 0
+        );
+      }
+    },
   },
   methods: {
     async fetchProducts() {
