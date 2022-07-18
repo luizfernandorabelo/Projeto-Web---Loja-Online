@@ -276,6 +276,7 @@ export default {
         this.logged = false;
         this.isAdmin = false;
       }
+      this.inputs.cep = this.user.address.cep;
     },
     async fetchUsers() {
       const response = await fetch('http://localhost:3000/users');
@@ -303,7 +304,7 @@ export default {
       this.inputs.billingAddress = this.user.card.billingAddress;
       this.inputs.expiringDate = this.user.card.expiringDate;
     },
-    validateAccount() {
+    async validateAccount() {
       this.clearErrors();
       this.checkName();
       this.checkEmail();
@@ -316,9 +317,18 @@ export default {
       this.checkBillingAddress();
       this.checkExpiringDate();
       if (this.areInputsValid()) {
-        if (this.logged) this.updateUserObject();
-        else this.createUserObject();
-        window.location.href = '/';
+        if (this.logged) {
+          await this.updateUserObject();
+          window.location.href = '/';
+        } else {
+          try {
+            await this.createUserObject();
+            window.location.href = '/';
+          } catch (err) {
+            alert('Verifique os campos de entrada!');
+            console.log(err);
+          }
+        }
       }
     },
     clearErrors() {
@@ -467,6 +477,8 @@ export default {
     async createUserObject() {
       if (this.isExistingUser()) throw Error;
       let user = {
+        id: parseInt(this.users[this.users.length - 1].id) + 1,
+        admin: false,
         personalInfo: {
           name: this.inputs.name,
           email: this.inputs.email,
@@ -492,33 +504,42 @@ export default {
           billingAddress: this.inputs.billingAddress,
           expiringDate: this.inputs.expiringDate,
         },
-        id: this.users.length,
-        adimin: false,
+        cart: {
+          items: [],
+          cep: '',
+          deliveryFee: 0,
+        },
       };
       // let users = JSON.parse(localStorage.getItem('users')).filter(
       //   (usr) => usr.id !== user.id
       // );
-      this.users = this.users.filter((user) => user.id !== this.user.id);
-      this.users.push(user);
+      // this.users = this.users.filter((usr) => usr.id !== user.id);
+      // this.users.push(user);
+      // this.user = user;
       // localStorage.setItem('users', JSON.stringify(users));
-      const updated = await this.putUser();
       localStorage.setItem('user', JSON.stringify(user));
+      this.user = user;
+      const updated = await this.putUser();
       alert('Conta criada com sucesso!');
     },
     async putUser() {
-      const response = await fetch(
-        `http://localhost:3000/users/${this.user.id}`,
-        {
-          method: 'PUT',
-          body: JSON.stringify(this.user),
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-      const updated = await response.json();
-      return updated;
+      try {
+        const response = await fetch(
+          `http://localhost:3000/users/${this.user.id}`,
+          {
+            method: 'PUT',
+            body: JSON.stringify(this.user),
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+          }
+        );
+        const updated = await response.json();
+        return updated;
+      } catch (err) {
+        console.log('Erro: ', err);
+      }
     },
     isExistingUser() {
       for (let existingUser of this.users) {
