@@ -276,7 +276,6 @@ export default {
         this.logged = false;
         this.isAdmin = false;
       }
-      this.inputs.cep = this.user.address.cep;
     },
     async fetchUsers() {
       const response = await fetch('http://localhost:3000/users');
