@@ -1174,17 +1174,17 @@ async function deleteCep(index) {
 //   postCep(i);
 // }
 
-// Delete all inital items from db:
-for (let i = -1; i < initialItems.length; i++) {
-  deleteItem(i);
-}
+// // Delete all inital items from db:
+// for (let i = -1; i < initialItems.length; i++) {
+//   deleteItem(i);
+// }
 
-// Delete all initial users from db:
-for (let i = -1; i < initialUsers.length; i++) {
-  deleteUser(i);
-}
+// // Delete all initial users from db:
+// for (let i = -1; i < initialUsers.length; i++) {
+//   deleteUser(i);
+// }
 
-// Delete all initial ceps from db:
-for (let i = -1; i < initialCeps.length; i++) {
-  deleteCep(i);
-}
+// // Delete all initial ceps from db:
+// for (let i = -1; i < initialCeps.length; i++) {
+//   deleteCep(i);
+// }
