@@ -139,6 +139,8 @@ export default {
     this.logged = JSON.parse(localStorage.getItem('user')) !== null;
     // console.log(this.productInfo.rating);
     this.canRate = this.userCanRate(this.productInfo.rating);
+    this.inputs.cep =
+      JSON.parse(localStorage.getItem('user')).address.cep || '';
   },
   methods: {
     userCanRate(rating) {

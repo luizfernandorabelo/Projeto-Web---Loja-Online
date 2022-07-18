@@ -149,6 +149,8 @@ export default {
     await this.getService();
     this.logged = JSON.parse(localStorage.getItem('user')) !== null;
     this.canRate = this.userCanRate(this.serviceInfo.rating);
+    this.inputs.cep = this.inputs.cep =
+      JSON.parse(localStorage.getItem('user')).address.cep || '';
   },
   methods: {
     userCanRate(rating) {
